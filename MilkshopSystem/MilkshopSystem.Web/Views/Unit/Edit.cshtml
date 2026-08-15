@@ -1,0 +1,11 @@
+@model Unit
+@{ ViewData["Title"] = "Edit Unit"; }
+<h3>Edit Unit</h3>
+<form asp-action="Edit" method="post" style="max-width:400px;">
+    <input type="hidden" asp-for="Id" />
+    <div class="mb-3"><label class="form-label">Name</label><input asp-for="Name" class="form-control" required /></div>
+    <div class="mb-3"><label class="form-label">Symbol</label><input asp-for="Symbol" class="form-control" required /></div>
+    <div class="form-check mb-3"><input asp-for="IsActive" class="form-check-input" /><label class="form-check-label">Active</label></div>
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

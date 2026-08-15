@@ -1,0 +1,12 @@
+@model Customer
+@{ ViewData["Title"] = "Customer Details"; }
+<h3>@Model.Name</h3>
+<table class="table" style="max-width:500px;">
+    <tr><th>Phone</th><td>@Model.Phone</td></tr>
+    <tr><th>Address</th><td>@Model.Address</td></tr>
+    <tr><th>Email</th><td>@Model.Email</td></tr>
+    <tr><th>Outstanding Balance</th><td class="fw-bold @(Model.OutstandingBalance>0?"text-danger":"text-success")">₹@Model.OutstandingBalance.ToString("N2")</td></tr>
+    <tr><th>Customer Since</th><td>@Model.CreatedDate.ToString("dd-MMM-yyyy")</td></tr>
+</table>
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+<a asp-action="Index" class="btn btn-secondary">Back</a>

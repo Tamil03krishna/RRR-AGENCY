@@ -1,0 +1,40 @@
+@model PagedResult<PaymentMode>
+@{ ViewData["Title"] = "Payment Modes"; }
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>Payment Modes</h3>
+    <a asp-action="Create" class="btn btn-primary">+ New Payment Mode</a>
+</div>
+<form method="get" class="d-flex mb-3" style="max-width:400px;">
+    <input type="text" name="search" value="@Model.SearchTerm" class="form-control me-2" placeholder="Search..." />
+    <button type="submit" class="btn btn-outline-secondary">Search</button>
+</form>
+<table class="table table-striped bg-white">
+    <thead><tr><th>Name</th><th>Created Date</th><th>Status</th><th>Actions</th></tr></thead>
+    <tbody>
+    @foreach (var m in Model.Items)
+    {
+        <tr>
+            <td>@m.Name</td>
+            <td>@m.CreatedDate.ToString("dd-MMM-yyyy")</td>
+            <td>@(m.IsActive ? "Active" : "Inactive")</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@m.Id" class="btn btn-sm btn-outline-primary">Edit</a>
+                <form asp-action="Delete" asp-route-id="@m.Id" method="post" class="d-inline" onsubmit="return confirm('Delete?');">
+                    <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+@if (Model.TotalPages > 1)
+{
+    <nav><ul class="pagination">
+        @for (var p = 1; p <= Model.TotalPages; p++)
+        {
+            <li class="page-item @(p == Model.PageNumber ? "active" : "")">
+                <a class="page-link" href="@Url.Action("Index", new { search = Model.SearchTerm, page = p })">@p</a>
+            </li>
+        }
+    </ul></nav>
+}

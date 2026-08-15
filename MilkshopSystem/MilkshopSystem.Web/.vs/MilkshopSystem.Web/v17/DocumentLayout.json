@@ -1,0 +1,415 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|c:\\users\\tamil\\downloads\\milkshopsystem_full\\milkshopsystem\\milkshopsystem.web\\wwwroot\\css\\frontloginpage.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:wwwroot\\css\\frontloginpage.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|c:\\users\\tamil\\downloads\\milkshopsystem_full\\milkshopsystem\\milkshopsystem.web\\wwwroot\\css\\login.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:wwwroot\\css\\login.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|c:\\users\\tamil\\downloads\\milkshopsystem_full\\milkshopsystem\\milkshopsystem.web\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|c:\\users\\tamil\\downloads\\milkshopsystem_full\\milkshopsystem\\milkshopsystem.web\\views\\billing\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\billing\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|c:\\users\\tamil\\downloads\\milkshopsystem_full\\milkshopsystem\\milkshopsystem.web\\views\\customer\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\customer\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|c:\\users\\tamil\\downloads\\milkshopsystem_full\\milkshopsystem\\milkshopsystem.web\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|c:\\users\\tamil\\downloads\\milkshopsystem_full\\milkshopsystem\\milkshopsystem.web\\views\\product\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\product\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|c:\\users\\tamil\\downloads\\milkshopsystem_full\\milkshopsystem\\milkshopsystem.web\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|c:\\users\\tamil\\downloads\\milkshopsystem_full\\milkshopsystem\\milkshopsystem.web\\views\\customer\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\customer\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|c:\\users\\tamil\\downloads\\milkshopsystem_full\\milkshopsystem\\milkshopsystem.web\\views\\customer\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\customer\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|c:\\users\\tamil\\downloads\\milkshopsystem_full\\milkshopsystem\\milkshopsystem.web\\views\\customer\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\customer\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|c:\\users\\tamil\\downloads\\milkshopsystem_full\\milkshopsystem\\milkshopsystem.web\\views\\product\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\product\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|c:\\users\\tamil\\downloads\\milkshopsystem_full\\milkshopsystem\\milkshopsystem.web\\views\\product\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\product\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|c:\\users\\tamil\\downloads\\milkshopsystem_full\\milkshopsystem\\milkshopsystem.web\\views\\product\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\product\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|c:\\users\\tamil\\downloads\\milkshopsystem_full\\milkshopsystem\\milkshopsystem.web\\controllers\\unitcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:controllers\\unitcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|c:\\users\\tamil\\downloads\\milkshopsystem_full\\milkshopsystem\\milkshopsystem.web\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|c:\\users\\tamil\\downloads\\milkshopsystem_full\\milkshopsystem\\milkshopsystem.web\\repositories\\implementations\\invoicerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:repositories\\implementations\\invoicerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|c:\\users\\tamil\\downloads\\milkshopsystem_full\\milkshopsystem\\milkshopsystem.web\\controllers\\billingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:controllers\\billingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|c:\\users\\tamil\\downloads\\milkshopsystem_full\\milkshopsystem\\milkshopsystem.web\\views\\billing\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\billing\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|c:\\users\\tamil\\downloads\\milkshopsystem_full\\milkshopsystem\\milkshopsystem.web\\migrations\\202601010001_createuserstable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:migrations\\202601010001_createuserstable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|c:\\users\\tamil\\downloads\\milkshopsystem_full\\milkshopsystem\\milkshopsystem.web\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|c:\\users\\tamil\\downloads\\milkshopsystem_full\\milkshopsystem\\milkshopsystem.web\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|c:\\users\\tamil\\downloads\\milkshopsystem_full\\milkshopsystem\\milkshopsystem.web\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 12,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "login.css",
+              "DocumentMoniker": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\wwwroot\\css\\login.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\login.css",
+              "ToolTip": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\wwwroot\\css\\login.css",
+              "RelativeToolTip": "wwwroot\\css\\login.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-08-15T12:20:39.301Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Account\\Login.cshtml",
+              "RelativeDocumentMoniker": "Views\\Account\\Login.cshtml",
+              "ToolTip": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Account\\Login.cshtml",
+              "RelativeToolTip": "Views\\Account\\Login.cshtml",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABEAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-08-15T12:17:55.225Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Customer\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Customer\\Index.cshtml",
+              "ToolTip": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Customer\\Index.cshtml",
+              "RelativeToolTip": "Views\\Customer\\Index.cshtml",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-08-15T12:17:38.797Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Customer\\Edit.cshtml",
+              "RelativeDocumentMoniker": "Views\\Customer\\Edit.cshtml",
+              "ToolTip": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Customer\\Edit.cshtml",
+              "RelativeToolTip": "Views\\Customer\\Edit.cshtml",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-08-15T12:17:35.35Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Customer\\Details.cshtml",
+              "RelativeDocumentMoniker": "Views\\Customer\\Details.cshtml",
+              "ToolTip": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Customer\\Details.cshtml",
+              "RelativeToolTip": "Views\\Customer\\Details.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-08-15T12:17:28.022Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Customer\\Create.cshtml",
+              "RelativeDocumentMoniker": "Views\\Customer\\Create.cshtml",
+              "ToolTip": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Customer\\Create.cshtml",
+              "RelativeToolTip": "Views\\Customer\\Create.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-08-15T12:17:23.449Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Product\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Product\\Index.cshtml",
+              "ToolTip": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Product\\Index.cshtml",
+              "RelativeToolTip": "Views\\Product\\Index.cshtml",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-08-15T12:16:58.224Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Product\\Edit.cshtml",
+              "RelativeDocumentMoniker": "Views\\Product\\Edit.cshtml",
+              "ToolTip": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Product\\Edit.cshtml",
+              "RelativeToolTip": "Views\\Product\\Edit.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-08-15T12:16:52.407Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Product\\Details.cshtml",
+              "RelativeDocumentMoniker": "Views\\Product\\Details.cshtml",
+              "ToolTip": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Product\\Details.cshtml",
+              "RelativeToolTip": "Views\\Product\\Details.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-08-15T12:16:46.334Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "UnitController.cs",
+              "DocumentMoniker": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Controllers\\UnitController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UnitController.cs",
+              "ToolTip": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Controllers\\UnitController.cs",
+              "RelativeToolTip": "Controllers\\UnitController.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAywBkAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-15T12:16:25.383Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Product\\Create.cshtml",
+              "RelativeDocumentMoniker": "Views\\Product\\Create.cshtml",
+              "ToolTip": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Product\\Create.cshtml",
+              "RelativeToolTip": "Views\\Product\\Create.cshtml",
+              "ViewState": "AgIAACgAAAAAAAAAAAAnwC4AAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-08-15T12:13:23.553Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "frontloginpage.css",
+              "DocumentMoniker": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\wwwroot\\css\\frontloginpage.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\frontloginpage.css",
+              "ToolTip": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\wwwroot\\css\\frontloginpage.css",
+              "RelativeToolTip": "wwwroot\\css\\frontloginpage.css",
+              "ViewState": "AgIAABgAAAAAAAAAAAAQwBkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-08-15T12:11:01.611Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "site.css",
+              "DocumentMoniker": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\wwwroot\\css\\site.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\site.css",
+              "ToolTip": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\wwwroot\\css\\site.css",
+              "RelativeToolTip": "wwwroot\\css\\site.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-08-15T12:06:42.16Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "DashboardController.cs",
+              "DocumentMoniker": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Controllers\\DashboardController.cs",
+              "RelativeDocumentMoniker": "Controllers\\DashboardController.cs",
+              "ToolTip": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Controllers\\DashboardController.cs",
+              "RelativeToolTip": "Controllers\\DashboardController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-15T12:05:55.915Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "InvoiceRepository.cs",
+              "DocumentMoniker": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Repositories\\Implementations\\InvoiceRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\Implementations\\InvoiceRepository.cs",
+              "ToolTip": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Repositories\\Implementations\\InvoiceRepository.cs",
+              "RelativeToolTip": "Repositories\\Implementations\\InvoiceRepository.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAAvwB4AAABgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-15T12:01:31.236Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "BillingController.cs",
+              "DocumentMoniker": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Controllers\\BillingController.cs",
+              "RelativeDocumentMoniker": "Controllers\\BillingController.cs",
+              "ToolTip": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Controllers\\BillingController.cs",
+              "RelativeToolTip": "Controllers\\BillingController.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAQwBkAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-15T12:01:11.977Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Billing\\Details.cshtml",
+              "RelativeDocumentMoniker": "Views\\Billing\\Details.cshtml",
+              "ToolTip": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Billing\\Details.cshtml",
+              "RelativeToolTip": "Views\\Billing\\Details.cshtml",
+              "ViewState": "AgIAACEAAAAAAAAAAAAIwCkAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-08-15T11:58:36.162Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "202601010001_CreateUsersTable.cs",
+              "DocumentMoniker": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Migrations\\202601010001_CreateUsersTable.cs",
+              "RelativeDocumentMoniker": "Migrations\\202601010001_CreateUsersTable.cs",
+              "ToolTip": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Migrations\\202601010001_CreateUsersTable.cs",
+              "RelativeToolTip": "Migrations\\202601010001_CreateUsersTable.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAmwA0AAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-15T11:56:40.474Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Billing\\Create.cshtml",
+              "RelativeDocumentMoniker": "Views\\Billing\\Create.cshtml",
+              "ToolTip": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Billing\\Create.cshtml",
+              "RelativeToolTip": "Views\\Billing\\Create.cshtml",
+              "ViewState": "AgIAAFUAAAAAAAAAAAAIwF0AAACNAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-08-15T11:56:01.522Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAADAAAAAAAAAAAAAYwD8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-08-15T11:45:36.306Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "_ViewImports.cshtml",
+              "DocumentMoniker": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Views\\_ViewImports.cshtml",
+              "RelativeDocumentMoniker": "Views\\_ViewImports.cshtml",
+              "ToolTip": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Views\\_ViewImports.cshtml",
+              "RelativeToolTip": "Views\\_ViewImports.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-08-15T11:45:30.501Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "_ViewStart.cshtml",
+              "DocumentMoniker": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Views\\_ViewStart.cshtml",
+              "RelativeDocumentMoniker": "Views\\_ViewStart.cshtml",
+              "ToolTip": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\Views\\_ViewStart.cshtml",
+              "RelativeToolTip": "Views\\_ViewStart.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-08-15T11:45:26.31Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAABdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-08-15T11:43:48.324Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

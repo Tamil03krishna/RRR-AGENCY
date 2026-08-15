@@ -1,0 +1,65 @@
+@model MilkshopSystem.Web.Repositories.Interfaces.DashboardSummary
+@{ ViewData["Title"] = "Dashboard"; var lowStock = ViewBag.LowStockItems as List<Stock>; }
+
+<h3>Dashboard</h3>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="card bg-primary text-white"><div class="card-body">
+            <h6>Today's Sales</h6><h3>₹@Model.TodaySales.ToString("N2")</h3>
+        </div></div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-success text-white"><div class="card-body">
+            <h6>This Month's Sales</h6><h3>₹@Model.MonthSales.ToString("N2")</h3>
+        </div></div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-info text-white"><div class="card-body">
+            <h6>Stock Value (point 12)</h6><h3>₹@Model.TotalStockValue.ToString("N2")</h3>
+            <small>Current Stock × Store Price, all products</small>
+        </div></div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-danger text-white"><div class="card-body">
+            <h6>Low Stock Items</h6><h3>@Model.LowStockCount</h3>
+        </div></div>
+    </div>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="card"><div class="card-body">
+            <h6>Total Customers</h6><h4>@Model.TotalCustomers</h4>
+        </div></div>
+    </div>
+    <div class="col-md-4">
+        <div class="card"><div class="card-body">
+            <h6>Total Outstanding (customers owe shop)</h6>
+            <h4 class="text-danger">₹@Model.TotalOutstanding.ToString("N2")</h4>
+        </div></div>
+    </div>
+    <div class="col-md-4">
+        <div class="card"><div class="card-body">
+            <h6>Active Products</h6><h4>@Model.TotalProducts</h4>
+        </div></div>
+    </div>
+</div>
+
+@if (lowStock != null && lowStock.Any())
+{
+    <div class="card">
+        <div class="card-header bg-warning">⚠ Low Stock Alerts</div>
+        <div class="card-body">
+            <table class="table table-sm mb-0">
+                <thead><tr><th>Product</th><th>Current Stock</th><th>Low Stock Level</th></tr></thead>
+                <tbody>
+                @foreach (var s in lowStock)
+                {
+                    <tr><td>@s.ProductName (@s.Size @s.UnitSymbol)</td><td>@s.CurrentStock</td><td>@s.LowStockLevel</td></tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}

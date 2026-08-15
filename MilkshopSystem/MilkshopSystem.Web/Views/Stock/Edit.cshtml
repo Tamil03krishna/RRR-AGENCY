@@ -1,0 +1,18 @@
+@model Stock
+@{ ViewData["Title"] = "Adjust Stock"; }
+<h3>Adjust Stock — @Model.ProductName</h3>
+<form asp-action="Edit" method="post" style="max-width:400px;">
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="ProductId" />
+    <input type="hidden" asp-for="OpeningStock" />
+    <div class="mb-3">
+        <label class="form-label">Current Stock</label>
+        <input asp-for="CurrentStock" type="number" step="0.01" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Low Stock Level</label>
+        <input asp-for="LowStockLevel" type="number" step="0.01" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

@@ -1,0 +1,84 @@
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = "_Layout";
+}
+<link rel="stylesheet" href="~/css/login.css" />
+
+
+<div class="login-wrapper">
+    <div class="login-card">
+        <div class="farm-decoration">🌾</div>
+        <div class="farm-decoration-bottom">🐄</div>
+
+        <div class="login-brand">
+            <div class="brand-icon-wrapper">
+                <span class="brand-icon">🥛</span>
+            </div>
+            <h3>RRR-AENENCY</h3>
+            <p class="subtitle">Manage your deliveries & explore fresh dairy</p>
+            <span class="tagline">🌿 Farm-to-Door Freshness</span>
+        </div>
+
+        <form asp-action="Login" method="post" class="login-form">
+            <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div asp-validation-summary="All" class="validation-summary-errors"></div>
+            }
+
+            <div class="form-group">
+                <label asp-for="Username" class="form-label">Email or Username</label>
+                <div class="input-group-custom">
+                    <input asp-for="Username" class="form-control" placeholder="Enter your email or username" autofocus />
+                    <span class="input-icon">📧</span>
+                </div>
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Password" class="form-label">Password</label>
+                <div class="input-group-custom">
+                    <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password" id="passwordInput" />
+                    <span class="input-icon">🔒</span>
+                    <button type="button" class="toggle-password" id="togglePassword" aria-label="Toggle password visibility">
+                        👁️
+                    </button>
+                </div>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-check">
+                <div class="form-check-left">
+                    <input asp-for="RememberMe" class="form-check-input" id="rememberMe" />
+                    <label class="form-check-label" for="rememberMe">Remember me</label>
+                </div>
+                <a href="#" class="forgot-link">Forgot Password?</a>
+            </div>
+
+            <button type="submit" class="login-btn">🌿 Sign In</button>
+
+            <div class="login-footer">
+                <p>© 2026 <span class="system-name">Milkshop System</span> — All rights reserved</p>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Toggle password visibility
+    document.addEventListener('DOMContentLoaded', function() {
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('passwordInput');
+
+        if (togglePassword && passwordInput) {
+            togglePassword.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                this.textContent = type === 'password' ? '👁️' : '👁️‍🗨️';
+            });
+        }
+    });
+</script>
+

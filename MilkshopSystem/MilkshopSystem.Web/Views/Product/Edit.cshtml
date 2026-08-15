@@ -1,0 +1,52 @@
+@model ProductFormViewModel
+@{ ViewData["Title"] = "Edit Product"; }
+<h3>Edit Product</h3>
+<form asp-action="Edit" method="post" style="max-width:600px;">
+    <input type="hidden" asp-for="Product.Id" />
+    <input type="hidden" asp-for="Product.CreatedDate" />
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="mb-3">
+        <label class="form-label">Product Name</label>
+        <input asp-for="Product.Name" class="form-control" required />
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Category</label>
+            <select asp-for="Product.CategoryId" asp-items="Model.Categories" class="form-select"></select>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Unit</label>
+            <select asp-for="Product.UnitId" asp-items="Model.Units" class="form-select"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <label class="form-label">Size</label>
+            <input asp-for="Product.Size" class="form-control" required />
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="form-label">Store Price (₹)</label>
+            <input asp-for="Product.StorePrice" type="number" step="0.01" class="form-control" required />
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="form-label">MRP Price (₹)</label>
+            <input asp-for="Product.MrpPrice" type="number" step="0.01" class="form-control" required />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Active From</label>
+            <input asp-for="Product.ActiveFrom" type="date" class="form-control" required />
+        </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Active To</label>
+            <input asp-for="Product.ActiveTo" type="date" class="form-control" />
+        </div>
+    </div>
+    <div class="form-check mb-3">
+        <input asp-for="Product.IsActive" class="form-check-input" />
+        <label class="form-check-label">Active</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

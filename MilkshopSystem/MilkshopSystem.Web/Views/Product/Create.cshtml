@@ -1,0 +1,61 @@
+@model ProductFormViewModel
+@{ ViewData["Title"] = "New Product"; }
+<h3>New Product</h3>
+<form asp-action="Create" method="post" style="max-width:600px;">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="mb-3">
+        <label class="form-label">Product Name</label>
+        <input asp-for="Product.Name" class="form-control" required />
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Category</label>
+            <select asp-for="Product.CategoryId" asp-items="Model.Categories" class="form-select">
+                <option value="">-- select --</option>
+            </select>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Unit</label>
+            <select asp-for="Product.UnitId" asp-items="Model.Units" class="form-select">
+                <option value="">-- select --</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <label class="form-label">Size (e.g. 500, 1000)</label>
+            <input asp-for="Product.Size" class="form-control" required />
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="form-label">Store Price (₹)</label>
+            <input asp-for="Product.StorePrice" type="number" step="0.01" class="form-control" required />
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="form-label">MRP Price (₹)</label>
+            <input asp-for="Product.MrpPrice" type="number" step="0.01" class="form-control" required />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Active From</label>
+            <input asp-for="Product.ActiveFrom" type="date" class="form-control" required />
+        </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Active To (optional)</label>
+            <input asp-for="Product.ActiveTo" type="date" class="form-control" />
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Opening Stock</label>
+            <input asp-for="OpeningStock" type="number" step="0.01" class="form-control" required />
+        </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Low Stock Level (alert threshold)</label>
+            <input asp-for="LowStockLevel" type="number" step="0.01" class="form-control" required />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

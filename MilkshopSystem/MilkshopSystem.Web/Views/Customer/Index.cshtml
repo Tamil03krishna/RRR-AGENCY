@@ -1,0 +1,46 @@
+@model PagedResult<Customer>
+@{ ViewData["Title"] = "Customers"; }
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>Customers</h3>
+    <a asp-action="Create" class="btn btn-primary">+ New Customer</a>
+</div>
+
+<form method="get" class="d-flex mb-3" style="max-width:400px;">
+    <input type="text" name="search" value="@Model.SearchTerm" class="form-control me-2" placeholder="Name or phone search..." />
+    <button type="submit" class="btn btn-outline-secondary">Search</button>
+</form>
+
+<table class="table table-striped table-hover bg-white">
+    <thead><tr><th>Name</th><th>Phone</th><th>Address</th><th>Outstanding</th><th>Actions</th></tr></thead>
+    <tbody>
+    @foreach (var c in Model.Items)
+    {
+        <tr>
+            <td>@c.Name</td>
+            <td>@c.Phone</td>
+            <td>@c.Address</td>
+            <td class="@(c.OutstandingBalance > 0 ? "text-danger fw-bold" : "")">₹@c.OutstandingBalance.ToString("N2")</td>
+            <td>
+                <a asp-action="Details" asp-route-id="@c.Id" class="btn btn-sm btn-outline-secondary">View</a>
+                <a asp-action="Edit" asp-route-id="@c.Id" class="btn btn-sm btn-outline-primary">Edit</a>
+                <form asp-action="Delete" asp-route-id="@c.Id" method="post" class="d-inline" onsubmit="return confirm('Delete this customer?');">
+                    <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@if (Model.TotalPages > 1)
+{
+    <nav><ul class="pagination">
+        @for (var p = 1; p <= Model.TotalPages; p++)
+        {
+            <li class="page-item @(p == Model.PageNumber ? "active" : "")">
+                <a class="page-link" href="@Url.Action("Index", new { search = Model.SearchTerm, page = p })">@p</a>
+            </li>
+        }
+    </ul></nav>
+}

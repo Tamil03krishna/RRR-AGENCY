@@ -1,0 +1,66 @@
+@model Invoice
+@{ ViewData["Title"] = "Invoice " + Model.InvoiceNo; }
+
+<h3>Invoice: @Model.InvoiceNo</h3>
+<p>
+    <strong>@Model.CustomerName</strong> (@Model.CustomerPhone) &nbsp;|&nbsp;
+    @Model.InvoiceDate.ToString("dd-MMM-yyyy hh:mm tt")
+</p>
+
+<table class="table table-bordered bg-white" style="max-width:800px;">
+    <thead><tr><th>Product</th><th>Price Type</th><th>Unit Price</th><th>Qty</th><th>Amount</th></tr></thead>
+    <tbody>
+    @foreach (var item in Model.Items)
+    {
+        <tr>
+            <td>@item.ProductName (@item.Size @item.UnitSymbol)</td>
+            <td>@(item.PriceType == "StorePrice" ? "Store Price" : "MRP")</td>
+            <td>₹@item.UnitPrice.ToString("N2")</td>
+            <td>@item.Qty</td>
+            <td>₹@item.Amount.ToString("N2")</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<table class="table" style="max-width:400px;">
+    <tr><th>Sub Total</th><td>₹@Model.SubTotal.ToString("N2")</td></tr>
+    <tr><th>Previous Balance</th><td>₹@Model.PreviousBalance.ToString("N2")</td></tr>
+    <tr><th>Grand Total</th><td class="fw-bold">₹@Model.GrandTotal.ToString("N2")</td></tr>
+    <tr><th>Paid Amount</th><td>₹@Model.PaidAmount.ToString("N2")</td></tr>
+    <tr><th>Balance</th><td class="fw-bold @(Model.BalanceAmount>0?"text-danger":"text-success")">₹@Model.BalanceAmount.ToString("N2")</td></tr>
+    <tr><th>Status</th><td>
+        @{ var badge = Model.PaymentStatus switch { "Paid" => "success", "Partial" => "warning", _ => "danger" }; }
+        <span class="badge bg-@badge">@Model.PaymentStatus</span>
+    </td></tr>
+</table>
+
+@if (Model.BalanceAmount > 0)
+{
+    <div class="card mt-3" style="max-width:400px;">
+        <div class="card-body">
+            <h5 class="card-title">Balance</h5>
+            <form asp-action="Pay" method="post">
+                <input type="hidden" name="invoiceId" value="@Model.Id" />
+                <input type="hidden" name="customerId" value="@Model.CustomerId" />
+                <div class="mb-2">
+                    <label class="form-label">Amount</label>
+                    <input type="number" step="0.01" name="amount" class="form-control" max="@Model.BalanceAmount" required />
+                </div>
+                <div class="mb-2">
+                    <label class="form-label">Payment Mode</label>
+                    <select name="paymentModeId" class="form-select" required>
+                        @* populated from PaymentModes table *@
+                        @foreach (var m in (List<PaymentMode>)ViewBag.PaymentModes ?? new List<PaymentMode>())
+                        {
+                            <option value="@m.Id">@m.Name</option>
+                        }
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success">Pay</button>
+            </form>
+        </div>
+    </div>
+}
+
+<a asp-action="Index" class="btn btn-secondary mt-3">Back to Invoices</a>

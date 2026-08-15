@@ -1,0 +1,94 @@
+@{ ViewData["Title"] = "Charts"; }
+<h3>Earnings Charts (point 7)</h3>
+
+<div class="row mb-3">
+    <div class="col-md-4">
+        <label class="form-label">Product (optional filter)</label>
+        <select id="productFilter" class="form-select">
+            <option value="">All Products</option>
+        </select>
+    </div>
+    <div class="col-md-4">
+        <label class="form-label">Year</label>
+        <input type="number" id="yearInput" class="form-control" value="@DateTime.Now.Year" />
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header">Monthly Earnings — x = Month (1-12), y = Earnings ₹</div>
+    <div class="card-body"><canvas id="monthlyChart" height="90"></canvas></div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header">Weekly Earnings (last 8 weeks)</div>
+    <div class="card-body"><canvas id="weeklyChart" height="90"></canvas></div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header">Yearly Earnings</div>
+    <div class="card-body"><canvas id="yearlyChart" height="90"></canvas></div>
+</div>
+
+@section Scripts {
+<script>
+    let monthlyChart, weeklyChart, yearlyChart;
+
+    async function loadProducts() {
+        const res = await fetch('/Report/ProductListJson');
+        const data = await res.json();
+        const select = document.getElementById('productFilter');
+        data.forEach(p => {
+            const opt = document.createElement('option');
+            opt.value = p.id; opt.textContent = p.name;
+            select.appendChild(opt);
+        });
+    }
+
+    async function loadMonthly() {
+        const year = document.getElementById('yearInput').value;
+        const productId = document.getElementById('productFilter').value;
+        const url = `/Report/MonthlyEarningsJson?year=${year}` + (productId ? `&productId=${productId}` : '');
+        const res = await fetch(url);
+        const data = await res.json();
+        const labels = data.map(d => d.month);
+        const values = data.map(d => d.total);
+
+        if (monthlyChart) monthlyChart.destroy();
+        monthlyChart = new Chart(document.getElementById('monthlyChart'), {
+            type: 'bar',
+            data: { labels, datasets: [{ label: 'Earnings (₹)', data: values, backgroundColor: '#0d6efd' }] },
+            options: { responsive: true, scales: { x: { title: { display: true, text: 'Month' } }, y: { title: { display: true, text: 'Earnings ₹' } } } }
+        });
+    }
+
+    async function loadWeekly() {
+        const res = await fetch('/Report/WeeklyEarningsJson');
+        const data = await res.json();
+        if (weeklyChart) weeklyChart.destroy();
+        weeklyChart = new Chart(document.getElementById('weeklyChart'), {
+            type: 'line',
+            data: { labels: data.map(d => d.weekStart), datasets: [{ label: 'Earnings (₹)', data: data.map(d => d.total), borderColor: '#198754', fill: false }] },
+            options: { responsive: true }
+        });
+    }
+
+    async function loadYearly() {
+        const res = await fetch('/Report/YearlyEarningsJson');
+        const data = await res.json();
+        if (yearlyChart) yearlyChart.destroy();
+        yearlyChart = new Chart(document.getElementById('yearlyChart'), {
+            type: 'bar',
+            data: { labels: data.map(d => d.year), datasets: [{ label: 'Earnings (₹)', data: data.map(d => d.total), backgroundColor: '#fd7e14' }] },
+            options: { responsive: true }
+        });
+    }
+
+    document.getElementById('productFilter').addEventListener('change', loadMonthly);
+    document.getElementById('yearInput').addEventListener('change', loadMonthly);
+
+    loadProducts();
+    loadMonthly();
+    loadWeekly();
+    loadYearly();
+</script>
+}

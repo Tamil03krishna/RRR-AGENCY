@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>MilkshopSystem.Web</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Dapper for data access -->
+    <PackageReference Include="Dapper" Version="2.1.35" />
+    <PackageReference Include="MySqlConnector" Version="2.3.7" />
+
+    <!-- FluentMigrator for DB versioning -->
+    <PackageReference Include="FluentMigrator" Version="5.2.0" />
+    <PackageReference Include="FluentMigrator.Runner" Version="5.2.0" />
+    <PackageReference Include="FluentMigrator.Runner.MySql" Version="5.2.0" />
+
+    <!-- Cookie auth (Microsoft.AspNetCore.Authentication.Cookies) ships with the ASP.NET Core
+         shared framework in .NET 8 - no separate NuGet package needed. -->
+
+    <!-- Session -->
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="8.0.0" />
+
+    <!-- BCrypt for password hashing -->
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+  </ItemGroup>
+
+</Project>

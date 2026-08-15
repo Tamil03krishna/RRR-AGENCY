@@ -1,0 +1,13 @@
+@model List<Stock>
+@{ ViewData["Title"] = "Low Stock Items"; }
+<h3>⚠ Low Stock Items</h3>
+<table class="table table-danger">
+    <thead><tr><th>Product</th><th>Size</th><th>Current Stock</th><th>Low Stock Level</th></tr></thead>
+    <tbody>
+    @foreach (var s in Model)
+    {
+        <tr><td>@s.ProductName</td><td>@s.Size @s.UnitSymbol</td><td>@s.CurrentStock</td><td>@s.LowStockLevel</td></tr>
+    }
+    </tbody>
+</table>
+<a asp-action="Index" class="btn btn-secondary">Back to all stock</a>

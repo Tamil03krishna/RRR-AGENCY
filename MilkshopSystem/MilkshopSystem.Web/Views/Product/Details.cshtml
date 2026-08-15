@@ -1,0 +1,17 @@
+@model Product
+@{ ViewData["Title"] = "Product Details"; var stock = ViewBag.Stock as Stock; }
+<h3>@Model.Name</h3>
+<table class="table" style="max-width:500px;">
+    <tr><th>Category</th><td>@Model.CategoryName</td></tr>
+    <tr><th>Size</th><td>@Model.Size @Model.UnitSymbol</td></tr>
+    <tr><th>Store Price</th><td>₹@Model.StorePrice.ToString("N2")</td></tr>
+    <tr><th>MRP Price</th><td>₹@Model.MrpPrice.ToString("N2")</td></tr>
+    <tr><th>Active From</th><td>@Model.ActiveFrom.ToString("dd-MMM-yyyy")</td></tr>
+    <tr><th>Active To</th><td>@(Model.ActiveTo?.ToString("dd-MMM-yyyy") ?? "-")</td></tr>
+    @if (stock != null)
+    {
+        <tr><th>Current Stock</th><td class="@(stock.IsLowStock ? "text-danger fw-bold" : "")">@stock.CurrentStock @Model.UnitSymbol @(stock.IsLowStock ? "(LOW STOCK)" : "")</td></tr>
+    }
+</table>
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+<a asp-action="Index" class="btn btn-secondary">Back</a>

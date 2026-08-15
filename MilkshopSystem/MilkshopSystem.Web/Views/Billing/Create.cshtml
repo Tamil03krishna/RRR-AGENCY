@@ -1,0 +1,285 @@
+@model BillingCreateViewModel
+@{ ViewData["Title"] = "New Bill"; }
+
+<h3>New Bill</h3>
+
+<form asp-action="Create" method="post" id="billingForm">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Customer</h5>
+            <div class="row">
+                <div class="col-md-6 mb-2 position-relative">
+                    <label class="form-label">Customer Name (typing search)</label>
+                    <input type="text" id="customerSearch" class="form-control" autocomplete="off"
+                           placeholder="Type name or phone..." value="@Model.CustomerName" />
+                    <div id="customerResults" class="list-group position-absolute w-100" style="z-index:1000;"></div>
+                    <input type="hidden" asp-for="CustomerId" id="CustomerId" />
+                    <input type="hidden" asp-for="CustomerName" id="CustomerName" />
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label class="form-label">Phone</label>
+                    <input asp-for="CustomerPhone" id="CustomerPhone" class="form-control" required />
+                </div>
+                <div class="col-md-2 mb-2">
+                    <label class="form-label">Previous Balance</label>
+                    <input type="text" id="previousBalanceDisplay" class="form-control" readonly value="0.00" />
+                    <input type="hidden" asp-for="PreviousBalance" id="PreviousBalance" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Add Product</h5>
+            <div class="row align-items-end">
+                <div class="col-md-4 mb-2 position-relative">
+                    <label class="form-label">Product Search</label>
+                    <input type="text" id="productSearch" class="form-control" autocomplete="off" placeholder="Type product name..." />
+                    <div id="productResults" class="list-group position-absolute w-100" style="z-index:1000;"></div>
+                </div>
+                <div class="col-md-2 mb-2">
+                    <label class="form-label">Price Type</label>
+                    <select id="priceType" class="form-select">
+                        <option value="StorePrice">Store Price</option>
+                        <option value="MrpPrice">MRP Price</option>
+                    </select>
+                </div>
+                <div class="col-md-2 mb-2">
+                    <label class="form-label">Available Stock</label>
+                    <input type="text" id="availableStock" class="form-control" readonly />
+                </div>
+                <div class="col-md-2 mb-2">
+                    <label class="form-label">Qty</label>
+                    <input type="number" id="qtyInput" class="form-control" step="0.01" min="0.01" />
+                </div>
+                <div class="col-md-2 mb-2">
+                    <button type="button" id="addItemBtn" class="btn btn-primary w-100">+ Add</button>
+                </div>
+            </div>
+            <input type="hidden" id="selectedProductId" />
+            <input type="hidden" id="selectedProductName" />
+            <input type="hidden" id="selectedSize" />
+            <input type="hidden" id="selectedUnitSymbol" />
+            <input type="hidden" id="selectedStorePrice" />
+            <input type="hidden" id="selectedMrpPrice" />
+        </div>
+    </div>
+
+    <table class="table table-bordered bg-white">
+        <thead><tr><th>Product</th><th>Price Type</th><th>Unit Price</th><th>Qty</th><th>Amount</th><th></th></tr></thead>
+        <tbody id="itemsTableBody"></tbody>
+        <tfoot>
+            <tr><th colspan="4" class="text-end">Sub Total</th><th id="subTotalCell">0.00</th><th></th></tr>
+            <tr><th colspan="4" class="text-end">+ Previous Balance</th><th id="prevBalanceCell">0.00</th><th></th></tr>
+            <tr><th colspan="4" class="text-end">Grand Total</th><th id="grandTotalCell">0.00</th><th></th></tr>
+        </tfoot>
+    </table>
+    <div id="itemInputs"></div>
+
+    <div class="card mb-3" style="max-width:500px;">
+        <div class="card-body">
+            <h5 class="card-title">Payment</h5>
+            <div class="mb-2">
+                <label class="form-label">Payment Mode</label>
+                <select asp-for="PaymentModeId" asp-items="Model.PaymentModes" class="form-select" required>
+                    <option value="">-- select --</option>
+                </select>
+            </div>
+            <div class="mb-2">
+                <label class="form-label">Paid Amount</label>
+                <input asp-for="PaidAmount" id="paidAmountInput" type="number" step="0.01" class="form-control" />
+                <small class="text-muted">Full paid, partial, or 0 (unpaid) — any remaining balance will be carried forward to the next bill.</small>
+            </div>
+            <div>
+                <strong>Balance after this payment: </strong><span id="balanceDisplay">0.00</span>
+            </div>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-success btn-lg">Save Bill</button>
+    <a asp-action="Index" class="btn btn-secondary btn-lg">Cancel</a>
+</form>
+
+@section Scripts {
+<script>
+    let items = []; // { productId, name, size, unitSymbol, priceType, unitPrice, qty }
+
+    // ---- Customer typeahead ----
+    const customerSearch = document.getElementById('customerSearch');
+    const customerResults = document.getElementById('customerResults');
+    customerSearch.addEventListener('input', debounce(async () => {
+        const term = customerSearch.value.trim();
+        customerResults.innerHTML = '';
+        if (term.length < 2) return;
+        const res = await fetch(`/Customer/SearchJson?term=${encodeURIComponent(term)}`);
+        const data = await res.json();
+        data.forEach(c => {
+            const a = document.createElement('a');
+            a.href = '#';
+            a.className = 'list-group-item list-group-item-action';
+            a.textContent = `${c.name} - ${c.phone}`;
+            a.onclick = async (e) => {
+                e.preventDefault();
+                document.getElementById('CustomerId').value = c.id;
+                document.getElementById('CustomerName').value = c.name;
+                document.getElementById('CustomerPhone').value = c.phone;
+                customerSearch.value = c.name;
+                customerResults.innerHTML = '';
+
+                const balRes = await fetch(`/Billing/GetCustomerBalance?customerId=${c.id}`);
+                const balData = await balRes.json();
+                document.getElementById('previousBalanceDisplay').value = Number(balData.balance).toFixed(2);
+                document.getElementById('PreviousBalance').value = balData.balance;
+                recalcTotals();
+            };
+            customerResults.appendChild(a);
+        });
+    }, 300));
+
+    // if user types a name that doesn't match any existing customer, treat as new customer
+    customerSearch.addEventListener('blur', () => {
+        setTimeout(() => {
+            if (!document.getElementById('CustomerId').value) {
+                document.getElementById('CustomerName').value = customerSearch.value;
+            }
+        }, 200);
+    });
+
+    // ---- Product search ----
+    const productSearch = document.getElementById('productSearch');
+    const productResults = document.getElementById('productResults');
+    productSearch.addEventListener('input', debounce(async () => {
+        const term = productSearch.value.trim();
+        productResults.innerHTML = '';
+        if (term.length < 2) return;
+        const res = await fetch(`/Product/SearchJson?term=${encodeURIComponent(term)}`);
+        const data = await res.json();
+        data.forEach(p => {
+            const a = document.createElement('a');
+            a.href = '#';
+            a.className = 'list-group-item list-group-item-action';
+            a.textContent = `${p.name} - ${p.size}${p.unitSymbol} (Store ₹${p.storePrice} / MRP ₹${p.mrpPrice})`;
+            a.onclick = async (e) => {
+                e.preventDefault();
+                document.getElementById('selectedProductId').value = p.id;
+                document.getElementById('selectedProductName').value = p.name;
+                document.getElementById('selectedSize').value = p.size;
+                document.getElementById('selectedUnitSymbol').value = p.unitSymbol;
+                document.getElementById('selectedStorePrice').value = p.storePrice;
+                document.getElementById('selectedMrpPrice').value = p.mrpPrice;
+                productSearch.value = `${p.name} (${p.size}${p.unitSymbol})`;
+                productResults.innerHTML = '';
+
+                // point 6: "qty add panna panna kela stock qty evlo iruku display pananum"
+                const stockRes = await fetch(`/Stock/GetAvailableQty?productId=${p.id}`);
+                const stockData = await stockRes.json();
+                document.getElementById('availableStock').value = stockData.availableQty;
+            };
+            productResults.appendChild(a);
+        });
+    }, 300));
+
+    document.getElementById('priceType').addEventListener('change', updateUnitPriceHint);
+    function updateUnitPriceHint() { /* price shown at add-time via computePrice() */ }
+
+    function computePrice() {
+        const type = document.getElementById('priceType').value;
+        const store = parseFloat(document.getElementById('selectedStorePrice').value || 0);
+        const mrp = parseFloat(document.getElementById('selectedMrpPrice').value || 0);
+        return type === 'StorePrice' ? store : mrp;
+    }
+
+    document.getElementById('addItemBtn').addEventListener('click', () => {
+        const productId = document.getElementById('selectedProductId').value;
+        const qty = parseFloat(document.getElementById('qtyInput').value);
+        const available = parseFloat(document.getElementById('availableStock').value || 0);
+
+        if (!productId) { alert('Please select the product'); return; }
+        if (!qty || qty <= 0) { alert('please add the qty'); return; }
+        if (qty > available) { alert(`stock low. Available: ${available}`); return; }
+
+        const unitPrice = computePrice();
+        items.push({
+            productId: productId,
+            name: document.getElementById('selectedProductName').value,
+            size: document.getElementById('selectedSize').value,
+            unitSymbol: document.getElementById('selectedUnitSymbol').value,
+            priceType: document.getElementById('priceType').value,
+            unitPrice: unitPrice,
+            qty: qty
+        });
+
+        renderItems();
+        // reset product picker
+        productSearch.value = '';
+        document.getElementById('qtyInput').value = '';
+        document.getElementById('availableStock').value = '';
+        document.getElementById('selectedProductId').value = '';
+    });
+
+    function renderItems() {
+        const tbody = document.getElementById('itemsTableBody');
+        tbody.innerHTML = '';
+        let subTotal = 0;
+        items.forEach((item, idx) => {
+            const amount = item.unitPrice * item.qty;
+            subTotal += amount;
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${item.name} (${item.size}${item.unitSymbol})</td>
+                <td>${item.priceType === 'StorePrice' ? 'Store Price' : 'MRP'}</td>
+                <td>₹${item.unitPrice.toFixed(2)}</td>
+                <td>${item.qty}</td>
+                <td>₹${amount.toFixed(2)}</td>
+                <td><button type="button" class="btn btn-sm btn-outline-danger" onclick="removeItem(${idx})">Remove</button></td>`;
+            tbody.appendChild(tr);
+        });
+        document.getElementById('subTotalCell').textContent = subTotal.toFixed(2);
+        recalcTotals();
+
+        const container = document.getElementById('itemInputs');
+        container.innerHTML = '';
+        items.forEach((item, idx) => {
+            container.innerHTML += `
+                <input type="hidden" name="Items[${idx}].ProductId" value="${item.productId}" />
+                <input type="hidden" name="Items[${idx}].PriceType" value="${item.priceType}" />
+                <input type="hidden" name="Items[${idx}].UnitPrice" value="${item.unitPrice}" />
+                <input type="hidden" name="Items[${idx}].Qty" value="${item.qty}" />`;
+        });
+    }
+
+    function removeItem(idx) { items.splice(idx, 1); renderItems(); }
+
+    function recalcTotals() {
+        const subTotal = items.reduce((s, i) => s + i.unitPrice * i.qty, 0);
+        const prevBalance = parseFloat(document.getElementById('PreviousBalance').value || 0);
+        const grandTotal = subTotal + prevBalance;
+        document.getElementById('prevBalanceCell').textContent = prevBalance.toFixed(2);
+        document.getElementById('grandTotalCell').textContent = grandTotal.toFixed(2);
+        updateBalanceDisplay(grandTotal);
+    }
+
+    function updateBalanceDisplay(grandTotal) {
+        const paid = parseFloat(document.getElementById('paidAmountInput').value || 0);
+        const balance = Math.max(0, (grandTotal !== undefined ? grandTotal : parseFloat(document.getElementById('grandTotalCell').textContent)) - paid);
+        document.getElementById('balanceDisplay').textContent = balance.toFixed(2);
+    }
+
+    document.getElementById('paidAmountInput').addEventListener('input', () => updateBalanceDisplay());
+
+    function debounce(fn, delay) {
+        let timer;
+        return (...args) => { clearTimeout(timer); timer = setTimeout(() => fn(...args), delay); };
+    }
+
+    document.getElementById('billingForm').addEventListener('submit', (e) => {
+        if (items.length === 0) {
+            e.preventDefault();
+            alert('Kammiya oru product venum bill pananum.');
+        }
+    });
+</script>
+}
