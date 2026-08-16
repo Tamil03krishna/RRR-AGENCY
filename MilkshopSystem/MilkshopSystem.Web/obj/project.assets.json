@@ -3569,11 +3569,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\MilkshopSystem.Web.csproj",
+      "projectUniqueName": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\MilkshopSystem.Web.csproj",
       "projectName": "MilkshopSystem.Web",
-      "projectPath": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\MilkshopSystem.Web.csproj",
+      "projectPath": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\MilkshopSystem.Web.csproj",
       "packagesPath": "C:\\Users\\tamil\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\tamil\\Downloads\\MilkshopSystem_Full\\MilkshopSystem\\MilkshopSystem.Web\\obj\\",
+      "outputPath": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
