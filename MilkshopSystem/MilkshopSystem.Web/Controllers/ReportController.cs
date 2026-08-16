@@ -14,7 +14,6 @@ namespace MilkshopSystem.Web.Controllers
             _productRepo = productRepo;
         }
 
-        // point 7: charts page - monthly/weekly/yearly earnings, x=month(1-12) y=earnings per product
         public IActionResult Charts() => View();
 
         [HttpGet]
