@@ -1,97 +1,185 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\",
+  "WorkspaceRootPath": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr_agency_v1\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\wwwroot\\css\\frontloginpage.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:wwwroot\\css\\frontloginpage.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\controllers\\reportcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:controllers\\reportcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr_agency_v1\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\wwwroot\\css\\login.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:wwwroot\\css\\login.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr_agency_v1\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr_agency_v1\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\views\\billing\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\billing\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr_agency_v1\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\views\\customer\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\customer\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr_agency_v1\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr_agency_v1\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\views\\product\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\product\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr_agency_v1\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr_agency_v1\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\views\\customer\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\customer\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr_agency_v1\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\views\\customer\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\customer\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr_agency_v1\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\views\\customer\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\customer\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr_agency_v1\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\views\\product\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\product\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr_agency_v1\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\views\\product\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\product\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr_agency_v1\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\views\\product\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\product\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr_agency_v1\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\controllers\\unitcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:controllers\\unitcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr_agency_v1\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr_agency_v1\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\repositories\\implementations\\invoicerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\repositories\\implementations\\invoicerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:repositories\\implementations\\invoicerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr_agency_v1\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\controllers\\billingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\repositories\\interfaces\\iinvoicerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:repositories\\interfaces\\iinvoicerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\wwwroot\\css\\charts.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:wwwroot\\css\\charts.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\views\\report\\charts.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\report\\charts.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\views\\dashboard\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\dashboard\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\wwwroot\\css\\dashboard.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:wwwroot\\css\\dashboard.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\wwwroot\\css\\frontloginpage.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:wwwroot\\css\\frontloginpage.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\wwwroot\\css\\login.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:wwwroot\\css\\login.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\repositories\\implementations\\stockrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:repositories\\implementations\\stockrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\repositories\\interfaces\\istockrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:repositories\\interfaces\\istockrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\models\\viewmodels\\productstockviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:models\\viewmodels\\productstockviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\models\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:models\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\models\\entities\\unit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:models\\entities\\unit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\models\\entities\\stock.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:models\\entities\\stock.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\models\\entities\\productcategory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:models\\entities\\productcategory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\models\\entities\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:models\\entities\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\models\\entities\\paymentmode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:models\\entities\\paymentmode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\models\\entities\\invoice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:models\\entities\\invoice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\models\\entities\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:models\\entities\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\repositories\\interfaces\\idashboardrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:repositories\\interfaces\\idashboardrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\repositories\\implementations\\dashboardrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:repositories\\implementations\\dashboardrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\models\\viewmodels\\productformviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:models\\viewmodels\\productformviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\models\\viewmodels\\pagedresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:models\\viewmodels\\pagedresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\models\\viewmodels\\billingviewmodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:models\\viewmodels\\billingviewmodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\models\\viewmodels\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:models\\viewmodels\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\views\\billing\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\billing\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\views\\customer\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\customer\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\views\\product\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\product\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\views\\customer\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\customer\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\views\\customer\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\customer\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\views\\customer\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\customer\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\views\\product\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\product\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\views\\product\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\product\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\views\\product\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\product\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\controllers\\unitcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:controllers\\unitcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\controllers\\billingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:controllers\\billingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr_agency_v1\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\views\\billing\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\views\\billing\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\billing\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr_agency_v1\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\migrations\\202601010001_createuserstable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\migrations\\202601010001_createuserstable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:migrations\\202601010001_createuserstable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr_agency_v1\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr_agency_v1\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr_agency_v1\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "AbsoluteMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|d:\\aravind\\rrr-agency\\milkshopsystem\\milkshopsystem.web\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{97CA06BD-6964-1754-86A1-13C388259908}|MilkshopSystem.Web.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
@@ -102,7 +190,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 12,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -110,23 +198,310 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "login.css",
-              "DocumentMoniker": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\wwwroot\\css\\login.css",
-              "RelativeDocumentMoniker": "wwwroot\\css\\login.css",
-              "ToolTip": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\wwwroot\\css\\login.css",
-              "RelativeToolTip": "wwwroot\\css\\login.css",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-08-15T12:20:39.301Z"
+              "DocumentIndex": 2,
+              "Title": "IInvoiceRepository.cs",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Repositories\\Interfaces\\IInvoiceRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\Interfaces\\IInvoiceRepository.cs",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Repositories\\Interfaces\\IInvoiceRepository.cs",
+              "RelativeToolTip": "Repositories\\Interfaces\\IInvoiceRepository.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAcwAgAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-17T14:20:01.677Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 3,
+              "Title": "charts.css",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\wwwroot\\css\\charts.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\charts.css",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\wwwroot\\css\\charts.css",
+              "RelativeToolTip": "wwwroot\\css\\charts.css",
+              "ViewState": "AgIAAAQBAAAAAAAAAAAAABoBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-08-17T14:25:09.193Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ReportController.cs",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Controllers\\ReportController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ReportController.cs",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Controllers\\ReportController.cs",
+              "RelativeToolTip": "Controllers\\ReportController.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAQwBwAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-17T14:19:44.783Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Charts.cshtml",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Report\\Charts.cshtml",
+              "RelativeDocumentMoniker": "Views\\Report\\Charts.cshtml",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Report\\Charts.cshtml",
+              "RelativeToolTip": "Views\\Report\\Charts.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABICAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-08-17T14:19:13.689Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "User.cs",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Models\\Entities\\User.cs",
+              "RelativeDocumentMoniker": "Models\\Entities\\User.cs",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Models\\Entities\\User.cs",
+              "RelativeToolTip": "Models\\Entities\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-17T14:07:27.46Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Unit.cs",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Models\\Entities\\Unit.cs",
+              "RelativeDocumentMoniker": "Models\\Entities\\Unit.cs",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Models\\Entities\\Unit.cs",
+              "RelativeToolTip": "Models\\Entities\\Unit.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-17T14:07:20.87Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Stock.cs",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Models\\Entities\\Stock.cs",
+              "RelativeDocumentMoniker": "Models\\Entities\\Stock.cs",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Models\\Entities\\Stock.cs",
+              "RelativeToolTip": "Models\\Entities\\Stock.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-17T14:07:12.953Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "PaymentMode.cs",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Models\\Entities\\PaymentMode.cs",
+              "RelativeDocumentMoniker": "Models\\Entities\\PaymentMode.cs",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Models\\Entities\\PaymentMode.cs",
+              "RelativeToolTip": "Models\\Entities\\PaymentMode.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-17T14:06:43.489Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Customer.cs",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Models\\Entities\\Customer.cs",
+              "RelativeDocumentMoniker": "Models\\Entities\\Customer.cs",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Models\\Entities\\Customer.cs",
+              "RelativeToolTip": "Models\\Entities\\Customer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-17T14:06:25.446Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Invoice.cs",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Models\\Entities\\Invoice.cs",
+              "RelativeDocumentMoniker": "Models\\Entities\\Invoice.cs",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Models\\Entities\\Invoice.cs",
+              "RelativeToolTip": "Models\\Entities\\Invoice.cs",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAcwDIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-17T14:06:24.445Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "ProductCategory.cs",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Models\\Entities\\ProductCategory.cs",
+              "RelativeDocumentMoniker": "Models\\Entities\\ProductCategory.cs",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Models\\Entities\\ProductCategory.cs",
+              "RelativeToolTip": "Models\\Entities\\ProductCategory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-17T14:06:18.134Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Product.cs",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Models\\Entities\\Product.cs",
+              "RelativeDocumentMoniker": "Models\\Entities\\Product.cs",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Models\\Entities\\Product.cs",
+              "RelativeToolTip": "Models\\Entities\\Product.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAA2wBcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-17T14:06:06.693Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "DashboardRepository.cs",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Repositories\\Implementations\\DashboardRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\Implementations\\DashboardRepository.cs",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Repositories\\Implementations\\DashboardRepository.cs",
+              "RelativeToolTip": "Repositories\\Implementations\\DashboardRepository.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAQwBcAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-17T14:01:16.339Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "IDashboardRepository.cs",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Repositories\\Interfaces\\IDashboardRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\Interfaces\\IDashboardRepository.cs",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Repositories\\Interfaces\\IDashboardRepository.cs",
+              "RelativeToolTip": "Repositories\\Interfaces\\IDashboardRepository.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAADgvwsAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-17T14:00:06.064Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "ProductFormViewModel.cs",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Models\\ViewModels\\ProductFormViewModel.cs",
+              "RelativeDocumentMoniker": "Models\\ViewModels\\ProductFormViewModel.cs",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Models\\ViewModels\\ProductFormViewModel.cs",
+              "RelativeToolTip": "Models\\ViewModels\\ProductFormViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-17T13:59:17.815Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "PagedResult.cs",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Models\\ViewModels\\PagedResult.cs",
+              "RelativeDocumentMoniker": "Models\\ViewModels\\PagedResult.cs",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Models\\ViewModels\\PagedResult.cs",
+              "RelativeToolTip": "Models\\ViewModels\\PagedResult.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-17T13:58:50.93Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "LoginViewModel.cs",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Models\\ViewModels\\LoginViewModel.cs",
+              "RelativeDocumentMoniker": "Models\\ViewModels\\LoginViewModel.cs",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Models\\ViewModels\\LoginViewModel.cs",
+              "RelativeToolTip": "Models\\ViewModels\\LoginViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-17T13:58:36.983Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ProductStockViewModel.cs",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Models\\ViewModels\\ProductStockViewModel.cs",
+              "RelativeDocumentMoniker": "Models\\ViewModels\\ProductStockViewModel.cs",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Models\\ViewModels\\ProductStockViewModel.cs",
+              "RelativeToolTip": "Models\\ViewModels\\ProductStockViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-17T13:55:36.507Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "BillingViewModels.cs",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Models\\ViewModels\\BillingViewModels.cs",
+              "RelativeDocumentMoniker": "Models\\ViewModels\\BillingViewModels.cs",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Models\\ViewModels\\BillingViewModels.cs",
+              "RelativeToolTip": "Models\\ViewModels\\BillingViewModels.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAAAwCUAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-17T13:55:12.16Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "StockRepository.cs",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Repositories\\Implementations\\StockRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\Implementations\\StockRepository.cs",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Repositories\\Implementations\\StockRepository.cs",
+              "RelativeToolTip": "Repositories\\Implementations\\StockRepository.cs",
+              "ViewState": "AgIAAFIAAAAAAAAAAADwv3gAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-17T13:54:57.449Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "IStockRepository.cs",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Repositories\\Interfaces\\IStockRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\Interfaces\\IStockRepository.cs",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Repositories\\Interfaces\\IStockRepository.cs",
+              "RelativeToolTip": "Repositories\\Interfaces\\IStockRepository.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAuwA0AAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-17T13:54:19.171Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Dashboard\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Dashboard\\Index.cshtml",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Dashboard\\Index.cshtml",
+              "RelativeToolTip": "Views\\Dashboard\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-08-17T13:47:24.208Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "login.css",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\wwwroot\\css\\login.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\login.css",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\wwwroot\\css\\login.css",
+              "RelativeToolTip": "wwwroot\\css\\login.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-08-15T12:20:39.301Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
               "Title": "Login.cshtml",
-              "DocumentMoniker": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Account\\Login.cshtml",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Account\\Login.cshtml",
               "RelativeDocumentMoniker": "Views\\Account\\Login.cshtml",
-              "ToolTip": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Account\\Login.cshtml",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Account\\Login.cshtml",
               "RelativeToolTip": "Views\\Account\\Login.cshtml",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAABEAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
@@ -134,11 +509,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 32,
               "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Customer\\Index.cshtml",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Customer\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\Customer\\Index.cshtml",
-              "ToolTip": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Customer\\Index.cshtml",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Customer\\Index.cshtml",
               "RelativeToolTip": "Views\\Customer\\Index.cshtml",
               "ViewState": "AgIAAC0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
@@ -146,11 +521,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 33,
               "Title": "Edit.cshtml",
-              "DocumentMoniker": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Customer\\Edit.cshtml",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Customer\\Edit.cshtml",
               "RelativeDocumentMoniker": "Views\\Customer\\Edit.cshtml",
-              "ToolTip": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Customer\\Edit.cshtml",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Customer\\Edit.cshtml",
               "RelativeToolTip": "Views\\Customer\\Edit.cshtml",
               "ViewState": "AgIAABIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
@@ -158,11 +533,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 34,
               "Title": "Details.cshtml",
-              "DocumentMoniker": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Customer\\Details.cshtml",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Customer\\Details.cshtml",
               "RelativeDocumentMoniker": "Views\\Customer\\Details.cshtml",
-              "ToolTip": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Customer\\Details.cshtml",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Customer\\Details.cshtml",
               "RelativeToolTip": "Views\\Customer\\Details.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
@@ -170,11 +545,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 29,
               "Title": "Create.cshtml",
-              "DocumentMoniker": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Customer\\Create.cshtml",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Customer\\Create.cshtml",
               "RelativeDocumentMoniker": "Views\\Customer\\Create.cshtml",
-              "ToolTip": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Customer\\Create.cshtml",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Customer\\Create.cshtml",
               "RelativeToolTip": "Views\\Customer\\Create.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
@@ -182,11 +557,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 35,
               "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Product\\Index.cshtml",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Product\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\Product\\Index.cshtml",
-              "ToolTip": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Product\\Index.cshtml",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Product\\Index.cshtml",
               "RelativeToolTip": "Views\\Product\\Index.cshtml",
               "ViewState": "AgIAAB4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
@@ -194,11 +569,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 36,
               "Title": "Edit.cshtml",
-              "DocumentMoniker": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Product\\Edit.cshtml",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Product\\Edit.cshtml",
               "RelativeDocumentMoniker": "Views\\Product\\Edit.cshtml",
-              "ToolTip": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Product\\Edit.cshtml",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Product\\Edit.cshtml",
               "RelativeToolTip": "Views\\Product\\Edit.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
@@ -206,11 +581,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 37,
               "Title": "Details.cshtml",
-              "DocumentMoniker": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Product\\Details.cshtml",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Product\\Details.cshtml",
               "RelativeDocumentMoniker": "Views\\Product\\Details.cshtml",
-              "ToolTip": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Product\\Details.cshtml",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Product\\Details.cshtml",
               "RelativeToolTip": "Views\\Product\\Details.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
@@ -218,11 +593,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 38,
               "Title": "UnitController.cs",
-              "DocumentMoniker": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Controllers\\UnitController.cs",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Controllers\\UnitController.cs",
               "RelativeDocumentMoniker": "Controllers\\UnitController.cs",
-              "ToolTip": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Controllers\\UnitController.cs",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Controllers\\UnitController.cs",
               "RelativeToolTip": "Controllers\\UnitController.cs",
               "ViewState": "AgIAABEAAAAAAAAAAAAywBkAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -230,11 +605,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 30,
               "Title": "Create.cshtml",
-              "DocumentMoniker": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Product\\Create.cshtml",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Product\\Create.cshtml",
               "RelativeDocumentMoniker": "Views\\Product\\Create.cshtml",
-              "ToolTip": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Product\\Create.cshtml",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Product\\Create.cshtml",
               "RelativeToolTip": "Views\\Product\\Create.cshtml",
               "ViewState": "AgIAACgAAAAAAAAAAAAnwC4AAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
@@ -242,60 +617,63 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 7,
               "Title": "frontloginpage.css",
-              "DocumentMoniker": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\wwwroot\\css\\frontloginpage.css",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\wwwroot\\css\\frontloginpage.css",
               "RelativeDocumentMoniker": "wwwroot\\css\\frontloginpage.css",
-              "ToolTip": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\wwwroot\\css\\frontloginpage.css",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\wwwroot\\css\\frontloginpage.css",
               "RelativeToolTip": "wwwroot\\css\\frontloginpage.css",
-              "ViewState": "AgIAABgAAAAAAAAAAAAQwBkAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
               "WhenOpened": "2026-08-15T12:11:01.611Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "site.css",
-              "DocumentMoniker": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\wwwroot\\css\\site.css",
-              "RelativeDocumentMoniker": "wwwroot\\css\\site.css",
-              "ToolTip": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\wwwroot\\css\\site.css",
-              "RelativeToolTip": "wwwroot\\css\\site.css",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 6,
+              "Title": "dashboard.css",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\wwwroot\\css\\dashboard.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\dashboard.css",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\wwwroot\\css\\dashboard.css",
+              "RelativeToolTip": "wwwroot\\css\\dashboard.css",
+              "ViewState": "AgIAAKQBAAAAAAAAAAAAAK4BAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-08-15T12:06:42.16Z"
+              "WhenOpened": "2026-08-15T12:06:42.16Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 9,
               "Title": "DashboardController.cs",
-              "DocumentMoniker": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Controllers\\DashboardController.cs",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Controllers\\DashboardController.cs",
               "RelativeDocumentMoniker": "Controllers\\DashboardController.cs",
-              "ToolTip": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Controllers\\DashboardController.cs",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Controllers\\DashboardController.cs",
               "RelativeToolTip": "Controllers\\DashboardController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAIwBoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-15T12:05:55.915Z"
+              "WhenOpened": "2026-08-15T12:05:55.915Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 1,
               "Title": "InvoiceRepository.cs",
-              "DocumentMoniker": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Repositories\\Implementations\\InvoiceRepository.cs",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Repositories\\Implementations\\InvoiceRepository.cs",
               "RelativeDocumentMoniker": "Repositories\\Implementations\\InvoiceRepository.cs",
-              "ToolTip": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Repositories\\Implementations\\InvoiceRepository.cs",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Repositories\\Implementations\\InvoiceRepository.cs",
               "RelativeToolTip": "Repositories\\Implementations\\InvoiceRepository.cs",
-              "ViewState": "AgIAABoAAAAAAAAAAAAvwB4AAABgAAAAAAAAAA==",
+              "ViewState": "AgIAAC8BAAAAAAAAAADwv1ABAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-15T12:01:31.236Z"
+              "WhenOpened": "2026-08-15T12:01:31.236Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 39,
               "Title": "BillingController.cs",
-              "DocumentMoniker": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Controllers\\BillingController.cs",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Controllers\\BillingController.cs",
               "RelativeDocumentMoniker": "Controllers\\BillingController.cs",
-              "ToolTip": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Controllers\\BillingController.cs",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Controllers\\BillingController.cs",
               "RelativeToolTip": "Controllers\\BillingController.cs",
               "ViewState": "AgIAABYAAAAAAAAAAAAQwBkAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -303,11 +681,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 40,
               "Title": "Details.cshtml",
-              "DocumentMoniker": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Billing\\Details.cshtml",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Billing\\Details.cshtml",
               "RelativeDocumentMoniker": "Views\\Billing\\Details.cshtml",
-              "ToolTip": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Billing\\Details.cshtml",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Billing\\Details.cshtml",
               "RelativeToolTip": "Views\\Billing\\Details.cshtml",
               "ViewState": "AgIAACEAAAAAAAAAAAAIwCkAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
@@ -315,11 +693,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 41,
               "Title": "202601010001_CreateUsersTable.cs",
-              "DocumentMoniker": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Migrations\\202601010001_CreateUsersTable.cs",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Migrations\\202601010001_CreateUsersTable.cs",
               "RelativeDocumentMoniker": "Migrations\\202601010001_CreateUsersTable.cs",
-              "ToolTip": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Migrations\\202601010001_CreateUsersTable.cs",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Migrations\\202601010001_CreateUsersTable.cs",
               "RelativeToolTip": "Migrations\\202601010001_CreateUsersTable.cs",
               "ViewState": "AgIAAAEAAAAAAAAAAAAmwA0AAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -327,11 +705,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 28,
               "Title": "Create.cshtml",
-              "DocumentMoniker": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Billing\\Create.cshtml",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Billing\\Create.cshtml",
               "RelativeDocumentMoniker": "Views\\Billing\\Create.cshtml",
-              "ToolTip": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Billing\\Create.cshtml",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Billing\\Create.cshtml",
               "RelativeToolTip": "Views\\Billing\\Create.cshtml",
               "ViewState": "AgIAAFUAAAAAAAAAAAAIwF0AAACNAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
@@ -339,23 +717,24 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 27,
               "Title": "_Layout.cshtml",
-              "DocumentMoniker": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Shared\\_Layout.cshtml",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\Shared\\_Layout.cshtml",
               "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAADAAAAAAAAAAAAAYwD8AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-08-15T11:45:36.306Z"
+              "WhenOpened": "2026-08-15T11:45:36.306Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 42,
               "Title": "_ViewImports.cshtml",
-              "DocumentMoniker": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\_ViewImports.cshtml",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\_ViewImports.cshtml",
               "RelativeDocumentMoniker": "Views\\_ViewImports.cshtml",
-              "ToolTip": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\_ViewImports.cshtml",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\_ViewImports.cshtml",
               "RelativeToolTip": "Views\\_ViewImports.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
@@ -363,11 +742,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 43,
               "Title": "_ViewStart.cshtml",
-              "DocumentMoniker": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\_ViewStart.cshtml",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\_ViewStart.cshtml",
               "RelativeDocumentMoniker": "Views\\_ViewStart.cshtml",
-              "ToolTip": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\_ViewStart.cshtml",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\Views\\_ViewStart.cshtml",
               "RelativeToolTip": "Views\\_ViewStart.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
@@ -375,11 +754,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 44,
               "Title": "appsettings.json",
-              "DocumentMoniker": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\appsettings.json",
+              "DocumentMoniker": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\appsettings.json",
               "RelativeDocumentMoniker": "appsettings.json",
-              "ToolTip": "D:\\Aravind\\RRR_AGENCY_v1\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\appsettings.json",
+              "ToolTip": "D:\\Aravind\\RRR-AGENCY\\MilkshopSystem\\MilkshopSystem.Web\\appsettings.json",
               "RelativeToolTip": "appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAABdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",

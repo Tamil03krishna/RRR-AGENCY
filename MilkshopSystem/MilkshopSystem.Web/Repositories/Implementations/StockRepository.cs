@@ -92,5 +92,32 @@ namespace MilkshopSystem.Web.Repositories.Implementations
                 "UPDATE Stocks SET CurrentStock = CurrentStock - @qty, LastUpdated = NOW() WHERE ProductId = @productId",
                 new { qty, productId }, tx);
         }
+        public async Task<List<ProductStockViewModel>> GetProductStockListAsync()
+        {
+            using var conn = _factory.CreateConnection();
+
+            var query = @"
+        SELECT 
+            s.Id AS StockId,
+            p.Id AS ProductId,
+            p.Name AS ProductName,
+            pc.Name AS CategoryName,
+            p.IsActive,
+            p.Size,
+            u.Symbol AS UnitSymbol,
+            s.CurrentStock,
+            s.LowStockLevel,
+            p.StorePrice,
+            p.MrpPrice,
+            (s.CurrentStock * p.StorePrice) AS StockValue
+        FROM Stocks s
+        INNER JOIN Products p ON p.Id = s.ProductId
+        LEFT JOIN ProductCategories pc ON pc.Id = p.CategoryId
+        INNER JOIN Units u ON u.Id = p.UnitId
+        ORDER BY p.Name ASC, p.Size ASC";
+
+            var result = await conn.QueryAsync<ProductStockViewModel>(query);
+            return result.ToList();
+        }
     }
 }

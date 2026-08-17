@@ -12,5 +12,7 @@ namespace MilkshopSystem.Web.Repositories.Interfaces
         Task<List<Stock>> GetLowStockAsync();
         Task<decimal> GetTotalStockValueAsync(); 
         Task ReduceStockAsync(IDbConnection conn, IDbTransaction tx, int productId, decimal qty);
+        Task<List<ProductStockViewModel>> GetProductStockListAsync();
+
     }
 }

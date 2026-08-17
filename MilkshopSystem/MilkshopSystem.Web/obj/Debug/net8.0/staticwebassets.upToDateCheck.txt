@@ -1,3 +1,4 @@
 wwwroot\css\frontloginpage.css
 wwwroot\css\login.css
-wwwroot\css\site.css
+wwwroot\css\dashboard.css
+wwwroot\css\charts.css

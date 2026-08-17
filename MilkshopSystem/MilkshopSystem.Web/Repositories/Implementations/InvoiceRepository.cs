@@ -214,5 +214,126 @@ namespace MilkshopSystem.Web.Repositories.Implementations
                   GROUP BY YEAR(InvoiceDate) ORDER BY Year");
             return rows.ToList();
         }
+
+        // Add these methods to InvoiceRepository class
+
+        public async Task<List<MonthlyEarningDto>> GetMonthlyEarningsWithProfitAsync(int year, int? productId = null)
+        {
+            using var conn = _factory.CreateConnection();
+
+            var sql = @"
+        SELECT 
+            MONTH(i.InvoiceDate) AS Month,
+            COALESCE(SUM(ii.Amount), 0) AS Revenue,
+            COALESCE(SUM(ii.Qty * (p.MrpPrice - p.StorePrice)), 0) AS Profit,
+            COUNT(DISTINCT i.Id) AS Count
+        FROM Invoices i
+        INNER JOIN InvoiceItems ii ON ii.InvoiceId = i.Id
+        INNER JOIN Products p ON p.Id = ii.ProductId
+        WHERE YEAR(i.InvoiceDate) = @year 
+            AND i.IsCancelled = 0";
+
+            if (productId.HasValue)
+            {
+                sql += " AND ii.ProductId = @productId";
+            }
+
+            sql += " GROUP BY MONTH(i.InvoiceDate)";
+
+            var rows = await conn.QueryAsync<MonthlyEarningDto>(sql, new { year, productId });
+            var result = rows.ToList();
+
+            // Fill missing months with zero values
+            var allMonths = Enumerable.Range(1, 12)
+                .Select(m => new MonthlyEarningDto
+                {
+                    Month = m,
+                    Revenue = result.FirstOrDefault(r => r.Month == m)?.Revenue ?? 0,
+                    Profit = result.FirstOrDefault(r => r.Month == m)?.Profit ?? 0,
+                    Count = result.FirstOrDefault(r => r.Month == m)?.Count ?? 0
+                })
+                .ToList();
+
+            return allMonths;
+        }
+
+        public async Task<List<WeeklyEarningDto>> GetWeeklyEarningsWithProfitAsync(int weeks, int? productId = null)
+        {
+            using var conn = _factory.CreateConnection();
+
+            var fromDate = DateTime.Today.AddDays(-(weeks * 7));
+
+            var sql = @"
+        SELECT 
+            DATE(DATE_SUB(i.InvoiceDate, INTERVAL WEEKDAY(i.InvoiceDate) DAY)) AS WeekStart,
+            COALESCE(SUM(ii.Amount), 0) AS Revenue,
+            COALESCE(SUM(ii.Qty * (p.MrpPrice - p.StorePrice)), 0) AS Profit,
+            COUNT(DISTINCT i.Id) AS Count
+        FROM Invoices i
+        INNER JOIN InvoiceItems ii ON ii.InvoiceId = i.Id
+        INNER JOIN Products p ON p.Id = ii.ProductId
+        WHERE i.InvoiceDate >= @fromDate 
+            AND i.IsCancelled = 0";
+
+            if (productId.HasValue)
+            {
+                sql += " AND ii.ProductId = @productId";
+            }
+
+            sql += " GROUP BY WeekStart ORDER BY WeekStart";
+
+            var rows = await conn.QueryAsync<WeeklyEarningDto>(sql, new { fromDate, productId });
+            return rows.ToList();
+        }
+
+        public async Task<List<YearlyEarningDto>> GetYearlyEarningsWithProfitAsync(int? productId = null)
+        {
+            using var conn = _factory.CreateConnection();
+
+            var sql = @"
+        SELECT 
+            YEAR(i.InvoiceDate) AS Year,
+            COALESCE(SUM(ii.Amount), 0) AS Revenue,
+            COALESCE(SUM(ii.Qty * (p.MrpPrice - p.StorePrice)), 0) AS Profit,
+            COUNT(DISTINCT i.Id) AS Count
+        FROM Invoices i
+        INNER JOIN InvoiceItems ii ON ii.InvoiceId = i.Id
+        INNER JOIN Products p ON p.Id = ii.ProductId
+        WHERE i.IsCancelled = 0";
+
+            if (productId.HasValue)
+            {
+                sql += " AND ii.ProductId = @productId";
+            }
+
+            sql += " GROUP BY YEAR(i.InvoiceDate) ORDER BY Year";
+
+            var rows = await conn.QueryAsync<YearlyEarningDto>(sql, new { productId });
+            return rows.ToList();
+        }
+
+        public async Task<List<ProductPerformanceDto>> GetProductPerformanceAsync(int year)
+        {
+            using var conn = _factory.CreateConnection();
+
+            var sql = @"
+        SELECT 
+            p.Name AS ProductName,
+            COALESCE(SUM(ii.Amount), 0) AS Revenue,
+            COALESCE(SUM(ii.Qty * (p.MrpPrice - p.StorePrice)), 0) AS Profit,
+            COALESCE(SUM(ii.Qty), 0) AS Quantity
+        FROM Products p
+        INNER JOIN InvoiceItems ii ON ii.ProductId = p.Id
+        INNER JOIN Invoices i ON i.Id = ii.InvoiceId
+        WHERE YEAR(i.InvoiceDate) = @year 
+            AND i.IsCancelled = 0
+            AND p.IsActive = 1
+        GROUP BY p.Id, p.Name
+        ORDER BY Revenue DESC
+        LIMIT 10";
+
+            var rows = await conn.QueryAsync<ProductPerformanceDto>(sql, new { year });
+            return rows.ToList();
+        }
     }
 }

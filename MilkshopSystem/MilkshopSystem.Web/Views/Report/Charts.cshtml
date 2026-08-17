@@ -1,94 +1,534 @@
-@{ ViewData["Title"] = "Charts"; }
-<h3>Earnings Charts </h3>
+@{
+    ViewData["Title"] = "Charts";
+}
 
-<div class="row mb-3">
-    <div class="col-md-4">
-        <label class="form-label">Product (optional filter)</label>
-        <select id="productFilter" class="form-select">
-            <option value="">All Products</option>
-        </select>
+<link rel="stylesheet" href="~/css/charts.css" />
+
+<div class="charts-header">
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            <h3>📈 Profit & Earnings Analysis</h3>
+            <p class="subtitle">Track your profits and earnings across different time periods</p>
+        </div>
+        <div class="col-md-4 text-md-end">
+            <div class="datetime">
+                <i class="bi bi-calendar3"></i> @DateTime.Now.ToString("dddd, dd MMM yyyy")
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <label class="form-label">Year</label>
-        <input type="number" id="yearInput" class="form-control" value="@DateTime.Now.Year" />
+</div>
+
+<!-- Filters -->
+<div class="filters-card">
+    <div class="row g-3 align-items-end">
+        <div class="col-md-4">
+            <label class="form-label fw-semibold">
+                <i class="bi bi-funnel"></i> Product Filter
+            </label>
+            <select id="productFilter" class="form-select filter-select">
+                <option value="">📦 All Products</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label fw-semibold">
+                <i class="bi bi-calendar"></i> Year
+            </label>
+            <input type="number" id="yearInput" class="form-control filter-input" value="@DateTime.Now.Year" />
+        </div>
+        <div class="col-md-3">
+            <label class="form-label fw-semibold">
+                <i class="bi bi-calendar-week"></i> Week Range
+            </label>
+            <select id="weekRange" class="form-select filter-select">
+                <option value="4">Last 4 Weeks</option>
+                <option value="8" selected>Last 8 Weeks</option>
+                <option value="12">Last 12 Weeks</option>
+                <option value="26">Last 26 Weeks</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-primary w-100" onclick="refreshAllCharts()">
+                <i class="bi bi-arrow-clockwise"></i> Refresh
+            </button>
+        </div>
     </div>
 </div>
 
-<div class="card mb-4">
-    <div class="card-header">Monthly Earnings — x = Month (1-12), y = Earnings ₹</div>
-    <div class="card-body"><canvas id="monthlyChart" height="90"></canvas></div>
+<!-- Summary Cards -->
+<div class="row g-4 mb-4">
+    <div class="col-md-3 col-sm-6">
+        <div class="summary-card summary-card-primary">
+            <div class="summary-icon">💰</div>
+            <div class="summary-label">Total Revenue</div>
+            <div class="summary-value" id="totalRevenue">₹0.00</div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+        <div class="summary-card summary-card-success">
+            <div class="summary-icon">📈</div>
+            <div class="summary-label">Total Profit</div>
+            <div class="summary-value" id="totalProfit">₹0.00</div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+        <div class="summary-card summary-card-info">
+            <div class="summary-icon">📊</div>
+            <div class="summary-label">Profit Margin</div>
+            <div class="summary-value" id="profitMargin">0%</div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+        <div class="summary-card summary-card-warning">
+            <div class="summary-icon">🏷️</div>
+            <div class="summary-label">Total Transactions</div>
+            <div class="summary-value" id="totalTransactions">0</div>
+        </div>
+    </div>
 </div>
 
-<div class="card mb-4">
-    <div class="card-header">Weekly Earnings (last 8 weeks)</div>
-    <div class="card-body"><canvas id="weeklyChart" height="90"></canvas></div>
-</div>
+<!-- Charts -->
+<div class="row g-4">
+    <!-- Monthly Chart -->
+    <div class="col-lg-6">
+        <div class="chart-card">
+            <div class="chart-header">
+                <h5><i class="bi bi-calendar-month text-primary"></i> Monthly Profit & Earnings</h5>
+                <span class="badge bg-primary">₹</span>
+            </div>
+            <div class="chart-body">
+                <canvas id="monthlyChart"></canvas>
+            </div>
+        </div>
+    </div>
 
-<div class="card mb-4">
-    <div class="card-header">Yearly Earnings</div>
-    <div class="card-body"><canvas id="yearlyChart" height="90"></canvas></div>
+    <!-- Weekly Chart -->
+    <div class="col-lg-6">
+        <div class="chart-card">
+            <div class="chart-header">
+                <h5><i class="bi bi-calendar-week text-success"></i> Weekly Profit & Earnings</h5>
+                <span class="badge bg-success">📈</span>
+            </div>
+            <div class="chart-body">
+                <canvas id="weeklyChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Yearly Chart -->
+    <div class="col-lg-6">
+        <div class="chart-card">
+            <div class="chart-header">
+                <h5><i class="bi bi-calendar-year text-warning"></i> Yearly Profit & Earnings</h5>
+                <span class="badge bg-warning text-dark">📊</span>
+            </div>
+            <div class="chart-body">
+                <canvas id="yearlyChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Performance -->
+    <div class="col-lg-6">
+        <div class="chart-card">
+            <div class="chart-header">
+                <h5><i class="bi bi-bar-chart-fill text-info"></i> Product Performance</h5>
+                <span class="badge bg-info text-white">🏆</span>
+            </div>
+            <div class="chart-body">
+                <canvas id="productPerformanceChart"></canvas>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section Scripts {
-<script>
-    let monthlyChart, weeklyChart, yearlyChart;
+    <script>
+        let monthlyChart, weeklyChart, yearlyChart, productPerformanceChart;
 
-    async function loadProducts() {
-        const res = await fetch('/Report/ProductListJson');
-        const data = await res.json();
-        const select = document.getElementById('productFilter');
-        data.forEach(p => {
-            const opt = document.createElement('option');
-            opt.value = p.id; opt.textContent = p.name;
-            select.appendChild(opt);
+        // Colors for charts
+        const colors = {
+            revenue: '#4f46e5',
+            profit: '#16a34a',
+            revenueBg: 'rgba(79, 70, 229, 0.2)',
+            profitBg: 'rgba(22, 163, 74, 0.2)',
+            borderColor: '#e5e7eb'
+        };
+
+        // Load products for filter
+        async function loadProducts() {
+            try {
+                const res = await fetch('/Report/ProductListJson');
+                const data = await res.json();
+                const select = document.getElementById('productFilter');
+                data.forEach(p => {
+                    const opt = document.createElement('option');
+                    opt.value = p.id;
+                    opt.textContent = p.name;
+                    select.appendChild(opt);
+                });
+            } catch (error) {
+                console.error('Error loading products:', error);
+            }
+        }
+
+        // Calculate profit (MRP - Store Price)
+        function calculateProfit(revenue, cost) {
+            return revenue - cost;
+        }
+
+        // Update summary cards
+        function updateSummary(data) {
+            if (data && data.length > 0) {
+                const totalRevenue = data.reduce((sum, d) => sum + d.total, 0);
+                const totalProfit = data.reduce((sum, d) => sum + (d.profit || 0), 0);
+                const profitMargin = totalRevenue > 0 ? ((totalProfit / totalRevenue) * 100) : 0;
+                const transactions = data.reduce((sum, d) => sum + (d.count || 0), 0);
+
+                document.getElementById('totalRevenue').textContent = `₹${totalRevenue.toFixed(2)}`;
+                document.getElementById('totalProfit').textContent = `₹${totalProfit.toFixed(2)}`;
+                document.getElementById('profitMargin').textContent = `${profitMargin.toFixed(1)}%`;
+                document.getElementById('totalTransactions').textContent = transactions;
+            }
+        }
+
+        // Load Monthly Chart with Profit
+        async function loadMonthly() {
+            const year = document.getElementById('yearInput').value;
+            const productId = document.getElementById('productFilter').value;
+            const url = `/Report/MonthlyEarningsWithProfitJson?year=${year}` + (productId ? `&productId=${productId}` : '');
+
+            try {
+                const res = await fetch(url);
+                const data = await res.json();
+
+                const labels = data.map(d => `Month ${d.month}`);
+                const revenueData = data.map(d => d.revenue || 0);
+                const profitData = data.map(d => d.profit || 0);
+
+                // Update summary
+                updateSummary(data);
+
+                if (monthlyChart) monthlyChart.destroy();
+                monthlyChart = new Chart(document.getElementById('monthlyChart'), {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: 'Revenue (₹)',
+                                data: revenueData,
+                                backgroundColor: colors.revenueBg,
+                                borderColor: colors.revenue,
+                                borderWidth: 2,
+                                borderRadius: 6
+                            },
+                            {
+                                label: 'Profit (₹)',
+                                data: profitData,
+                                backgroundColor: colors.profitBg,
+                                borderColor: colors.profit,
+                                borderWidth: 2,
+                                borderRadius: 6
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                                labels: {
+                                    usePointStyle: true,
+                                    padding: 20
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `${context.dataset.label}: ₹${context.parsed.y.toFixed(2)}`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                grid: { display: false },
+                                title: { display: true, text: 'Month', font: { weight: 'bold' } }
+                            },
+                            y: {
+                                beginAtZero: true,
+                                grid: { color: colors.borderColor },
+                                title: { display: true, text: 'Amount (₹)', font: { weight: 'bold' } },
+                                ticks: {
+                                    callback: function(value) {
+                                        return '₹' + value.toFixed(0);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error('Error loading monthly data:', error);
+            }
+        }
+
+        // Load Weekly Chart with Profit
+        async function loadWeekly() {
+            const weeks = parseInt(document.getElementById('weekRange').value) || 8;
+            const productId = document.getElementById('productFilter').value;
+            const url = `/Report/WeeklyEarningsWithProfitJson?weeks=${weeks}` + (productId ? `&productId=${productId}` : '');
+
+            try {
+                const res = await fetch(url);
+                const data = await res.json();
+
+                const labels = data.map(d => d.weekStart);
+                const revenueData = data.map(d => d.revenue || 0);
+                const profitData = data.map(d => d.profit || 0);
+
+                if (weeklyChart) weeklyChart.destroy();
+                weeklyChart = new Chart(document.getElementById('weeklyChart'), {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: 'Revenue (₹)',
+                                data: revenueData,
+                                borderColor: colors.revenue,
+                                backgroundColor: colors.revenueBg,
+                                fill: true,
+                                tension: 0.4,
+                                pointRadius: 4
+                            },
+                            {
+                                label: 'Profit (₹)',
+                                data: profitData,
+                                borderColor: colors.profit,
+                                backgroundColor: colors.profitBg,
+                                fill: true,
+                                tension: 0.4,
+                                pointRadius: 4
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                                labels: {
+                                    usePointStyle: true,
+                                    padding: 20
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `${context.dataset.label}: ₹${context.parsed.y.toFixed(2)}`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                grid: { display: false },
+                                title: { display: true, text: 'Week Starting', font: { weight: 'bold' } }
+                            },
+                            y: {
+                                beginAtZero: true,
+                                grid: { color: colors.borderColor },
+                                title: { display: true, text: 'Amount (₹)', font: { weight: 'bold' } },
+                                ticks: {
+                                    callback: function(value) {
+                                        return '₹' + value.toFixed(0);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error('Error loading weekly data:', error);
+            }
+        }
+
+        // Load Yearly Chart with Profit
+        async function loadYearly() {
+            const productId = document.getElementById('productFilter').value;
+            const url = `/Report/YearlyEarningsWithProfitJson` + (productId ? `?productId=${productId}` : '');
+
+            try {
+                const res = await fetch(url);
+                const data = await res.json();
+
+                const labels = data.map(d => d.year.toString());
+                const revenueData = data.map(d => d.revenue || 0);
+                const profitData = data.map(d => d.profit || 0);
+
+                if (yearlyChart) yearlyChart.destroy();
+                yearlyChart = new Chart(document.getElementById('yearlyChart'), {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: 'Revenue (₹)',
+                                data: revenueData,
+                                backgroundColor: 'rgba(251, 191, 36, 0.3)',
+                                borderColor: '#f59e0b',
+                                borderWidth: 2,
+                                borderRadius: 6
+                            },
+                            {
+                                label: 'Profit (₹)',
+                                data: profitData,
+                                backgroundColor: 'rgba(16, 185, 129, 0.3)',
+                                borderColor: '#10b981',
+                                borderWidth: 2,
+                                borderRadius: 6
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                                labels: {
+                                    usePointStyle: true,
+                                    padding: 20
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `${context.dataset.label}: ₹${context.parsed.y.toFixed(2)}`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                grid: { display: false },
+                                title: { display: true, text: 'Year', font: { weight: 'bold' } }
+                            },
+                            y: {
+                                beginAtZero: true,
+                                grid: { color: colors.borderColor },
+                                title: { display: true, text: 'Amount (₹)', font: { weight: 'bold' } },
+                                ticks: {
+                                    callback: function(value) {
+                                        return '₹' + value.toFixed(0);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error('Error loading yearly data:', error);
+            }
+        }
+
+        // Load Product Performance Chart
+        async function loadProductPerformance() {
+            const year = document.getElementById('yearInput').value;
+            const url = `/Report/ProductPerformanceJson?year=${year}`;
+
+            try {
+                const res = await fetch(url);
+                const data = await res.json();
+
+                const labels = data.map(d => d.productName);
+                const revenueData = data.map(d => d.revenue || 0);
+                const profitData = data.map(d => d.profit || 0);
+
+                if (productPerformanceChart) productPerformanceChart.destroy();
+                productPerformanceChart = new Chart(document.getElementById('productPerformanceChart'), {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: 'Revenue (₹)',
+                                data: revenueData,
+                                backgroundColor: 'rgba(79, 70, 229, 0.6)',
+                                borderColor: '#4f46e5',
+                                borderWidth: 2,
+                                borderRadius: 6
+                            },
+                            {
+                                label: 'Profit (₹)',
+                                data: profitData,
+                                backgroundColor: 'rgba(22, 163, 74, 0.6)',
+                                borderColor: '#16a34a',
+                                borderWidth: 2,
+                                borderRadius: 6
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                                labels: {
+                                    usePointStyle: true,
+                                    padding: 20
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `${context.dataset.label}: ₹${context.parsed.y.toFixed(2)}`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                grid: { display: false },
+                                title: { display: true, text: 'Product', font: { weight: 'bold' } }
+                            },
+                            y: {
+                                beginAtZero: true,
+                                grid: { color: colors.borderColor },
+                                title: { display: true, text: 'Amount (₹)', font: { weight: 'bold' } },
+                                ticks: {
+                                    callback: function(value) {
+                                        return '₹' + value.toFixed(0);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error('Error loading product performance:', error);
+            }
+        }
+
+        function refreshAllCharts() {
+            loadMonthly();
+            loadWeekly();
+            loadYearly();
+            loadProductPerformance();
+        }
+
+        document.getElementById('productFilter').addEventListener('change', refreshAllCharts);
+        document.getElementById('yearInput').addEventListener('change', () => {
+            loadMonthly();
+            loadProductPerformance();
         });
-    }
+        document.getElementById('weekRange').addEventListener('change', loadWeekly);
 
-    async function loadMonthly() {
-        const year = document.getElementById('yearInput').value;
-        const productId = document.getElementById('productFilter').value;
-        const url = `/Report/MonthlyEarningsJson?year=${year}` + (productId ? `&productId=${productId}` : '');
-        const res = await fetch(url);
-        const data = await res.json();
-        const labels = data.map(d => d.month);
-        const values = data.map(d => d.total);
-
-        if (monthlyChart) monthlyChart.destroy();
-        monthlyChart = new Chart(document.getElementById('monthlyChart'), {
-            type: 'bar',
-            data: { labels, datasets: [{ label: 'Earnings (₹)', data: values, backgroundColor: '#0d6efd' }] },
-            options: { responsive: true, scales: { x: { title: { display: true, text: 'Month' } }, y: { title: { display: true, text: 'Earnings ₹' } } } }
-        });
-    }
-
-    async function loadWeekly() {
-        const res = await fetch('/Report/WeeklyEarningsJson');
-        const data = await res.json();
-        if (weeklyChart) weeklyChart.destroy();
-        weeklyChart = new Chart(document.getElementById('weeklyChart'), {
-            type: 'line',
-            data: { labels: data.map(d => d.weekStart), datasets: [{ label: 'Earnings (₹)', data: data.map(d => d.total), borderColor: '#198754', fill: false }] },
-            options: { responsive: true }
-        });
-    }
-
-    async function loadYearly() {
-        const res = await fetch('/Report/YearlyEarningsJson');
-        const data = await res.json();
-        if (yearlyChart) yearlyChart.destroy();
-        yearlyChart = new Chart(document.getElementById('yearlyChart'), {
-            type: 'bar',
-            data: { labels: data.map(d => d.year), datasets: [{ label: 'Earnings (₹)', data: data.map(d => d.total), backgroundColor: '#fd7e14' }] },
-            options: { responsive: true }
-        });
-    }
-
-    document.getElementById('productFilter').addEventListener('change', loadMonthly);
-    document.getElementById('yearInput').addEventListener('change', loadMonthly);
-
-    loadProducts();
-    loadMonthly();
-    loadWeekly();
-    loadYearly();
-</script>
+        loadProducts();
+        refreshAllCharts();
+    </script>
 }

@@ -23,7 +23,8 @@ namespace MilkshopSystem.Web.Repositories.Implementations
 
                 TotalStockValue = await conn.ExecuteScalarAsync<decimal>(
                     "SELECT COALESCE(SUM(s.CurrentStock * p.StorePrice),0) FROM Stocks s JOIN Products p ON p.Id = s.ProductId"),
-
+                CurrentStock= await conn.ExecuteScalarAsync<int>(
+                    "SELECT COALESCE(SUM(s.CurrentStock),0) FROM Stocks s JOIN Products p ON p.Id = s.ProductId"),
                 LowStockCount = await conn.ExecuteScalarAsync<int>(
                     "SELECT COUNT(*) FROM Stocks WHERE CurrentStock <= LowStockLevel"),
 
