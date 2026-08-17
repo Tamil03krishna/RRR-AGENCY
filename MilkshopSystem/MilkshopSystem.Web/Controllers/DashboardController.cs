@@ -14,7 +14,6 @@ namespace MilkshopSystem.Web.Controllers
             _stockRepo = stockRepo;
         }
 
-        // point 9 + point 12: today/month sales, stock value, low stock alerts, totals
         public async Task<IActionResult> Index()
         {
             var summary = await _dashboardRepo.GetSummaryAsync();

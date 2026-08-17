@@ -7,8 +7,8 @@ namespace MilkshopSystem.Web.Repositories.Interfaces
         Task<PagedResult<Invoice>> GetPagedAsync(string? search, int pageNumber, int pageSize);
         Task<Invoice?> GetByIdAsync(int id);
         Task<string> GetNextInvoiceNoAsync();
-        Task<int> CreateInvoiceAsync(Invoice invoice); // transactional: insert + stock reduce + balance update
-        Task<int> AddPaymentAsync(InvoicePayment payment); // pay off balance on a later visit
+        Task<int> CreateInvoiceAsync(Invoice invoice); 
+        Task<int> AddPaymentAsync(InvoicePayment payment);         
         Task<decimal> GetTodaySalesAsync();
         Task<decimal> GetMonthSalesAsync();
         Task<List<(int Month, decimal Total)>> GetMonthlyEarningsAsync(int year, int? productId = null);

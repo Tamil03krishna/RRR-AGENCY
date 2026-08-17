@@ -9,10 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("MilkshopDb")
     ?? throw new InvalidOperationException("Connection string 'MilkshopDb' not found.");
 
-// MVC + Views
 builder.Services.AddControllersWithViews();
 
-// Session (used for login user, cart-like billing state if needed)
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
@@ -21,7 +19,6 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
-// Cookie based auth for Login module
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
@@ -33,10 +30,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 builder.Services.AddAuthorization();
 
-// Dapper connection factory (scoped so each request gets its own MySqlConnection)
 builder.Services.AddScoped<IDbConnectionFactory>(_ => new MySqlConnectionFactory(connectionString));
 
-// Repositories (Dapper based)
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IUnitRepository, UnitRepository>();
@@ -46,7 +41,6 @@ builder.Services.AddScoped<IPaymentModeRepository, PaymentModeRepository>();
 builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
 builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
 
-// FluentMigrator setup -> runs migrations found in this assembly on startup
 builder.Services.AddFluentMigratorCore()
     .ConfigureRunner(rb => rb
         .AddMySql5()
@@ -56,7 +50,6 @@ builder.Services.AddFluentMigratorCore()
 
 var app = builder.Build();
 
-// Run DB migrations automatically at startup
 using (var scope = app.Services.CreateScope())
 {
     var runner = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();

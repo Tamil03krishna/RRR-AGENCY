@@ -24,7 +24,6 @@ namespace MilkshopSystem.Web.Controllers
             return View(result);
         }
 
-        // used by the Billing screen's product+size dropdown - returns name, size, unit, both prices
         [HttpGet]
         public async Task<IActionResult> SearchJson(string term)
         {
@@ -74,7 +73,6 @@ namespace MilkshopSystem.Web.Controllers
             }
 
             var productId = await _productRepo.CreateAsync(vm.Product);
-            // point 5: every new product automatically gets a stock row
             await _stockRepo.CreateForProductAsync(productId, vm.OpeningStock, vm.LowStockLevel);
 
             TempData["Success"] = "Product add ஆயிடுச்சு.";

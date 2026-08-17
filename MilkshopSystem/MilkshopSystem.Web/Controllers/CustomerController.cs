@@ -9,14 +9,12 @@ namespace MilkshopSystem.Web.Controllers
         private readonly ICustomerRepository _repo;
         public CustomerController(ICustomerRepository repo) => _repo = repo;
 
-        // GET /Customer?search=raj&page=1
         public async Task<IActionResult> Index(string? search, int page = 1, int pageSize = 10)
         {
             var result = await _repo.GetPagedAsync(search, page, pageSize);
             return View(result);
         }
 
-        // used by the Billing page's customer-name-typing search (typeahead)
         [HttpGet]
         public async Task<IActionResult> SearchJson(string term)
         {

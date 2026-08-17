@@ -10,8 +10,7 @@ namespace MilkshopSystem.Web.Repositories.Interfaces
         Task CreateForProductAsync(int productId, decimal openingStock, decimal lowStockLevel);
         Task<bool> UpdateAsync(Stock stock);
         Task<List<Stock>> GetLowStockAsync();
-        Task<decimal> GetTotalStockValueAsync(); // sum(CurrentStock * StorePrice)
-        // used inside the billing transaction - reduces stock, throws if insufficient
+        Task<decimal> GetTotalStockValueAsync(); 
         Task ReduceStockAsync(IDbConnection conn, IDbTransaction tx, int productId, decimal qty);
     }
 }

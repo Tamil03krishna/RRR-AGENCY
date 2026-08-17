@@ -5,7 +5,7 @@ namespace MilkshopSystem.Web.Repositories.Interfaces
     public interface IUnitRepository
     {
         Task<PagedResult<Unit>> GetPagedAsync(string? search, int pageNumber, int pageSize);
-        Task<List<Unit>> GetAllActiveAsync(); // for dropdowns
+        Task<List<Unit>> GetAllActiveAsync(); 
         Task<Unit?> GetByIdAsync(int id);
         Task<int> CreateAsync(Unit unit);
         Task<bool> UpdateAsync(Unit unit);

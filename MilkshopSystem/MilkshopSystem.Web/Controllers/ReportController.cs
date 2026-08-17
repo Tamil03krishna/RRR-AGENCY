@@ -27,7 +27,7 @@ namespace MilkshopSystem.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> WeeklyEarningsJson(DateTime? from, DateTime? to)
         {
-            from ??= DateTime.Today.AddDays(-56); // last 8 weeks
+            from ??= DateTime.Today.AddDays(-56); 
             to ??= DateTime.Today;
             var data = await _invoiceRepo.GetWeeklyEarningsAsync(from.Value, to.Value);
             return Json(data.Select(d => new { weekStart = d.WeekStart.ToString("yyyy-MM-dd"), total = d.Total }));

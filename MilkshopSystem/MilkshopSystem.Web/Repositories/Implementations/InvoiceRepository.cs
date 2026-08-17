@@ -75,10 +75,7 @@ namespace MilkshopSystem.Web.Repositories.Implementations
             return $"INV-{year}-{(count + 1):D5}";
         }
 
-        // Full billing transaction:
-        // 1) insert invoice header + items
-        // 2) reduce stock for every item (row-locked, fails if not enough stock)
-        // 3) update customer's running OutstandingBalance to the new BalanceAmount
+        
         public async Task<int> CreateInvoiceAsync(Invoice invoice)
         {
             using var conn = (MySqlConnection)_factory.CreateConnection();
@@ -103,7 +100,6 @@ namespace MilkshopSystem.Web.Repositories.Implementations
                           VALUES (@InvoiceId, @ProductId, @PriceType, @UnitPrice, @Qty, @Amount, NOW())",
                         item, tx);
 
-                    // point 13: stock must reduce as part of billing, blocked if insufficient
                     await _stockRepository.ReduceStockAsync(conn, tx, item.ProductId, item.Qty);
                 }
 
@@ -116,8 +112,7 @@ namespace MilkshopSystem.Web.Repositories.Implementations
                         tx);
                 }
 
-                // point 11: carry forward whatever is still owed to the customer record,
-                // so it shows up as PreviousBalance next time they're billed
+               
                 await conn.ExecuteAsync(
                     "UPDATE Customers SET OutstandingBalance = @balance, UpdatedDate = NOW() WHERE Id = @customerId",
                     new { balance = invoice.BalanceAmount, customerId = invoice.CustomerId }, tx);
@@ -132,7 +127,6 @@ namespace MilkshopSystem.Web.Repositories.Implementations
             }
         }
 
-        // Customer comes back later and pays off some/all of their due, without buying anything new
         public async Task<int> AddPaymentAsync(InvoicePayment payment)
         {
             using var conn = (MySqlConnection)_factory.CreateConnection();
@@ -182,7 +176,6 @@ namespace MilkshopSystem.Web.Repositories.Implementations
                   WHERE MONTH(InvoiceDate) = MONTH(CURDATE()) AND YEAR(InvoiceDate) = YEAR(CURDATE()) AND IsCancelled = 0");
         }
 
-        // chart: x = month(1-12), y = earnings, optionally filtered to one product
         public async Task<List<(int Month, decimal Total)>> GetMonthlyEarningsAsync(int year, int? productId = null)
         {
             using var conn = _factory.CreateConnection();

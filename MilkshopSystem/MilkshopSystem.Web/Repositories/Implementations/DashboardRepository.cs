@@ -21,7 +21,6 @@ namespace MilkshopSystem.Web.Repositories.Implementations
                     @"SELECT COALESCE(SUM(SubTotal),0) FROM Invoices
                       WHERE MONTH(InvoiceDate)=MONTH(CURDATE()) AND YEAR(InvoiceDate)=YEAR(CURDATE()) AND IsCancelled=0"),
 
-                // point 12: stock value = sum(current stock * store price) across all products
                 TotalStockValue = await conn.ExecuteScalarAsync<decimal>(
                     "SELECT COALESCE(SUM(s.CurrentStock * p.StorePrice),0) FROM Stocks s JOIN Products p ON p.Id = s.ProductId"),
 

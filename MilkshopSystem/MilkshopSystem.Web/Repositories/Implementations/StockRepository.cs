@@ -43,7 +43,6 @@ namespace MilkshopSystem.Web.Repositories.Implementations
             return await conn.QueryFirstOrDefaultAsync<Stock>($"{BaseSelect} WHERE s.ProductId = @productId", new { productId });
         }
 
-        // called right after a product is created, so every product always has a stock row
         public async Task CreateForProductAsync(int productId, decimal openingStock, decimal lowStockLevel)
         {
             using var conn = _factory.CreateConnection();
@@ -77,8 +76,6 @@ namespace MilkshopSystem.Web.Repositories.Implementations
                   FROM Stocks s JOIN Products p ON p.Id = s.ProductId");
         }
 
-        // Called inside the Billing transaction. Locks the row (FOR UPDATE) so two
-        // simultaneous bills can't both oversell the same stock.
         public async Task ReduceStockAsync(IDbConnection conn, IDbTransaction tx, int productId, decimal qty)
         {
             var currentStock = await conn.ExecuteScalarAsync<decimal?>(
