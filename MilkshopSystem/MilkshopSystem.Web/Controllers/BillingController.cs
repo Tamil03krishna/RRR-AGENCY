@@ -55,7 +55,7 @@ namespace MilkshopSystem.Web.Controllers
 
             if (vm.Items is null || vm.Items.Count == 0)
             {
-                ModelState.AddModelError(string.Empty, "Kammiya oru product venum bill pananum.");
+                ModelState.AddModelError(string.Empty, "");
                 return View(vm);
             }
             if (!ModelState.IsValid) return View(vm);
@@ -108,12 +108,11 @@ namespace MilkshopSystem.Web.Controllers
             try
             {
                 var invoiceId = await _invoiceRepo.CreateInvoiceAsync(invoice);
-                TempData["Success"] = $"Bill create ஆயிடுச்சு. Invoice No: {invoice.InvoiceNo}";
+                TempData["Success"] = $"Bill create sucessfully. Invoice No: {invoice.InvoiceNo}";
                 return RedirectToAction(nameof(Details), new { id = invoiceId });
             }
             catch (InvalidOperationException ex)
             {
-                // e.g. "Not enough stock" from StockRepository.ReduceStockAsync
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return View(vm);
             }
@@ -125,7 +124,7 @@ namespace MilkshopSystem.Web.Controllers
         {
             if (amount <= 0)
             {
-                TempData["Error"] = "Amount 0 kum jaasthi irukanum.";
+                TempData["Error"] = "Amount 0 is more then";
                 return RedirectToAction(nameof(Details), new { id = invoiceId });
             }
 
@@ -137,7 +136,7 @@ namespace MilkshopSystem.Web.Controllers
                 PaymentModeId = paymentModeId
             });
 
-            TempData["Success"] = "Payment record ஆயிடுச்சு.";
+            TempData["Success"] = "Payment record successfully";
             return RedirectToAction(nameof(Details), new { id = invoiceId });
         }
 

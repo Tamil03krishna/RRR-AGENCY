@@ -34,7 +34,7 @@ namespace MilkshopSystem.Web.Controllers
             var user = await _userRepository.GetByUsernameAsync(model.Username);
             if (user is null || !BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash))
             {
-                ModelState.AddModelError(string.Empty, "Username or password தவறு. Please try again.");
+                ModelState.AddModelError(string.Empty, "Username or password is wrong. Please try again.");
                 return View(model);
             }
 

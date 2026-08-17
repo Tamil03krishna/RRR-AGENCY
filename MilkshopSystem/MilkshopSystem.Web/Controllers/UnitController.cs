@@ -23,7 +23,7 @@ namespace MilkshopSystem.Web.Controllers
         {
             if (!ModelState.IsValid) return View(unit);
             await _repo.CreateAsync(unit);
-            TempData["Success"] = "Unit add successfully    .";
+            TempData["Success"] = "Unit add successfully.";
             return RedirectToAction(nameof(Index));
         }
 
@@ -40,7 +40,7 @@ namespace MilkshopSystem.Web.Controllers
         {
             if (!ModelState.IsValid) return View(unit);
             await _repo.UpdateAsync(unit);
-            TempData["Success"] = "Unit update ஆயிடுச்சு.";
+            TempData["Success"] = "Unit update sucessfully.";
             return RedirectToAction(nameof(Index));
         }
 

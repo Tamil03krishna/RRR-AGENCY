@@ -1,0 +1,262 @@
+﻿
+.customers-container {
+    background: #f8f9fa;
+    min-height: 100vh;
+    padding: 20px 30px;
+}
+
+.customers-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+    .customers-header h3 {
+        font-weight: 600;
+        color: #1a1a2e;
+        margin: 0;
+    }
+
+.search-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.search-box {
+    position: relative;
+    flex: 1;
+    max-width: 400px;
+}
+
+    .search-box input {
+        width: 100%;
+        padding: 12px 20px 12px 45px;
+        border: 1px solid #e0e0e0;
+        border-radius: 25px;
+        font-size: 14px;
+        background: white;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #6c63ff;
+            box-shadow: 0 2px 12px rgba(108, 99, 255, 0.15);
+        }
+
+    .search-box .search-icon {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #999;
+    }
+
+.btn-new-customer {
+    background: #6c63ff;
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 25px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+    .btn-new-customer:hover {
+        background: #5a52d5;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+        text-decoration: none;
+    }
+
+.customers-list {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    overflow: hidden;
+}
+
+.customer-item {
+    display: flex;
+    align-items: center;
+    padding: 16px 24px;
+    border-bottom: 1px solid #f0f0f0;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+    .customer-item:hover {
+        background: #f8f7ff;
+    }
+
+    .customer-item:last-child {
+        border-bottom: none;
+    }
+
+.customer-info {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.customer-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #e8e6ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c63ff;
+    font-weight: 600;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.customer-details {
+    flex: 1;
+}
+
+.customer-name {
+    font-weight: 600;
+    color: #1a1a2e;
+    font-size: 15px;
+}
+
+.customer-phone {
+    color: #666;
+    font-size: 13px;
+    margin-top: 2px;
+}
+
+.customer-address {
+    color: #888;
+    font-size: 13px;
+    margin-top: 2px;
+}
+
+.customer-outstanding {
+    margin-left: auto;
+    text-align: right;
+    padding-right: 20px;
+}
+
+.outstanding-amount {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+    .outstanding-amount.positive {
+        color: #dc3545;
+    }
+
+    .outstanding-amount.zero {
+        color: #28a745;
+    }
+
+.customer-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #666;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+    .action-btn:hover {
+        background: #f0f0f0;
+        color: #1a1a2e;
+    }
+
+    .action-btn.view:hover {
+        background: #e3f2fd;
+        color: #1976d2;
+    }
+
+    .action-btn.edit:hover {
+        background: #e8f5e9;
+        color: #2e7d32;
+    }
+
+    .action-btn.delete:hover {
+        background: #ffebee;
+        color: #c62828;
+    }
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0 10px 0;
+}
+
+.pagination {
+    display: flex;
+    gap: 6px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+    .pagination .page-item {
+        display: inline-block;
+    }
+
+    .pagination .page-link {
+        padding: 8px 16px;
+        border-radius: 8px;
+        color: #1a1a2e;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        background: transparent;
+        border: 1px solid transparent;
+    }
+
+    .pagination .page-item.active .page-link {
+        background: #6c63ff;
+        color: white;
+        border-color: #6c63ff;
+    }
+
+    .pagination .page-link:hover {
+        background: #f0f0f0;
+        border-color: #e0e0e0;
+    }
+
+    .pagination .page-item.active .page-link:hover {
+        background: #5a52d5;
+        border-color: #5a52d5;
+    }
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #888;
+}
+
+    .empty-state i {
+        font-size: 48px;
+        color: #ddd;
+        display: block;
+        margin-bottom: 16px;
+    }
+
+

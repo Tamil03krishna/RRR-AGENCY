@@ -41,7 +41,7 @@ namespace MilkshopSystem.Web.Controllers
         {
             if (!ModelState.IsValid) return View(stock);
             await _repo.UpdateAsync(stock);
-            TempData["Success"] = "Stock update ஆயிடுச்சு.";
+            TempData["Success"] = "Stock update sucessfully.";
             return RedirectToAction(nameof(Index));
         }
     }
