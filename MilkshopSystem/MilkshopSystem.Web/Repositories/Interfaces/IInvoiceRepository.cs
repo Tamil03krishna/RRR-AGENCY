@@ -8,7 +8,9 @@ namespace MilkshopSystem.Web.Repositories.Interfaces
         Task<Invoice?> GetByIdAsync(int id);
         Task<string> GetNextInvoiceNoAsync();
         Task<int> CreateInvoiceAsync(Invoice invoice); 
-        Task<int> AddPaymentAsync(InvoicePayment payment);         
+        Task<int> AddPaymentAsync(InvoicePayment payment);
+        Task UpdateInvoiceItemAsync(int invoiceId, int itemId, decimal qty, decimal unitPrice, string priceType);
+        Task DeleteInvoiceItemAsync(int invoiceId, int itemId);
         Task<decimal> GetTodaySalesAsync();
         Task<decimal> GetMonthSalesAsync();
         Task<List<(int Month, decimal Total)>> GetMonthlyEarningsAsync(int year, int? productId = null);

@@ -7,8 +7,17 @@
     @Model.InvoiceDate.ToString("dd-MMM-yyyy hh:mm tt")
 </p>
 
-<table class="table table-bordered bg-white" style="max-width:800px;">
-    <thead><tr><th>Product</th><th>Price Type</th><th>Unit Price</th><th>Qty</th><th>Amount</th></tr></thead>
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<table class="table table-bordered bg-white" style="max-width:900px;">
+    <thead><tr><th>Product</th><th>Price Type</th><th>Unit Price</th><th>Qty</th><th>Amount</th><th>Action</th></tr></thead>
     <tbody>
     @foreach (var item in Model.Items)
     {
@@ -18,6 +27,16 @@
             <td>₹@item.UnitPrice.ToString("N2")</td>
             <td>@item.Qty</td>
             <td>₹@item.Amount.ToString("N2")</td>
+            <td>
+                <a asp-action="EditItem" asp-route-invoiceId="@Model.Id" asp-route-itemId="@item.Id"
+                   class="btn btn-sm btn-outline-primary">Edit</a>
+                <form asp-action="DeleteItem" method="post" class="d-inline"
+                      onsubmit="return confirm('Indha item-a delete pannalama?');">
+                    <input type="hidden" name="invoiceId" value="@Model.Id" />
+                    <input type="hidden" name="itemId" value="@item.Id" />
+                    <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                </form>
+            </td>
         </tr>
     }
     </tbody>

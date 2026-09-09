@@ -140,6 +140,57 @@ namespace MilkshopSystem.Web.Controllers
             return RedirectToAction(nameof(Details), new { id = invoiceId });
         }
 
+        [HttpGet]
+        public async Task<IActionResult> EditItem(int invoiceId, int itemId)
+        {
+            var invoice = await _invoiceRepo.GetByIdAsync(invoiceId);
+            var item = invoice?.Items.FirstOrDefault(i => i.Id == itemId);
+            if (invoice is null || item is null) return NotFound();
+
+            ViewBag.InvoiceNo = invoice.InvoiceNo;
+            return View(item);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditItem(int invoiceId, int itemId, decimal qty, decimal unitPrice, string priceType)
+        {
+            if (qty <= 0)
+            {
+                TempData["Error"] = "Qty 0 kum jaasthi irukanum";
+                return RedirectToAction(nameof(EditItem), new { invoiceId, itemId });
+            }
+
+            try
+            {
+                await _invoiceRepo.UpdateInvoiceItemAsync(invoiceId, itemId, qty, unitPrice, priceType);
+                TempData["Success"] = "Invoice item update aachu";
+            }
+            catch (InvalidOperationException ex)
+            {
+                TempData["Error"] = ex.Message;
+            }
+
+            return RedirectToAction(nameof(Details), new { id = invoiceId });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteItem(int invoiceId, int itemId)
+        {
+            try
+            {
+                await _invoiceRepo.DeleteInvoiceItemAsync(invoiceId, itemId);
+                TempData["Success"] = "Invoice item delete aachu";
+            }
+            catch (InvalidOperationException ex)
+            {
+                TempData["Error"] = ex.Message;
+            }
+
+            return RedirectToAction(nameof(Details), new { id = invoiceId });
+        }
+
         private async Task<List<SelectListItem>> GetPaymentModeOptions()
         {
             var modes = await _paymentModeRepo.GetAllActiveAsync();

@@ -92,6 +92,13 @@ namespace MilkshopSystem.Web.Repositories.Implementations
                 "UPDATE Stocks SET CurrentStock = CurrentStock - @qty, LastUpdated = NOW() WHERE ProductId = @productId",
                 new { qty, productId }, tx);
         }
+        public async Task IncreaseStockAsync(IDbConnection conn, IDbTransaction tx, int productId, decimal qty)
+        {
+            await conn.ExecuteAsync(
+                "UPDATE Stocks SET CurrentStock = CurrentStock + @qty, LastUpdated = NOW() WHERE ProductId = @productId",
+                new { qty, productId }, tx);
+        }
+
         public async Task<List<ProductStockViewModel>> GetProductStockListAsync()
         {
             using var conn = _factory.CreateConnection();
