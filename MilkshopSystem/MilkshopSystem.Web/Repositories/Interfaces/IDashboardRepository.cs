@@ -9,6 +9,7 @@ namespace MilkshopSystem.Web.Repositories.Interfaces
         public int TotalCustomers { get; set; }
         public decimal TotalOutstanding { get; set; }
         public int TotalProducts { get; set; }
+        public int CurrentStock{ get; set; }
     }
 
     public interface IDashboardRepository

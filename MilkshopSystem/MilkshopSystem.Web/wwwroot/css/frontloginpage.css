@@ -1,401 +1,177 @@
-﻿/* ====================================================
-   MODERN MILKSHOP SYSTEM - GLOBAL STYLES
-   Fresh, clean, and contemporary UI
-   ==================================================== */
-
-/* ----- Google Font & Base Reset ----- */
-@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap');
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+﻿
+.sidebar {
+    height: 100vh;
+    width: 260px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #212529;
+    padding-top: 20px;
+    overflow-y: auto;
+    z-index: 1000;
+    transition: transform 0.3s ease;
 }
 
-body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #f6f9fc;
-    color: #1e293b;
-    line-height: 1.6;
-    min-height: 100vh;
-    display: flex;
+.sidebar .brand {
+    color: #fff;    
+    font-size: 1.3rem;
+    font-weight: 600;
+    padding: 0 20px 20px 20px;
+    display: block;
+    text-decoration: none;
+    border-bottom: 1px solid #444;
+    margin-bottom: 10px;
+}
+
+    .sidebar .brand:hover {
+        color: #f8f9fa;
+    }
+
+.sidebar .nav {
     flex-direction: column;
+    padding: 0 10px;
 }
 
-/* ----- Navbar – Glassmorphism + Elevation ----- */
-.navbar.bg-dark {
-    background: rgba(15, 23, 42, 0.88) !important;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-    padding: 0.65rem 1.5rem;
+.sidebar .nav-item {
+    width: 100%;
 }
 
-.navbar-brand {
-    font-weight: 700;
-    font-size: 1.35rem;
-    letter-spacing: -0.3px;
-    color: #f8fafc !important;
-    transition: color 0.2s;
+.sidebar .nav-link {
+    color: #ced4da;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-    .navbar-brand:hover {
-        color: #b9e6ff !important;
+    .sidebar .nav-link:hover {
+        background-color: #343a40;
+        color: #fff;
     }
 
-.navbar .nav-link {
-    font-weight: 500;
-    font-size: 0.9rem;
-    padding: 0.6rem 0.9rem;
-    border-radius: 40px;
-    color: rgba(255, 255, 255, 0.75) !important;
-    transition: all 0.2s ease;
-    margin: 0 0.1rem;
-}
-
-    .navbar .nav-link:hover {
-        background: rgba(255, 255, 255, 0.08);
-        color: #ffffff !important;
-        transform: translateY(-1px);
+    .sidebar .nav-link.active {
+        background-color: #0d6efd;
+        color: #fff;
     }
 
-    .navbar .nav-link.active {
-        background: rgba(255, 255, 255, 0.12);
-        color: #ffffff !important;
-    }
-
-.navbar-text.text-light {
-    font-weight: 500;
-    font-size: 0.9rem;
-    background: rgba(255, 255, 255, 0.06);
-    padding: 0.3rem 1rem;
-    border-radius: 40px;
-    backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.04);
+.sidebar .user-section {
+    padding: 15px 20px;
+    border-top: 1px solid #444;
+    margin-top: auto;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    background-color: #212529;
 }
 
-.btn-outline-light {
-    border-width: 2px;
-    border-radius: 40px;
-    padding: 0.3rem 1.2rem;
-    font-weight: 600;
-    font-size: 0.8rem;
-    letter-spacing: 0.3px;
-    transition: all 0.25s;
-}
-
-    .btn-outline-light:hover {
-        background: #ffffff;
-        color: #0f172a !important;
-        transform: scale(1.02);
-        box-shadow: 0 6px 14px rgba(255, 255, 255, 0.2);
-    }
-
-/* ----- Main container – subtle breathing space ----- */
-.container-fluid {
-    padding: 1.5rem 2rem 3rem;
-    flex: 1 0 auto;
-}
-
-/* ----- Alerts – with soft shadows & icons ----- */
-.alert {
-    border: none;
-    border-radius: 20px;
-    padding: 1rem 1.5rem;
-    font-weight: 500;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
-    backdrop-filter: blur(4px);
-    margin-bottom: 1.8rem;
-}
-
-.alert-success {
-    background: #e6f9ed;
-    color: #0b3b2a;
-    border-left: 6px solid #2e9b6e;
-}
-
-.alert-danger {
-    background: #fde8e8;
-    color: #7a2e2e;
-    border-left: 6px solid #d9534f;
-}
-
-.alert .btn-close {
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.05));
-}
-
-/* ----- Cards – modern, airy, with hover lift ----- */
-.card {
-    background: #ffffff;
-    border: none;
-    border-radius: 28px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04), 0 2px 8px rgba(0, 0, 0, 0.02);
-    transition: transform 0.2s ease, box-shadow 0.25s ease;
-    padding: 0.2rem 0;
-}
-
-    .card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06), 0 6px 14px rgba(0, 0, 0, 0.03);
-    }
-
-.card-header {
-    background: transparent;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-    padding: 1.2rem 1.8rem;
-    font-weight: 600;
-    font-size: 1.1rem;
-    letter-spacing: -0.2px;
-    border-radius: 28px 28px 0 0 !important;
-}
-
-.card-body {
-    padding: 1.8rem;
-}
-
-/* ----- Tables – minimal, clean, with hover ----- */
-.table {
+.sidebar .user-name {
+    color: #fff;
+    display: block;
+    margin-bottom: 8px;
     font-size: 0.95rem;
-    border-collapse: separate;
-    border-spacing: 0 6px;
 }
 
-    .table thead th {
-        background: #f1f5f9;
-        color: #1e293b;
-        font-weight: 600;
-        font-size: 0.8rem;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        padding: 0.9rem 1.2rem;
-        border: none;
-        border-radius: 16px 16px 0 0;
+.sidebar .logout-btn {
+    width: 100%;
+    color: #fff;
+    border-color: #dc3545;
+}
+
+    .sidebar .logout-btn:hover {
+        background-color: #dc3545;
+        color: #fff;
     }
 
-    .table tbody td {
-        background: #ffffff;
-        padding: 0.9rem 1.2rem;
-        border: none;
-        vertical-align: middle;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.01);
+/* Main content area */
+.main-content {
+    margin-left: 260px;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+/* Mobile toggle button */
+.sidebar-toggle {
+    display: none;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1100;
+    background: #212529;
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+    .sidebar-toggle:hover {
+        background: #343a40;
     }
 
-    .table tbody tr {
-        transition: all 0.15s;
-        border-radius: 16px;
+/* Close button inside sidebar for mobile */
+.sidebar-close {
+    display: none;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.8rem;
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    cursor: pointer;
+}
+
+    .sidebar-close:hover {
+        color: #dc3545;
     }
 
-        .table tbody tr:hover td {
-            background: #fafcff;
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.02);
+/* Responsive */
+@@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+        width: 280px;
+    }
+
+        .sidebar.open {
+            transform: translateX(0);
         }
 
-/* ----- Buttons – rounded, bold, with micro-interactions ----- */
-.btn {
-    border-radius: 40px;
-    padding: 0.5rem 1.5rem;
-    font-weight: 600;
-    font-size: 0.9rem;
-    letter-spacing: 0.3px;
-    transition: all 0.2s ease;
-    border: none;
-}
-
-.btn-primary {
-    background: #2563eb;
-    color: #fff;
-    box-shadow: 0 6px 14px rgba(37, 99, 235, 0.20);
-}
-
-    .btn-primary:hover {
-        background: #1d4ed8;
-        transform: translateY(-2px);
-        box-shadow: 0 10px 24px rgba(37, 99, 235, 0.28);
+    .main-content {
+        margin-left: 0;
+        padding-top: 60px;
     }
 
-.btn-success {
-    background: #16a34a;
-    box-shadow: 0 6px 14px rgba(22, 163, 74, 0.18);
-}
-
-    .btn-success:hover {
-        background: #15803d;
-        transform: translateY(-2px);
-        box-shadow: 0 10px 24px rgba(22, 163, 74, 0.25);
+    .sidebar-toggle {
+        display: block;
     }
 
-.btn-danger {
-    background: #dc2626;
-    box-shadow: 0 6px 14px rgba(220, 38, 38, 0.16);
-}
-
-    .btn-danger:hover {
-        background: #b91c1c;
-        transform: translateY(-2px);
+    .sidebar-close {
+        display: block;
     }
 
-.btn-outline-secondary {
-    border: 2px solid #cbd5e1;
-    color: #334155;
-}
-
-    .btn-outline-secondary:hover {
-        background: #f1f5f9;
-        border-color: #94a3b8;
-        transform: translateY(-2px);
-    }
-
-/* ----- Form controls – soft, modern, focus glow ----- */
-.form-control, .form-select {
-    border-radius: 20px;
-    border: 1.5px solid #e2e8f0;
-    padding: 0.65rem 1.2rem;
-    font-size: 0.95rem;
-    transition: all 0.2s;
-    background: #ffffff;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.01);
-}
-
-    .form-control:focus, .form-select:focus {
-        border-color: #2563eb;
-        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12), inset 0 2px 4px rgba(0, 0, 0, 0.01);
-        outline: none;
-    }
-
-.form-label {
-    font-weight: 600;
-    font-size: 0.85rem;
-    letter-spacing: 0.3px;
-    color: #334155;
-    margin-bottom: 0.25rem;
-}
-
-.input-group-text {
-    border-radius: 20px 0 0 20px;
-    background: #f8fafc;
-    border: 1.5px solid #e2e8f0;
-    border-right: none;
-    font-weight: 500;
-    color: #475569;
-}
-
-/* ----- Modals – smooth, with blur backdrop ----- */
-.modal-content {
-    border: none;
-    border-radius: 32px;
-    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.15);
-    backdrop-filter: blur(6px);
-    background: rgba(255, 255, 255, 0.98);
-}
-
-.modal-header {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-    padding: 1.5rem 2rem;
-}
-
-.modal-footer {
-    border-top: 1px solid rgba(0, 0, 0, 0.04);
-    padding: 1.2rem 2rem;
-}
-
-/* ----- Badge / tags – pill style ----- */
-.badge {
-    border-radius: 40px;
-    padding: 0.4rem 1rem;
-    font-weight: 500;
-    font-size: 0.75rem;
-    letter-spacing: 0.2px;
-}
-
-/* ----- Dashboard cards (KPI) ----- */
-.kpi-card {
-    background: #ffffff;
-    border-radius: 28px;
-    padding: 1.5rem 1.8rem;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.02);
-    transition: all 0.2s;
-    border: 1px solid rgba(0, 0, 0, 0.02);
-}
-
-    .kpi-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.04);
-    }
-
-.kpi-number {
-    font-size: 2.4rem;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    line-height: 1.2;
-}
-
-.kpi-label {
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: #64748b;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-/* ----- Responsive tweaks ----- */
-@media (max-width: 768px) {
-    .navbar {
-        padding: 0.5rem 1rem;
-    }
-
-    .container-fluid {
-        padding: 1rem 0.8rem 2rem;
-    }
-
-    .card-body {
-        padding: 1.2rem;
-    }
-
-    .kpi-number {
-        font-size: 1.8rem;
-    }
-
-    .table thead th,
-    .table tbody td {
-        padding: 0.6rem 0.8rem;
-        font-size: 0.85rem;
+    .sidebar .user-section {
+        position: relative;
+        margin-top: 20px;
+        border-top: 1px solid #444;
     }
 }
 
-/* ----- Misc utilities – glass effect ----- */
-.glass-card {
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    border-radius: 32px;
+/* Scrollbar styling */
+.sidebar::-webkit-scrollbar {
+    width: 5px;
 }
 
-/* ----- Chart containers ----- */
-.chart-container {
-    background: #ffffff;
-    border-radius: 28px;
-    padding: 1.2rem 1.5rem 1.5rem;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.02);
+.sidebar::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 10px;
 }
 
-/* ----- Scrollbar (nice touch) ----- */
-::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+.sidebar::-webkit-scrollbar-track {
+    background: #212529;
 }
 
-::-webkit-scrollbar-track {
-    background: #f1f5f9;
-    border-radius: 20px;
-}
 
-::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
-    border-radius: 20px;
-}
-
-    ::-webkit-scrollbar-thumb:hover {
-        background: #94a3b8;
-    }

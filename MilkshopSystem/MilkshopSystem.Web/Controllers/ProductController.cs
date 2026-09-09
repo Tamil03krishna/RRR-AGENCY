@@ -24,7 +24,6 @@ namespace MilkshopSystem.Web.Controllers
             return View(result);
         }
 
-        // used by the Billing screen's product+size dropdown - returns name, size, unit, both prices
         [HttpGet]
         public async Task<IActionResult> SearchJson(string term)
         {
@@ -74,10 +73,9 @@ namespace MilkshopSystem.Web.Controllers
             }
 
             var productId = await _productRepo.CreateAsync(vm.Product);
-            // point 5: every new product automatically gets a stock row
             await _stockRepo.CreateForProductAsync(productId, vm.OpeningStock, vm.LowStockLevel);
 
-            TempData["Success"] = "Product add ஆயிடுச்சு.";
+            TempData["Success"] = "Product add successfully.";
             return RedirectToAction(nameof(Index));
         }
 
@@ -107,7 +105,7 @@ namespace MilkshopSystem.Web.Controllers
             }
 
             await _productRepo.UpdateAsync(vm.Product);
-            TempData["Success"] = "Product update ஆயிடுச்சு.";
+            TempData["Success"] = "Product update successfully";
             return RedirectToAction(nameof(Index));
         }
 
@@ -116,7 +114,7 @@ namespace MilkshopSystem.Web.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await _productRepo.DeleteAsync(id);
-            TempData["Success"] = "Product delete ஆயிடுச்சு.";
+            TempData["Success"] = "Product delete sucessfully.";
             return RedirectToAction(nameof(Index));
         }
 

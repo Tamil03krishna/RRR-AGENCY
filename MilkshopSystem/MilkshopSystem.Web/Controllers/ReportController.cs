@@ -14,9 +14,19 @@ namespace MilkshopSystem.Web.Controllers
             _productRepo = productRepo;
         }
 
-        // point 7: charts page - monthly/weekly/yearly earnings, x=month(1-12) y=earnings per product
         public IActionResult Charts() => View();
 
+        
+       
+
+        [HttpGet]
+        public async Task<IActionResult> YearlyEarningsJson()
+        {
+            var data = await _invoiceRepo.GetYearlyEarningsAsync();
+            return Json(data.Select(d => new { year = d.Year, total = d.Total }));
+        }
+
+       
         [HttpGet]
         public async Task<IActionResult> MonthlyEarningsJson(int? year, int? productId)
         {
@@ -28,17 +38,46 @@ namespace MilkshopSystem.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> WeeklyEarningsJson(DateTime? from, DateTime? to)
         {
-            from ??= DateTime.Today.AddDays(-56); // last 8 weeks
+            from ??= DateTime.Today.AddDays(-56);
             to ??= DateTime.Today;
             var data = await _invoiceRepo.GetWeeklyEarningsAsync(from.Value, to.Value);
             return Json(data.Select(d => new { weekStart = d.WeekStart.ToString("yyyy-MM-dd"), total = d.Total }));
         }
 
+      
+        // NEW: Monthly earnings with profit
         [HttpGet]
-        public async Task<IActionResult> YearlyEarningsJson()
+        public async Task<IActionResult> MonthlyEarningsWithProfitJson(int? year, int? productId)
         {
-            var data = await _invoiceRepo.GetYearlyEarningsAsync();
-            return Json(data.Select(d => new { year = d.Year, total = d.Total }));
+            year ??= DateTime.Now.Year;
+            var data = await _invoiceRepo.GetMonthlyEarningsWithProfitAsync(year.Value, productId);
+            return Json(data);
+        }
+
+        // NEW: Weekly earnings with profit
+        [HttpGet]
+        public async Task<IActionResult> WeeklyEarningsWithProfitJson(int? weeks, int? productId)
+        {
+            weeks ??= 8;
+            var data = await _invoiceRepo.GetWeeklyEarningsWithProfitAsync(weeks.Value, productId);
+            return Json(data);
+        }
+
+        // NEW: Yearly earnings with profit
+        [HttpGet]
+        public async Task<IActionResult> YearlyEarningsWithProfitJson(int? productId)
+        {
+            var data = await _invoiceRepo.GetYearlyEarningsWithProfitAsync(productId);
+            return Json(data);
+        }
+
+        // NEW: Product performance
+        [HttpGet]
+        public async Task<IActionResult> ProductPerformanceJson(int? year)
+        {
+            year ??= DateTime.Now.Year;
+            var data = await _invoiceRepo.GetProductPerformanceAsync(year.Value);
+            return Json(data);
         }
 
         [HttpGet]

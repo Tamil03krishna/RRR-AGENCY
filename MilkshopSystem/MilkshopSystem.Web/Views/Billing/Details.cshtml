@@ -50,7 +50,7 @@
                 <div class="mb-2">
                     <label class="form-label">Payment Mode</label>
                     <select name="paymentModeId" class="form-select" required>
-                        @* populated from PaymentModes table *@
+                        @*  *@
                         @foreach (var m in (List<PaymentMode>)ViewBag.PaymentModes ?? new List<PaymentMode>())
                         {
                             <option value="@m.Id">@m.Name</option>

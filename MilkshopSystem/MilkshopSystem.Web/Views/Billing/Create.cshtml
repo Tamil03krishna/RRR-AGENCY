@@ -105,9 +105,8 @@
 
 @section Scripts {
 <script>
-    let items = []; // { productId, name, size, unitSymbol, priceType, unitPrice, qty }
+    let items = []; 
 
-    // ---- Customer typeahead ----
     const customerSearch = document.getElementById('customerSearch');
     const customerResults = document.getElementById('customerResults');
     customerSearch.addEventListener('input', debounce(async () => {
@@ -139,7 +138,6 @@
         });
     }, 300));
 
-    // if user types a name that doesn't match any existing customer, treat as new customer
     customerSearch.addEventListener('blur', () => {
         setTimeout(() => {
             if (!document.getElementById('CustomerId').value) {
@@ -173,7 +171,6 @@
                 productSearch.value = `${p.name} (${p.size}${p.unitSymbol})`;
                 productResults.innerHTML = '';
 
-                // point 6: "qty add panna panna kela stock qty evlo iruku display pananum"
                 const stockRes = await fetch(`/Stock/GetAvailableQty?productId=${p.id}`);
                 const stockData = await stockRes.json();
                 document.getElementById('availableStock').value = stockData.availableQty;
@@ -183,7 +180,7 @@
     }, 300));
 
     document.getElementById('priceType').addEventListener('change', updateUnitPriceHint);
-    function updateUnitPriceHint() { /* price shown at add-time via computePrice() */ }
+    function updateUnitPriceHint() {  }
 
     function computePrice() {
         const type = document.getElementById('priceType').value;
@@ -213,7 +210,6 @@
         });
 
         renderItems();
-        // reset product picker
         productSearch.value = '';
         document.getElementById('qtyInput').value = '';
         document.getElementById('availableStock').value = '';

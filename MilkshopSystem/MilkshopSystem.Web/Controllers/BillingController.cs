@@ -20,7 +20,6 @@ namespace MilkshopSystem.Web.Controllers
             _paymentModeRepo = paymentModeRepo;
         }
 
-        // point 10: invoice list, search + pagination
         public async Task<IActionResult> Index(string? search, int page = 1, int pageSize = 10)
         {
             var result = await _invoiceRepo.GetPagedAsync(search, page, pageSize);
@@ -41,7 +40,6 @@ namespace MilkshopSystem.Web.Controllers
             return View(vm);
         }
 
-        // when an existing customer is picked from the typeahead, prefill their outstanding balance
         [HttpGet]
         public async Task<IActionResult> GetCustomerBalance(int customerId)
         {
@@ -57,12 +55,11 @@ namespace MilkshopSystem.Web.Controllers
 
             if (vm.Items is null || vm.Items.Count == 0)
             {
-                ModelState.AddModelError(string.Empty, "Kammiya oru product venum bill pananum.");
+                ModelState.AddModelError(string.Empty, "");
                 return View(vm);
             }
             if (!ModelState.IsValid) return View(vm);
 
-            // point 6: "customer name typing search, apadi illena new customer create pananum"
             int customerId;
             if (vm.CustomerId.HasValue)
             {
@@ -110,27 +107,24 @@ namespace MilkshopSystem.Web.Controllers
 
             try
             {
-                // point 13: stock auto-reduces inside this transaction; throws if any item is short on stock
                 var invoiceId = await _invoiceRepo.CreateInvoiceAsync(invoice);
-                TempData["Success"] = $"Bill create ஆயிடுச்சு. Invoice No: {invoice.InvoiceNo}";
+                TempData["Success"] = $"Bill create sucessfully. Invoice No: {invoice.InvoiceNo}";
                 return RedirectToAction(nameof(Details), new { id = invoiceId });
             }
             catch (InvalidOperationException ex)
             {
-                // e.g. "Not enough stock" from StockRepository.ReduceStockAsync
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return View(vm);
             }
         }
 
-        // customer comes back later and pays off part/all of a Partial/Unpaid invoice (point 11)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Pay(int invoiceId, int customerId, decimal amount, int paymentModeId)
         {
             if (amount <= 0)
             {
-                TempData["Error"] = "Amount 0 kum jaasthi irukanum.";
+                TempData["Error"] = "Amount 0 is more then";
                 return RedirectToAction(nameof(Details), new { id = invoiceId });
             }
 
@@ -142,7 +136,7 @@ namespace MilkshopSystem.Web.Controllers
                 PaymentModeId = paymentModeId
             });
 
-            TempData["Success"] = "Payment record ஆயிடுச்சு.";
+            TempData["Success"] = "Payment record successfully";
             return RedirectToAction(nameof(Details), new { id = invoiceId });
         }
 

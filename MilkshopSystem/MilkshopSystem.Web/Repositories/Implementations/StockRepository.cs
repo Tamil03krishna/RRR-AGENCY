@@ -43,7 +43,6 @@ namespace MilkshopSystem.Web.Repositories.Implementations
             return await conn.QueryFirstOrDefaultAsync<Stock>($"{BaseSelect} WHERE s.ProductId = @productId", new { productId });
         }
 
-        // called right after a product is created, so every product always has a stock row
         public async Task CreateForProductAsync(int productId, decimal openingStock, decimal lowStockLevel)
         {
             using var conn = _factory.CreateConnection();
@@ -77,8 +76,6 @@ namespace MilkshopSystem.Web.Repositories.Implementations
                   FROM Stocks s JOIN Products p ON p.Id = s.ProductId");
         }
 
-        // Called inside the Billing transaction. Locks the row (FOR UPDATE) so two
-        // simultaneous bills can't both oversell the same stock.
         public async Task ReduceStockAsync(IDbConnection conn, IDbTransaction tx, int productId, decimal qty)
         {
             var currentStock = await conn.ExecuteScalarAsync<decimal?>(
@@ -94,6 +91,33 @@ namespace MilkshopSystem.Web.Repositories.Implementations
             await conn.ExecuteAsync(
                 "UPDATE Stocks SET CurrentStock = CurrentStock - @qty, LastUpdated = NOW() WHERE ProductId = @productId",
                 new { qty, productId }, tx);
+        }
+        public async Task<List<ProductStockViewModel>> GetProductStockListAsync()
+        {
+            using var conn = _factory.CreateConnection();
+
+            var query = @"
+        SELECT 
+            s.Id AS StockId,
+            p.Id AS ProductId,
+            p.Name AS ProductName,
+            pc.Name AS CategoryName,
+            p.IsActive,
+            p.Size,
+            u.Symbol AS UnitSymbol,
+            s.CurrentStock,
+            s.LowStockLevel,
+            p.StorePrice,
+            p.MrpPrice,
+            (s.CurrentStock * p.StorePrice) AS StockValue
+        FROM Stocks s
+        INNER JOIN Products p ON p.Id = s.ProductId
+        LEFT JOIN ProductCategories pc ON pc.Id = p.CategoryId
+        INNER JOIN Units u ON u.Id = p.UnitId
+        ORDER BY p.Name ASC, p.Size ASC";
+
+            var result = await conn.QueryAsync<ProductStockViewModel>(query);
+            return result.ToList();
         }
     }
 }

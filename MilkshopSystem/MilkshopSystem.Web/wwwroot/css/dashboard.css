@@ -1,0 +1,521 @@
+/* ============================================
+   MODERN DASHBOARD STYLES
+   ============================================ */
+
+/* ---- Header Styles ---- */
+.dashboard-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 2rem 2rem 1.5rem;
+    border-radius: 16px;
+    color: white;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+    .dashboard-header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -20%;
+        width: 300px;
+        height: 300px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+    }
+
+    .dashboard-header::after {
+        content: '';
+        position: absolute;
+        bottom: -30%;
+        left: 10%;
+        width: 200px;
+        height: 200px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 50%;
+    }
+
+    .dashboard-header h3 {
+        position: relative;
+        z-index: 1;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+    }
+
+    .dashboard-header .subtitle {
+        position: relative;
+        z-index: 1;
+        opacity: 0.9;
+        font-size: 0.95rem;
+    }
+
+    .dashboard-header .datetime {
+        position: relative;
+        z-index: 1;
+        font-size: 0.85rem;
+        opacity: 0.8;
+    }
+
+/* ---- Stat Cards ---- */
+.stat-card {
+    border: none;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
+}
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+    }
+
+    .stat-card .stat-icon {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        font-size: 2.5rem;
+        opacity: 0.3;
+    }
+
+    .stat-card .card-body {
+        padding: 1.5rem;
+    }
+
+    .stat-card .stat-label {
+        font-size: 0.85rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        opacity: 0.9;
+        margin-bottom: 0.5rem;
+    }
+
+    .stat-card .stat-value {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 0;
+    }
+
+    .stat-card .stat-change {
+        font-size: 0.8rem;
+        margin-top: 0.5rem;
+        opacity: 0.8;
+    }
+
+/* Stat Card Gradients */
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.bg-gradient-success {
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+}
+
+.bg-gradient-info {
+    background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+}
+
+.bg-gradient-danger {
+    background: linear-gradient(135deg, #fc8181 0%, #e53e3e 100%);
+}
+
+.bg-gradient-warning {
+    background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+}
+
+/* ---- Secondary Stat Cards ---- */
+.stat-card-secondary {
+    border: none;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+}
+
+    .stat-card-secondary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .stat-card-secondary .stat-icon-circle {
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+    }
+
+/* ---- Product Table Styles ---- */
+.product-table-card {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+    .product-table-card .card-header {
+        background: white;
+        border-bottom: 1px solid #f0f0f0;
+        padding: 1.25rem 1.5rem;
+    }
+
+        .product-table-card .card-header h5 {
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+    .product-table-card .table {
+        margin-bottom: 0;
+    }
+
+        .product-table-card .table thead th {
+            background: #f8fafc;
+            color: #4a5568;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0.75rem 1rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .product-table-card .table tbody td {
+            padding: 0.75rem 1rem;
+            vertical-align: middle;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .product-table-card .table tbody tr:hover {
+            background: #f7fafc;
+        }
+
+        .product-table-card .table tfoot {
+            background: #f8fafc;
+            border-top: 2px solid #e2e8f0;
+        }
+
+/* ---- Product Name Cell ---- */
+.product-name-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.product-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: white;
+    flex-shrink: 0;
+}
+
+/* ---- Status Badges ---- */
+.badge-status {
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 0.75rem;
+    display: inline-block;
+}
+
+.badge-in-stock {
+    background: #c6f6d5;
+    color: #22543d;
+}
+
+.badge-low-stock {
+    background: #fefcbf;
+    color: #744210;
+}
+
+.badge-out-of-stock {
+    background: #fed7d7;
+    color: #9b2c2c;
+}
+
+.badge-active {
+    background: #bee3f8;
+    color: #2a69ac;
+    font-weight: 500;
+    font-size: 0.7rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 12px;
+}
+
+.badge-inactive {
+    background: #e2e8f0;
+    color: #4a5568;
+    font-weight: 500;
+    font-size: 0.7rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 12px;
+}
+
+/* ---- Search Box ---- */
+.search-box {
+    border-radius: 10px;
+    border: 2px solid #e2e8f0;
+    padding: 0.4rem 1rem;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    min-width: 200px;
+}
+
+    .search-box:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        outline: none;
+    }
+
+    .search-box::placeholder {
+        color: #a0aec0;
+    }
+
+/* ---- Quick Actions ---- */
+.quick-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+    .quick-actions .btn {
+        border-radius: 10px;
+        padding: 0.6rem 1.2rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+        .quick-actions .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+/* ---- Low Stock Alert Card ---- */
+.alert-card {
+    border: none;
+    border-radius: 16px;
+    overflow: hidden;
+    border-left: 4px solid #ed8936;
+}
+
+    .alert-card .card-header {
+        background: #fffbeb;
+        border-bottom: 1px solid #fef3c7;
+        padding: 1rem 1.5rem;
+    }
+
+        .alert-card .card-header h6 {
+            font-weight: 600;
+        }
+
+/* ---- Health Check Card ---- */
+.health-card {
+    border-radius: 16px;
+    border-left: 4px solid #48bb78;
+}
+
+/* ---- Buttons with border radius ---- */
+.btn-rounded {
+    border-radius: 10px;
+}
+
+/* ---- Animations ---- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.stat-card {
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+    .stat-card:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+
+    .stat-card:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .stat-card:nth-child(3) {
+        animation-delay: 0.3s;
+    }
+
+    .stat-card:nth-child(4) {
+        animation-delay: 0.4s;
+    }
+
+.stat-card-secondary {
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+    .stat-card-secondary:nth-child(1) {
+        animation-delay: 0.2s;
+    }
+
+    .stat-card-secondary:nth-child(2) {
+        animation-delay: 0.3s;
+    }
+
+    .stat-card-secondary:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+
+/* ---- Responsive Styles ---- */
+@media (max-width: 768px) {
+    .dashboard-header {
+        padding: 1.5rem;
+        border-radius: 12px;
+    }
+
+        .dashboard-header h3 {
+            font-size: 1.3rem;
+        }
+
+    .stat-card .stat-value {
+        font-size: 1.4rem;
+    }
+
+    .stat-card .stat-icon {
+        font-size: 2rem;
+    }
+
+    .product-table-card .card-header {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .search-box {
+        min-width: 150px;
+        width: 100%;
+    }
+
+    .quick-actions .btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+    }
+
+    .dashboard-header .datetime {
+        text-align: left !important;
+        margin-top: 0.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .stat-card .card-body {
+        padding: 1rem;
+    }
+
+    .stat-card .stat-value {
+        font-size: 1.2rem;
+    }
+
+    .stat-card .stat-label {
+        font-size: 0.75rem;
+    }
+
+    .product-avatar {
+        width: 30px;
+        height: 30px;
+        font-size: 0.7rem;
+    }
+
+    .badge-status {
+        font-size: 0.65rem;
+        padding: 0.2rem 0.5rem;
+    }
+}
+
+/* ---- Custom Scrollbar ---- */
+.table-responsive::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+    background: #cbd5e0;
+    border-radius: 10px;
+}
+
+    .table-responsive::-webkit-scrollbar-thumb:hover {
+        background: #a0aec0;
+    }
+
+/* ---- Utility Classes ---- */
+.rounded-8 {
+    border-radius: 8px;
+}
+
+.rounded-10 {
+    border-radius: 10px;
+}
+
+.rounded-12 {
+    border-radius: 12px;
+}
+
+.rounded-16 {
+    border-radius: 16px;
+}
+
+/* ---- Table Row Animation ---- */
+.product-table-card .table tbody tr {
+    transition: all 0.2s ease;
+}
+
+    .product-table-card .table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+/* ---- Empty State ---- */
+.empty-state {
+    padding: 3rem 1rem;
+    text-align: center;
+    color: #a0aec0;
+}
+
+    .empty-state i {
+        font-size: 3rem;
+        display: block;
+        margin-bottom: 1rem;
+    }
+
+    .empty-state h6 {
+        color: #4a5568;
+        margin-bottom: 0.5rem;
+    }
+
+/* ---- Footer Stats ---- */
+.footer-stats {
+    background: #f7fafc;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0 0 16px 16px;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+    .footer-stats small {
+        color: #718096;
+    }

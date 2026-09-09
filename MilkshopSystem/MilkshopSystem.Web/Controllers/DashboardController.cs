@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MilkshopSystem.Web.Repositories.Interfaces;
+using MilkshopSystem.Web.Models.ViewModels;
 
 namespace MilkshopSystem.Web.Controllers
 {
@@ -14,11 +15,12 @@ namespace MilkshopSystem.Web.Controllers
             _stockRepo = stockRepo;
         }
 
-        // point 9 + point 12: today/month sales, stock value, low stock alerts, totals
         public async Task<IActionResult> Index()
         {
             var summary = await _dashboardRepo.GetSummaryAsync();
             ViewBag.LowStockItems = await _stockRepo.GetLowStockAsync();
+            ViewBag.ProductStockList = await _stockRepo.GetProductStockListAsync();
+
             return View(summary);
         }
     }
