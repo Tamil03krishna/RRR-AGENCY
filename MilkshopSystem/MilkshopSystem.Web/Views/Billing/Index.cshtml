@@ -9,7 +9,7 @@
     <button type="submit" class="btn btn-outline-secondary">Search</button>
 </form>
 <table class="table table-striped bg-white">
-    <thead><tr><th>Invoice No</th><th>Date</th><th>Customer</th><th>Grand Total</th><th>Paid</th><th>Balance</th><th>Status</th><th></th></tr></thead>
+    <thead><tr><th>Invoice No</th><th>Date</th><th>Customer</th><th>Grand Total</th><th>Paid</th><th>Payment Mode</th><th>Balance</th><th>Status</th><th></th></tr></thead>
     <tbody>
     @foreach (var inv in Model.Items)
     {
@@ -19,6 +19,7 @@
             <td>@inv.CustomerName (@inv.CustomerPhone)</td>
             <td>₹@inv.GrandTotal.ToString("N2")</td>
             <td>₹@inv.PaidAmount.ToString("N2")</td>
+            <td>@(inv.PaymentModeName ?? "-")</td>
             <td class="@(inv.BalanceAmount>0?"text-danger fw-bold":"")">₹@inv.BalanceAmount.ToString("N2")</td>
             <td>
                 @{

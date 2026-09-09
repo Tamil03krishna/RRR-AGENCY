@@ -32,8 +32,10 @@ namespace MilkshopSystem.Web.Repositories.Implementations
                 new { search = searchParam });
 
             var items = await conn.QueryAsync<Invoice>(
-                $@"SELECT i.*, c.Name AS CustomerName, c.Phone AS CustomerPhone
-                   FROM Invoices i JOIN Customers c ON c.Id = i.CustomerId
+                $@"SELECT i.*, c.Name AS CustomerName, c.Phone AS CustomerPhone, pm.Name AS PaymentModeName
+                   FROM Invoices i
+                   JOIN Customers c ON c.Id = i.CustomerId
+                   LEFT JOIN PaymentModes pm ON pm.Id = i.PaymentModeId
                    {where}
                    ORDER BY i.InvoiceDate DESC
                    LIMIT @pageSize OFFSET @offset",
