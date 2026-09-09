@@ -157,14 +157,14 @@ namespace MilkshopSystem.Web.Controllers
         {
             if (qty <= 0)
             {
-                TempData["Error"] = "Qty 0 kum jaasthi irukanum";
+                TempData["Error"] = "Qty 0 above the data insert ";
                 return RedirectToAction(nameof(EditItem), new { invoiceId, itemId });
             }
 
             try
             {
                 await _invoiceRepo.UpdateInvoiceItemAsync(invoiceId, itemId, qty, unitPrice, priceType);
-                TempData["Success"] = "Invoice item update aachu";
+                TempData["Success"] = "Invoice item update sucessfully";
             }
             catch (InvalidOperationException ex)
             {
@@ -181,7 +181,7 @@ namespace MilkshopSystem.Web.Controllers
             try
             {
                 await _invoiceRepo.DeleteInvoiceItemAsync(invoiceId, itemId);
-                TempData["Success"] = "Invoice item delete aachu";
+                TempData["Success"] = "Invoice item delete sucessfully";
             }
             catch (InvalidOperationException ex)
             {
