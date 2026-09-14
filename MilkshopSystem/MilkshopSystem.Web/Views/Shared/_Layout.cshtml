@@ -14,12 +14,12 @@
 <body>
     @if (isLoggedIn)
     {
-        <!-- Mobile Toggle Button -->
+        <form id="antiForgeryForm" style="display:none;">@Html.AntiForgeryToken()</form>
+
         <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle navigation">
             ☰
         </button>
 
-        <!-- Sidebar -->
         <nav class="sidebar" id="sidebar">
             <button class="sidebar-close" id="sidebarClose">✕</button>
 
@@ -47,8 +47,47 @@
             </div>
         </nav>
 
-        <!-- Overlay for mobile -->
         <div id="sidebarOverlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:999;"></div>
+
+        <button id="notesBellBtn" title="Notes" style="position:fixed;top:14px;right:20px;z-index:1001;width:44px;height:44px;border-radius:50%;border:none;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.15);font-size:20px;cursor:pointer;">
+            🔔<span id="notesCountBadge" style="display:none;position:absolute;top:-2px;right:-2px;background:#dc3545;color:#fff;font-size:10px;min-width:16px;height:16px;border-radius:8px;line-height:16px;text-align:center;padding:0 3px;"></span>
+        </button>
+
+        <div id="notesOverlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.35);z-index:1002;"></div>
+        <div id="notesPanel" style="display:none;position:fixed;top:0;right:0;width:340px;max-width:90%;height:100%;background:#f8f9fa;z-index:1003;box-shadow:-2px 0 10px rgba(0,0,0,0.2);overflow-y:auto;">
+            <div style="padding:14px 16px;border-bottom:1px solid #dee2e6;display:flex;justify-content:space-between;align-items:center;background:#fff;">
+                <strong>📝 Notes</strong>
+                <button id="notesCloseBtn" style="border:none;background:none;font-size:18px;cursor:pointer;">✕</button>
+            </div>
+
+            <div style="padding:12px 16px;">
+                <textarea id="newNoteText" class="form-control" rows="3" placeholder="Write a note..."></textarea>
+                <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;align-items:center;">
+                    <div id="colorPicker" style="display:flex;gap:6px;">
+                        <span class="color-dot" data-color="yellow" style="background:#fff3b0;"></span>
+                        <span class="color-dot" data-color="pink" style="background:#ffd6e8;"></span>
+                        <span class="color-dot" data-color="blue" style="background:#cfe8ff;"></span>
+                        <span class="color-dot" data-color="green" style="background:#d3f2d3;"></span>
+                    </div>
+                    <button id="addNoteBtn" class="btn btn-sm btn-primary ms-auto">+ Add</button>
+                </div>
+            </div>
+
+            <div id="notesList" style="padding:0 16px 16px;"></div>
+        </div>
+
+        <style>
+            .color-dot { width:20px; height:20px; border-radius:50%; cursor:pointer; border:2px solid transparent; display:inline-block; }
+            .color-dot.selected { border-color:#333; }
+            .note-card { border-radius:8px; padding:10px 12px; margin-bottom:10px; box-shadow:0 1px 3px rgba(0,0,0,0.15); position:relative; }
+            .note-card textarea { width:100%; border:none; background:transparent; resize:none; font-size:14px; }
+            .note-card textarea:focus { outline:none; }
+            .note-card .note-actions { display:flex; justify-content:flex-end; gap:8px; margin-top:4px; }
+            .note-card .note-actions button { border:none; background:none; cursor:pointer; font-size:14px; opacity:0.6; }
+            .note-card .note-actions button:hover { opacity:1; }
+            .note-yellow { background:#fff3b0; } .note-pink { background:#ffd6e8; }
+            .note-blue { background:#cfe8ff; } .note-green { background:#d3f2d3; }
+        </style>
 
         <!-- Main Content -->
         <div class="main-content">
@@ -94,22 +133,149 @@
             closeBtn.addEventListener('click', closeSidebar);
             overlay.addEventListener('click', closeSidebar);
 
-            // Close sidebar on escape key
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') closeSidebar();
             });
 
-            // Active link highlighting (optional - add class based on current page)
             document.querySelectorAll('.sidebar .nav-link').forEach(link => {
                 if (link.href === window.location.href) {
                     link.classList.add('active');
                 }
             });
+
+            const notesBellBtn = document.getElementById('notesBellBtn');
+            const notesPanel = document.getElementById('notesPanel');
+            const notesOverlay = document.getElementById('notesOverlay');
+            const notesCloseBtn = document.getElementById('notesCloseBtn');
+            const notesList = document.getElementById('notesList');
+            const notesCountBadge = document.getElementById('notesCountBadge');
+            const newNoteText = document.getElementById('newNoteText');
+            const addNoteBtn = document.getElementById('addNoteBtn');
+            const colorDots = document.querySelectorAll('.color-dot');
+            let selectedColor = 'yellow';
+
+            function getToken() {
+                const el = document.querySelector('#antiForgeryForm input[name="__RequestVerificationToken"]');
+                return el ? el.value : '';
+            }
+
+            function openNotesPanel() {
+                notesPanel.style.display = 'block';
+                notesOverlay.style.display = 'block';
+                loadNotes();
+            }
+            function closeNotesPanel() {
+                notesPanel.style.display = 'none';
+                notesOverlay.style.display = 'none';
+            }
+
+            notesBellBtn.addEventListener('click', openNotesPanel);
+            notesCloseBtn.addEventListener('click', closeNotesPanel);
+            notesOverlay.addEventListener('click', closeNotesPanel);
+
+            colorDots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    colorDots.forEach(d => d.classList.remove('selected'));
+                    dot.classList.add('selected');
+                    selectedColor = dot.dataset.color;
+                });
+            });
+            if (colorDots.length) colorDots[0].classList.add('selected');
+
+            async function loadNotes() {
+                notesList.innerHTML = '<p class="text-muted small">Loading...</p>';
+                try {
+                    const res = await fetch('/Notes/GetAll');
+                    const notes = await res.json();
+                    renderNotes(notes);
+                    notesCountBadge.style.display = notes.length ? 'block' : 'none';
+                    notesCountBadge.textContent = notes.length;
+                } catch (err) {
+                    notesList.innerHTML = '<p class="text-danger small">Failed to load notes.</p>';
+                }
+            }
+
+            function renderNotes(notes) {
+                notesList.innerHTML = '';
+                if (!notes.length) {
+                    notesList.innerHTML = '<p class="text-muted small">No notes yet.</p>';
+                    return;
+                }
+                notes.forEach(n => {
+                    const card = document.createElement('div');
+                    card.className = `note-card note-${n.color}`;
+                    card.innerHTML = `
+                        <textarea rows="2" data-id="${n.id}">${n.content}</textarea>
+                        <div class="note-actions">
+                            <button class="pin-btn" title="Pin">${n.isPinned ? '📌' : '📍'}</button>
+                            <button class="save-btn" title="Save">💾</button>
+                            <button class="del-btn" title="Delete">🗑️</button>
+                        </div>`;
+                    notesList.appendChild(card);
+
+                    card.querySelector('.save-btn').addEventListener('click', async () => {
+                        const textarea = card.querySelector('textarea');
+                        await updateNote(n.id, textarea.value, n.color, n.isPinned);
+                    });
+                    card.querySelector('.pin-btn').addEventListener('click', async () => {
+                        const textarea = card.querySelector('textarea');
+                        await updateNote(n.id, textarea.value, n.color, !n.isPinned);
+                        loadNotes();
+                    });
+                    card.querySelector('.del-btn').addEventListener('click', async () => {
+                        if (!confirm('Delete this note?')) return;
+                        await fetch(`/Notes/Delete?id=${n.id}`, {
+                            method: 'POST',
+                            headers: { 'X-CSRF-TOKEN': getToken() }
+                        });
+                        loadNotes();
+                    });
+                });
+            }
+
+            async function updateNote(id, content, color, isPinned) {
+                await fetch(`/Notes/Update?id=${id}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': getToken() },
+                    body: JSON.stringify({ content, color, isPinned })
+                });
+            }
+
+            addNoteBtn.addEventListener('click', async () => {
+                const content = newNoteText.value.trim();
+                if (!content) { alert('Please write something first'); return; }
+                try {
+                    const res = await fetch('/Notes/Create', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': getToken() },
+                        body: JSON.stringify({ content, color: selectedColor })
+                    });
+                    if (!res.ok) {
+                        let msg = `Add failed (status ${res.status})`;
+                        try { const err = await res.json(); if (err.message) msg = err.message; } catch (e) {}
+                        alert(msg);
+                        console.error('Notes/Create failed:', res.status, msg);
+                        return;
+                    }
+                    newNoteText.value = '';
+                    loadNotes();
+                } catch (err) {
+                    alert('Could not reach the server. Check your connection.');
+                    console.error('Notes/Create error:', err);
+                }
+            });
+
+            // show badge count on page load without opening the panel
+            fetch('/Notes/GetAll').then(r => r.json()).then(notes => {
+                if (notes.length) {
+                    notesCountBadge.style.display = 'block';
+                    notesCountBadge.textContent = notes.length;
+                }
+            }).catch(() => {});
         </script>
     }
     else
     {
-        <!-- When not logged in, just show content without sidebar -->
         <div class="container-fluid mt-3 mb-5">
             @if (TempData["Success"] != null)
             {

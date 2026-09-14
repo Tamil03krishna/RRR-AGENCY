@@ -5,7 +5,20 @@
 <p>
     <strong>@Model.CustomerName</strong> (@Model.CustomerPhone) &nbsp;|&nbsp;
     @Model.InvoiceDate.ToString("dd-MMM-yyyy hh:mm tt")
+    @if (!Model.IsCancelled)
+    {
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-outline-primary ms-2">Edit Invoice</a>
+    }
 </p>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
 
 <table class="table table-bordered bg-white" style="max-width:800px;">
     <thead><tr><th>Product</th><th>Price Type</th><th>Unit Price</th><th>Qty</th><th>Amount</th></tr></thead>

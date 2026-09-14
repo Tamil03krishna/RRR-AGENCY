@@ -32,8 +32,10 @@ namespace MilkshopSystem.Web.Repositories.Implementations
                 new { search = searchParam });
 
             var items = await conn.QueryAsync<Invoice>(
-                $@"SELECT i.*, c.Name AS CustomerName, c.Phone AS CustomerPhone
-                   FROM Invoices i JOIN Customers c ON c.Id = i.CustomerId
+                $@"SELECT i.*, c.Name AS CustomerName, c.Phone AS CustomerPhone, pm.Name AS PaymentModeName
+                   FROM Invoices i
+                   JOIN Customers c ON c.Id = i.CustomerId
+                   LEFT JOIN PaymentModes pm ON pm.Id = i.PaymentModeId
                    {where}
                    ORDER BY i.InvoiceDate DESC
                    LIMIT @pageSize OFFSET @offset",
@@ -41,7 +43,11 @@ namespace MilkshopSystem.Web.Repositories.Implementations
 
             return new PagedResult<Invoice>
             {
-                Items = items.ToList(), TotalRecords = total, PageNumber = pageNumber, PageSize = pageSize, SearchTerm = search
+                Items = items.ToList(),
+                TotalRecords = total,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                SearchTerm = search
             };
         }
 
@@ -75,7 +81,7 @@ namespace MilkshopSystem.Web.Repositories.Implementations
             return $"INV-{year}-{(count + 1):D5}";
         }
 
-        
+
         public async Task<int> CreateInvoiceAsync(Invoice invoice)
         {
             using var conn = (MySqlConnection)_factory.CreateConnection();
@@ -103,16 +109,58 @@ namespace MilkshopSystem.Web.Repositories.Implementations
                     await _stockRepository.ReduceStockAsync(conn, tx, item.ProductId, item.Qty);
                 }
 
-                if (invoice.PaidAmount > 0)
+                var remainingPayment = invoice.PaidAmount;
+
+                if (remainingPayment > 0 && invoice.PreviousBalance > 0)
+                {
+                    var oldBalanceToClear = Math.Min(remainingPayment, invoice.PreviousBalance);
+
+                    var oldInvoices = (await conn.QueryAsync<Invoice>(
+                        @"SELECT * FROM Invoices
+                          WHERE CustomerId = @customerId AND Id != @invoiceId
+                                AND IsCancelled = 0 AND BalanceAmount > 0
+                          ORDER BY InvoiceDate ASC, Id ASC
+                          FOR UPDATE",
+                        new { customerId = invoice.CustomerId, invoiceId }, tx)).ToList();
+
+                    foreach (var old in oldInvoices)
+                    {
+                        if (oldBalanceToClear <= 0) break;
+
+                        var applyAmount = Math.Min(oldBalanceToClear, old.BalanceAmount);
+                        if (applyAmount <= 0) continue;
+
+                        await conn.ExecuteAsync(
+                            @"INSERT INTO InvoicePayments (InvoiceId, CustomerId, Amount, PaymentModeId, PaymentDate)
+                              VALUES (@oldInvoiceId, @customerId, @amount, @paymentModeId, NOW())",
+                            new { oldInvoiceId = old.Id, customerId = invoice.CustomerId, amount = applyAmount, paymentModeId = invoice.PaymentModeId },
+                            tx);
+
+                        await conn.ExecuteAsync(
+                            @"UPDATE Invoices
+                              SET PaidAmount = PaidAmount + @amount,
+                                  BalanceAmount = BalanceAmount - @amount,
+                                  PaymentStatus = CASE WHEN BalanceAmount - @amount <= 0 THEN 'Paid'
+                                                       WHEN PaidAmount + @amount > 0 THEN 'Partial'
+                                                       ELSE 'Unpaid' END
+                              WHERE Id = @oldInvoiceId",
+                            new { amount = applyAmount, oldInvoiceId = old.Id }, tx);
+
+                        oldBalanceToClear -= applyAmount;
+                        remainingPayment -= applyAmount;
+                    }
+                }
+
+                if (remainingPayment > 0)
                 {
                     await conn.ExecuteAsync(
                         @"INSERT INTO InvoicePayments (InvoiceId, CustomerId, Amount, PaymentModeId, PaymentDate)
                           VALUES (@invoiceId, @customerId, @amount, @paymentModeId, NOW())",
-                        new { invoiceId, customerId = invoice.CustomerId, amount = invoice.PaidAmount, paymentModeId = invoice.PaymentModeId },
+                        new { invoiceId, customerId = invoice.CustomerId, amount = remainingPayment, paymentModeId = invoice.PaymentModeId },
                         tx);
                 }
 
-               
+
                 await conn.ExecuteAsync(
                     "UPDATE Customers SET OutstandingBalance = @balance, UpdatedDate = NOW() WHERE Id = @customerId",
                     new { balance = invoice.BalanceAmount, customerId = invoice.CustomerId }, tx);
@@ -153,6 +201,122 @@ namespace MilkshopSystem.Web.Repositories.Implementations
 
                 await tx.CommitAsync();
                 return paymentId;
+            }
+            catch
+            {
+                await tx.RollbackAsync();
+                throw;
+            }
+        }
+        public async Task UpdateInvoiceAsync(int invoiceId, List<InvoiceItem> items, decimal paidAmount, int paymentModeId)
+        {
+            using var conn = (MySqlConnection)_factory.CreateConnection();
+            using var tx = await conn.BeginTransactionAsync();
+            try
+            {
+                var invoice = await conn.QueryFirstOrDefaultAsync<Invoice>(
+                    "SELECT * FROM Invoices WHERE Id = @invoiceId FOR UPDATE", new { invoiceId }, tx);
+                if (invoice is null) throw new InvalidOperationException("Invoice not found.");
+                if (invoice.IsCancelled) throw new InvalidOperationException("Cancelled invoice-a edit panna mudiyathu.");
+                if (items is null || items.Count == 0) throw new InvalidOperationException("Kammiya oru product venum bill pananum.");
+
+                var oldItems = (await conn.QueryAsync<InvoiceItem>(
+                    "SELECT * FROM InvoiceItems WHERE InvoiceId = @invoiceId", new { invoiceId }, tx)).ToList();
+
+                foreach (var old in oldItems)
+                {
+                    await _stockRepository.IncreaseStockAsync(conn, tx, old.ProductId, old.Qty);
+                }
+
+                await conn.ExecuteAsync("DELETE FROM InvoiceItems WHERE InvoiceId = @invoiceId", new { invoiceId }, tx);
+
+                foreach (var item in items)
+                {
+                    await _stockRepository.ReduceStockAsync(conn, tx, item.ProductId, item.Qty);
+
+                    await conn.ExecuteAsync(
+                        @"INSERT INTO InvoiceItems (InvoiceId, ProductId, PriceType, UnitPrice, Qty, Amount)
+                          VALUES (@invoiceId, @ProductId, @PriceType, @UnitPrice, @Qty, @Amount)",
+                        new { invoiceId, item.ProductId, item.PriceType, item.UnitPrice, item.Qty, Amount = item.UnitPrice * item.Qty },
+                        tx);
+                }
+
+                var newSubTotal = items.Sum(i => i.UnitPrice * i.Qty);
+                var newGrandTotal = newSubTotal + invoice.PreviousBalance;
+                var newBalance = newGrandTotal - paidAmount;
+                if (newBalance < 0) newBalance = 0;
+                var newStatus = newBalance <= 0 ? "Paid" : (paidAmount > 0 ? "Partial" : "Unpaid");
+
+                var oldBalance = invoice.BalanceAmount;
+
+                await conn.ExecuteAsync(
+                    @"UPDATE Invoices
+                      SET SubTotal = @newSubTotal, GrandTotal = @newGrandTotal, PaidAmount = @paidAmount,
+                          PaymentModeId = @paymentModeId, BalanceAmount = @newBalance, PaymentStatus = @newStatus
+                      WHERE Id = @invoiceId",
+                    new { newSubTotal, newGrandTotal, paidAmount, paymentModeId, newBalance, newStatus, invoiceId }, tx);
+
+                var delta = newBalance - oldBalance;
+                if (delta != 0)
+                {
+                    await conn.ExecuteAsync(
+                        "UPDATE Customers SET OutstandingBalance = OutstandingBalance + @delta, UpdatedDate = NOW() WHERE Id = @customerId",
+                        new { delta, customerId = invoice.CustomerId }, tx);
+                }
+
+                await tx.CommitAsync();
+            }
+            catch
+            {
+                await tx.RollbackAsync();
+                throw;
+            }
+        }
+
+        public async Task CancelInvoiceAsync(int invoiceId)
+        {
+            using var conn = (MySqlConnection)_factory.CreateConnection();
+            using var tx = await conn.BeginTransactionAsync();
+            try
+            {
+                var invoice = await conn.QueryFirstOrDefaultAsync<Invoice>(
+                    "SELECT * FROM Invoices WHERE Id = @invoiceId FOR UPDATE", new { invoiceId }, tx);
+                if (invoice is null) throw new InvalidOperationException("Invoice not found.");
+                if (invoice.IsCancelled) throw new InvalidOperationException("Invoice is already cancelled.");
+
+                var newerInvoiceExists = await conn.ExecuteScalarAsync<bool>(
+                    @"SELECT COUNT(*) > 0 FROM Invoices
+                      WHERE CustomerId = @customerId AND IsCancelled = 0 AND Id != @invoiceId
+                            AND (InvoiceDate > @invoiceDate OR (InvoiceDate = @invoiceDate AND Id > @invoiceId))",
+                    new { customerId = invoice.CustomerId, invoiceId, invoiceDate = invoice.InvoiceDate }, tx);
+
+                if (newerInvoiceExists)
+                    throw new InvalidOperationException(
+                        "This isn't the customer's latest invoice — a newer invoice already carried its balance forward. Cancel the newer invoice(s) first.");
+
+                var items = (await conn.QueryAsync<InvoiceItem>(
+                    "SELECT * FROM InvoiceItems WHERE InvoiceId = @invoiceId", new { invoiceId }, tx)).ToList();
+
+                foreach (var item in items)
+                {
+                    await _stockRepository.IncreaseStockAsync(conn, tx, item.ProductId, item.Qty);
+                }
+
+                await conn.ExecuteAsync(
+                    "DELETE FROM InvoicePayments WHERE InvoiceId = @invoiceId", new { invoiceId }, tx);
+
+                await conn.ExecuteAsync(
+                    "UPDATE Invoices SET IsCancelled = 1, BalanceAmount = 0, PaymentStatus = 'Cancelled' WHERE Id = @invoiceId",
+                    new { invoiceId }, tx);
+
+                if (invoice.BalanceAmount > 0)
+                {
+                    await conn.ExecuteAsync(
+                        "UPDATE Customers SET OutstandingBalance = OutstandingBalance - @balance, UpdatedDate = NOW() WHERE Id = @customerId",
+                        new { balance = invoice.BalanceAmount, customerId = invoice.CustomerId }, tx);
+                }
+
+                await tx.CommitAsync();
             }
             catch
             {
@@ -215,7 +379,6 @@ namespace MilkshopSystem.Web.Repositories.Implementations
             return rows.ToList();
         }
 
-        // Add these methods to InvoiceRepository class
 
         public async Task<List<MonthlyEarningDto>> GetMonthlyEarningsWithProfitAsync(int year, int? productId = null)
         {
@@ -243,7 +406,6 @@ namespace MilkshopSystem.Web.Repositories.Implementations
             var rows = await conn.QueryAsync<MonthlyEarningDto>(sql, new { year, productId });
             var result = rows.ToList();
 
-            // Fill missing months with zero values
             var allMonths = Enumerable.Range(1, 12)
                 .Select(m => new MonthlyEarningDto
                 {

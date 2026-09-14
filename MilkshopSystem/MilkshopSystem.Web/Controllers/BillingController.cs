@@ -140,6 +140,96 @@ namespace MilkshopSystem.Web.Controllers
             return RedirectToAction(nameof(Details), new { id = invoiceId });
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var invoice = await _invoiceRepo.GetByIdAsync(id);
+            if (invoice is null) return NotFound();
+            if (invoice.IsCancelled)
+            {
+                TempData["Error"] = "A cancelled invoice cannot be edited.";
+                return RedirectToAction(nameof(Details), new { id });
+            }
+
+            var vm = new BillingCreateViewModel
+            {
+                InvoiceId = invoice.Id,
+                CustomerId = invoice.CustomerId,
+                CustomerName = invoice.CustomerName ?? string.Empty,
+                CustomerPhone = invoice.CustomerPhone ?? string.Empty,
+                PreviousBalance = invoice.PreviousBalance,
+                PaymentModeId = invoice.PaymentModeId ?? 0,
+                PaidAmount = invoice.PaidAmount,
+                PaymentModes = await GetPaymentModeOptions(),
+                Items = invoice.Items.Select(i => new BillingItemInput
+                {
+                    ProductId = i.ProductId,
+                    ProductName = i.ProductName,
+                    Size = i.Size,
+                    UnitSymbol = i.UnitSymbol,
+                    PriceType = i.PriceType,
+                    UnitPrice = i.UnitPrice,
+                    Qty = i.Qty
+                }).ToList()
+            };
+
+            ViewBag.InvoiceNo = invoice.InvoiceNo;
+            return View("Create", vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, BillingCreateViewModel vm)
+        {
+            vm.InvoiceId = id;
+            vm.PaymentModes = await GetPaymentModeOptions();
+
+            if (vm.Items is null || vm.Items.Count == 0)
+            {
+                ModelState.AddModelError(string.Empty, "I need to bill a smaller quantity of the product.");
+                return View("Create", vm);
+            }
+            if (!ModelState.IsValid) return View("Create", vm);
+
+            try
+            {
+                var items = vm.Items.Select(i => new InvoiceItem
+                {
+                    ProductId = i.ProductId,
+                    PriceType = i.PriceType,
+                    UnitPrice = i.UnitPrice,
+                    Qty = i.Qty,
+                    Amount = i.UnitPrice * i.Qty
+                }).ToList();
+
+                await _invoiceRepo.UpdateInvoiceAsync(id, items, vm.PaidAmount, vm.PaymentModeId);
+                TempData["Success"] = "The invoice has been updated.";
+                return RedirectToAction(nameof(Details), new { id });
+            }
+            catch (InvalidOperationException ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View("Create", vm);
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CancelInvoice(int id)
+        {
+            try
+            {
+                await _invoiceRepo.CancelInvoiceAsync(id);
+                TempData["Success"] = "The invoice has been cancelled.";
+            }
+            catch (InvalidOperationException ex)
+            {
+                TempData["Error"] = ex.Message;
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
         private async Task<List<SelectListItem>> GetPaymentModeOptions()
         {
             var modes = await _paymentModeRepo.GetAllActiveAsync();
