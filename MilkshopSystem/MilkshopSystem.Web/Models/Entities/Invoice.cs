@@ -19,6 +19,7 @@ namespace MilkshopSystem.Web.Models.Entities
 
         public string? CustomerName { get; set; }
         public string? CustomerPhone { get; set; }
+        public string? PaymentModeName { get; set; }
         public List<InvoiceItem> Items { get; set; } = new();
     }
 

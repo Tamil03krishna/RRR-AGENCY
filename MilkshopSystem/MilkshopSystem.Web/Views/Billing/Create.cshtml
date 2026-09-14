@@ -1,10 +1,11 @@
 @model BillingCreateViewModel
-@{ ViewData["Title"] = "New Bill"; }
+@{ ViewData["Title"] = Model.IsEditMode ? "Edit Invoice" : "New Bill"; }
 
-<h3>New Bill</h3>
+<h3>@(Model.IsEditMode ? $"Edit Invoice - {ViewBag.InvoiceNo}" : "New Bill")</h3>
 
-<form asp-action="Create" method="post" id="billingForm">
+<form asp-action="@(Model.IsEditMode ? "Edit" : "Create")" asp-route-id="@Model.InvoiceId" method="post" id="billingForm">
     <div asp-validation-summary="All" class="text-danger"></div>
+    <input type="hidden" asp-for="InvoiceId" />
 
     <div class="card mb-3">
         <div class="card-body">
@@ -13,21 +14,25 @@
                 <div class="col-md-6 mb-2 position-relative">
                     <label class="form-label">Customer Name (typing search)</label>
                     <input type="text" id="customerSearch" class="form-control" autocomplete="off"
-                           placeholder="Type name or phone..." value="@Model.CustomerName" />
+                           placeholder="Type name or phone..." value="@Model.CustomerName" @(Model.IsEditMode ? "readonly" : "") />
                     <div id="customerResults" class="list-group position-absolute w-100" style="z-index:1000;"></div>
                     <input type="hidden" asp-for="CustomerId" id="CustomerId" />
                     <input type="hidden" asp-for="CustomerName" id="CustomerName" />
                 </div>
                 <div class="col-md-4 mb-2">
                     <label class="form-label">Phone</label>
-                    <input asp-for="CustomerPhone" id="CustomerPhone" class="form-control" required />
+                    <input asp-for="CustomerPhone" id="CustomerPhone" class="form-control" required readonly="@Model.IsEditMode" />
                 </div>
                 <div class="col-md-2 mb-2">
                     <label class="form-label">Previous Balance</label>
-                    <input type="text" id="previousBalanceDisplay" class="form-control" readonly value="0.00" />
+                    <input type="text" id="previousBalanceDisplay" class="form-control" readonly value="@Model.PreviousBalance.ToString("0.00")" />
                     <input type="hidden" asp-for="PreviousBalance" id="PreviousBalance" />
                 </div>
             </div>
+            @if (Model.IsEditMode)
+            {
+                <small class="text-muted">This invoice is locked for the customer. If you need to make any changes, please create a new invoice.</small>
+            }
         </div>
     </div>
 
@@ -99,15 +104,22 @@
         </div>
     </div>
 
-    <button type="submit" class="btn btn-success btn-lg">Save Bill</button>
-    <a asp-action="Index" class="btn btn-secondary btn-lg">Cancel</a>
+    <button type="submit" class="btn btn-success btn-lg">@(Model.IsEditMode ? "Update Bill" : "Save Bill")</button>
+    <a asp-action="@(Model.IsEditMode ? "Details" : "Index")" asp-route-id="@Model.InvoiceId" class="btn btn-secondary btn-lg">Cancel</a>
 </form>
 
 @section Scripts {
 <script>
-    let items = []; // { productId, name, size, unitSymbol, priceType, unitPrice, qty }
+    let items = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Items.Select(i => new {
+        productId = i.ProductId,
+        name = i.ProductName,
+        size = i.Size,
+        unitSymbol = i.UnitSymbol,
+        priceType = i.PriceType,
+        unitPrice = i.UnitPrice,
+        qty = i.Qty
+    })));
 
-    // ---- Customer typeahead ----
     const customerSearch = document.getElementById('customerSearch');
     const customerResults = document.getElementById('customerResults');
     customerSearch.addEventListener('input', debounce(async () => {
@@ -139,7 +151,6 @@
         });
     }, 300));
 
-    // if user types a name that doesn't match any existing customer, treat as new customer
     customerSearch.addEventListener('blur', () => {
         setTimeout(() => {
             if (!document.getElementById('CustomerId').value) {
@@ -173,7 +184,6 @@
                 productSearch.value = `${p.name} (${p.size}${p.unitSymbol})`;
                 productResults.innerHTML = '';
 
-                // point 6: "qty add panna panna kela stock qty evlo iruku display pananum"
                 const stockRes = await fetch(`/Stock/GetAvailableQty?productId=${p.id}`);
                 const stockData = await stockRes.json();
                 document.getElementById('availableStock').value = stockData.availableQty;
@@ -183,7 +193,7 @@
     }, 300));
 
     document.getElementById('priceType').addEventListener('change', updateUnitPriceHint);
-    function updateUnitPriceHint() { /* price shown at add-time via computePrice() */ }
+    function updateUnitPriceHint() {  }
 
     function computePrice() {
         const type = document.getElementById('priceType').value;
@@ -213,7 +223,6 @@
         });
 
         renderItems();
-        // reset product picker
         productSearch.value = '';
         document.getElementById('qtyInput').value = '';
         document.getElementById('availableStock').value = '';
@@ -281,5 +290,10 @@
             alert('Kammiya oru product venum bill pananum.');
         }
     });
+
+    // Edit mode: render whatever items were pre-loaded from the server, and
+    // show the correct starting balance for the already-filled paid amount.
+    renderItems();
+    updateBalanceDisplay();
 </script>
 }

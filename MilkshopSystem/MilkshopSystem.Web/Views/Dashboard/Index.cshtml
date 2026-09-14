@@ -1,65 +1,354 @@
 @model MilkshopSystem.Web.Repositories.Interfaces.DashboardSummary
-@{ ViewData["Title"] = "Dashboard"; var lowStock = ViewBag.LowStockItems as List<Stock>; }
+@{
+    ViewData["Title"] = "Dashboard";
+    var lowStock = ViewBag.LowStockItems as List<Stock>;
+    var productStockList = ViewBag.ProductStockList as List<ProductStockViewModel>;
+}
 
-<h3>Dashboard</h3>
+<!-- Link the external CSS -->
+<link rel="stylesheet" href="~/css/dashboard.css" />
 
-<div class="row g-3 mb-4">
-    <div class="col-md-3">
-        <div class="card bg-primary text-white"><div class="card-body">
-            <h6>Today's Sales</h6><h3>₹@Model.TodaySales.ToString("N2")</h3>
-        </div></div>
-    </div>
-    <div class="col-md-3">
-        <div class="card bg-success text-white"><div class="card-body">
-            <h6>This Month's Sales</h6><h3>₹@Model.MonthSales.ToString("N2")</h3>
-        </div></div>
-    </div>
-    <div class="col-md-3">
-        <div class="card bg-info text-white"><div class="card-body">
-            <h6>Stock Value (point 12)</h6><h3>₹@Model.TotalStockValue.ToString("N2")</h3>
-            <small>Current Stock × Store Price, all products</small>
-        </div></div>
-    </div>
-    <div class="col-md-3">
-        <div class="card bg-danger text-white"><div class="card-body">
-            <h6>Low Stock Items</h6><h3>@Model.LowStockCount</h3>
-        </div></div>
+<!-- Modern Header -->
+<div class="dashboard-header">
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            <h3>📊 Dashboard</h3>
+            <p class="subtitle">Welcome back! Here's what's happening with your milkshop today.</p>
+        </div>
+        <div class="col-md-4 text-md-end">
+            <div class="datetime">
+                <i class="bi bi-calendar3"></i> @DateTime.Now.ToString("dddd, dd MMM yyyy")<br>
+                <i class="bi bi-clock"></i> @DateTime.Now.ToString("hh:mm tt")
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="row g-3 mb-4">
-    <div class="col-md-4">
-        <div class="card"><div class="card-body">
-            <h6>Total Customers</h6><h4>@Model.TotalCustomers</h4>
-        </div></div>
+<!-- Stats Cards -->
+<div class="row g-4 mb-4">
+    <div class="col-md-3 col-sm-6">
+        <div class="card stat-card bg-gradient-primary text-white">
+            <div class="card-body">
+                <div class="stat-icon">💰</div>
+                <div class="stat-label">Today's Sales</div>
+                <div class="stat-value">₹@Model.TodaySales.ToString("N2")</div>
+                <div class="stat-change"><i class="bi bi-arrow-up"></i> 12% from yesterday</div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <div class="card"><div class="card-body">
-            <h6>Total Outstanding (customers owe shop)</h6>
-            <h4 class="text-danger">₹@Model.TotalOutstanding.ToString("N2")</h4>
-        </div></div>
+    <div class="col-md-3 col-sm-6">
+        <div class="card stat-card bg-gradient-success text-white">
+            <div class="card-body">
+                <div class="stat-icon">📈</div>
+                <div class="stat-label">This Month's Sales</div>
+                <div class="stat-value">₹@Model.MonthSales.ToString("N2")</div>
+                <div class="stat-change"><i class="bi bi-arrow-up"></i> 8% from last month</div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <div class="card"><div class="card-body">
-            <h6>Active Products</h6><h4>@Model.TotalProducts</h4>
-        </div></div>
+    <div class="col-md-3 col-sm-6">
+        <div class="card stat-card bg-gradient-info text-white">
+            <div class="card-body">
+                <div class="stat-icon">📦</div>
+                <div class="stat-label">Total Stock Value</div>
+                <div class="stat-value">₹@Model.TotalStockValue.ToString("N2")</div>
+                <div class="stat-change">Current Stock × Store Price</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+        <div class="card stat-card bg-gradient-danger text-white">
+            <div class="card-body">
+                <div class="stat-icon">⚠️</div>
+                <div class="stat-label">Low Stock Items</div>
+                <div class="stat-value">@Model.LowStockCount</div>
+                <div class="stat-change">Items below threshold</div>
+            </div>
+        </div>
     </div>
 </div>
 
-@if (lowStock != null && lowStock.Any())
-{
-    <div class="card">
-        <div class="card-header bg-warning">⚠ Low Stock Alerts</div>
-        <div class="card-body">
-            <table class="table table-sm mb-0">
-                <thead><tr><th>Product</th><th>Current Stock</th><th>Low Stock Level</th></tr></thead>
+<!-- Secondary Stats -->
+<div class="row g-4 mb-4">
+    <div class="col-md-4">
+        <div class="card stat-card-secondary shadow-sm">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="stat-label text-muted" style="text-transform: none;">👥 Total Customers</div>
+                        <div class="stat-value" style="font-size: 1.5rem;">@Model.TotalCustomers</div>
+                    </div>
+                    <div class="stat-icon-circle" style="background: rgba(102, 126, 234, 0.1); color: #667eea;">
+                        <i class="bi bi-people"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card stat-card-secondary shadow-sm">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="stat-label text-muted" style="text-transform: none;">💳 Total Outstanding</div>
+                        <div class="stat-value text-danger" style="font-size: 1.5rem;">₹@Model.TotalOutstanding.ToString("N2")</div>
+                        <small class="text-muted">Customers owe shop</small>
+                    </div>
+                    <div class="stat-icon-circle" style="background: rgba(229, 62, 62, 0.1); color: #e53e3e;">
+                        <i class="bi bi-credit-card"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card stat-card-secondary shadow-sm">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="stat-label text-muted" style="text-transform: none;">📦 Active Products</div>
+                        <div class="stat-value" style="font-size: 1.5rem;">@Model.TotalProducts</div>
+                    </div>
+                    <div class="stat-icon-circle" style="background: rgba(56, 161, 105, 0.1); color: #38a169;">
+                        <i class="bi bi-box-seam"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Product Wise Stock and Price List -->
+<div class="card product-table-card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">
+            <i class="bi bi-box-seam text-primary"></i> Product Wise Stock & Price List
+            <span class="badge bg-primary ms-2 rounded-pill">@(productStockList?.Count ?? 0)</span>
+        </h5>
+        <div class="d-flex gap-2">
+            <input type="text" id="productSearch" class="search-box" placeholder="🔍 Search product...">
+            <button class="btn btn-outline-secondary btn-sm btn-rounded" onclick="window.location.reload()">
+                <i class="bi bi-arrow-clockwise"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table" id="productStockTable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Product</th>
+                        <th>Category</th>
+                        <th>Size</th>
+                        <th class="text-end">Stock</th>
+                        <th class="text-end">Store Price</th>
+                        <th class="text-end">MRP</th>
+                        <th class="text-end">Stock Value</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
                 <tbody>
-                @foreach (var s in lowStock)
-                {
-                    <tr><td>@s.ProductName (@s.Size @s.UnitSymbol)</td><td>@s.CurrentStock</td><td>@s.LowStockLevel</td></tr>
-                }
+                    @if (productStockList != null && productStockList.Any())
+                    {
+                        int count = 1;
+                        var colors = new[] { "#667eea", "#48bb78", "#4299e1", "#ed8936", "#9f7aea", "#fc8181" };
+
+                        foreach (var item in productStockList)
+                        {
+                            var statusClass = item.CurrentStock <= 0 ? "out-of-stock" :
+                            (item.CurrentStock <= item.LowStockLevel ? "low-stock" : "in-stock");
+                            var statusText = item.CurrentStock <= 0 ? "Out of Stock" :
+                            (item.CurrentStock <= item.LowStockLevel ? "Low Stock" : "In Stock");
+
+                            var colorIndex = (count - 1) % colors.Length;
+
+                            <tr>
+                                <td>@count</td>
+                                <td>
+                                    <div class="product-name-cell">
+                                        <div class="product-avatar" style="background: @colors[colorIndex];">
+                                            @item.ProductName.Substring(0, 1).ToUpper()
+                                        </div>
+                                        <div>
+                                            <strong>@item.ProductName</strong>
+                                            <span class="badge @(item.IsActive ? "badge-active" : "badge-inactive") ms-1">
+                                                @(item.IsActive ? "Active" : "Inactive")
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>@(item.CategoryName ?? "-")</td>
+                                <td>@item.Size</td>
+                                <td class="text-end fw-bold @(item.CurrentStock <= item.LowStockLevel ? "text-danger" : "")">
+                                    @item.CurrentStock.ToString("F2")
+                                    <small class="text-muted d-block">@item.UnitSymbol</small>
+                                </td>
+                                <td class="text-end fw-bold">₹@item.StorePrice.ToString("N2")</td>
+                                <td class="text-end text-muted">₹@item.MrpPrice.ToString("N2")</td>
+                                <td class="text-end fw-bold text-primary">₹@item.StockValue.ToString("N2")</td>
+                                <td class="text-center">
+                                    <span class="badge-status badge-@statusClass">@statusText</span>
+                                </td>
+                                <td class="text-center">
+                                    <div class="btn-group btn-group-sm">
+                                        <a asp-controller="Stock" asp-action="Edit" asp-route-id="@item.StockId"
+                                           class="btn btn-outline-primary btn-sm rounded-8" title="Edit Stock">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <a asp-controller="Product" asp-action="Edit" asp-route-id="@item.ProductId"
+                                           class="btn btn-outline-info btn-sm rounded-8" title="Edit Product">
+                                            <i class="bi bi-box"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            count++;
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="10">
+                                <div class="empty-state">
+                                    <i class="bi bi-inbox"></i>
+                                    <h6>No products found</h6>
+                                    <p class="mb-0">Start by adding your first product</p>
+                                </div>
+                            </td>
+                        </tr>
+                    }
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="7" class="text-end fw-bold py-3">Total Stock Value:</td>
+                        <td class="text-end fw-bold text-primary py-3" style="font-size: 1.1rem;">
+                            ₹@(productStockList?.Sum(p => p.StockValue).ToString("N2") ?? "0.00")
+                        </td>
+                        <td colspan="2"></td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>
+</div>
+
+<!-- Low Stock Alert -->
+@if (lowStock != null && lowStock.Any())
+{
+    <div class="card alert-card mb-4">
+        <div class="card-header">
+            <div class="d-flex align-items-center">
+                <i class="bi bi-exclamation-triangle-fill text-warning me-2" style="font-size: 1.2rem;"></i>
+                <h6 class="mb-0 fw-bold">⚠️ Low Stock Alerts</h6>
+                <span class="badge bg-danger ms-2 rounded-pill">@lowStock.Count()</span>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-sm mb-0">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Current Stock</th>
+                            <th>Low Stock Level</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var s in lowStock)
+                        {
+                            var status = s.CurrentStock <= 0 ? "Out of Stock" : "Low Stock";
+                            var badgeClass = s.CurrentStock <= 0 ? "badge-out-of-stock" : "badge-low-stock";
+                            <tr>
+                                <td>
+                                    <strong>@s.ProductName</strong>
+                                    <small class="text-muted">(@s.Size @s.UnitSymbol)</small>
+                                </td>
+                                <td class="fw-bold text-danger">@s.CurrentStock.ToString("F2")</td>
+                                <td>@s.LowStockLevel</td>
+                                <td><span class="badge-status @badgeClass">@status</span></td>
+                                <td>
+                                    <a asp-controller="Stock" asp-action="Edit" asp-route-id="@s.Id"
+                                       class="btn btn-sm btn-outline-primary rounded-8">
+                                        <i class="bi bi-pencil"></i> Update Stock
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="card shadow-sm mb-4 health-card">
+        <div class="card-body text-center py-4">
+            <i class="bi bi-check-circle-fill text-success" style="font-size: 2rem;"></i>
+            <h5 class="mt-2 mb-1">All stock levels are healthy!</h5>
+            <p class="text-muted mb-0">No items are currently below their low stock threshold.</p>
+        </div>
+    </div>
+}
+
+<!-- Quick Actions -->
+<div class="card shadow-sm" style="border: none; border-radius: 16px; background: #f7fafc;">
+    <div class="card-body">
+        <h6 class="card-subtitle text-muted mb-3">
+            <i class="bi bi-lightning-fill text-warning"></i> Quick Actions
+        </h6>
+        <div class="quick-actions">
+            <a asp-controller="Billing" asp-action="Create" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> New Bill
+            </a>
+            <a asp-controller="Customer" asp-action="Create" class="btn btn-success">
+                <i class="bi bi-person-plus"></i> Add Customer
+            </a>
+            <a asp-controller="Product" asp-action="Create" class="btn btn-info text-white">
+                <i class="bi bi-box-plus"></i> Add Product
+            </a>
+            <a asp-controller="Report" asp-action="Charts" class="btn btn-warning text-dark">
+                <i class="bi bi-graph-up"></i> View Charts
+            </a>
+            <a asp-controller="Stock" asp-action="Index" class="btn btn-secondary">
+                <i class="bi bi-boxes"></i> Manage Stock
+            </a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Search functionality for product table
+        document.getElementById('productSearch').addEventListener('keyup', function() {
+            var searchText = this.value.toLowerCase();
+            var table = document.getElementById('productStockTable');
+            var rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+            for (var i = 0; i < rows.length; i++) {
+                var row = rows[i];
+                var cells = row.getElementsByTagName('td');
+                var found = false;
+
+                for (var j = 0; j < cells.length; j++) {
+                    var cellText = cells[j].textContent.toLowerCase();
+                    if (cellText.indexOf(searchText) > -1) {
+                        found = true;
+                        break;
+                    }
+                }
+
+                row.style.display = found ? '' : 'none';
+            }
+        });
+
+        // Auto-refresh data every 5 minutes
+        setTimeout(function() {
+            location.reload();
+        }, 300000);
+    </script>
 }

@@ -1,0 +1,282 @@
+﻿/* ============================================
+   MODERN CHARTS STYLES
+   ============================================ */
+
+/* ---- Header Styles ---- */
+.charts-header {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    padding: 2rem 2rem 1.5rem;
+    border-radius: 16px;
+    color: white;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+    .charts-header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -20%;
+        width: 300px;
+        height: 300px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 50%;
+    }
+
+    .charts-header h3 {
+        position: relative;
+        z-index: 1;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+    }
+
+    .charts-header .subtitle {
+        position: relative;
+        z-index: 1;
+        opacity: 0.8;
+        font-size: 0.95rem;
+    }
+
+    .charts-header .datetime {
+        position: relative;
+        z-index: 1;
+        font-size: 0.85rem;
+        opacity: 0.8;
+    }
+
+/* ---- Filters Card ---- */
+.filters-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 2rem;
+}
+
+.filter-select,
+.filter-input {
+    border-radius: 10px;
+    border: 2px solid #e2e8f0;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+    .filter-select:focus,
+    .filter-input:focus {
+        border-color: #4f46e5;
+        box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        outline: none;
+    }
+
+/* ---- Summary Cards ---- */
+.summary-card {
+    border: none;
+    border-radius: 16px;
+    padding: 1.5rem;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+    .summary-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .summary-card .summary-icon {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        font-size: 2.5rem;
+        opacity: 0.3;
+    }
+
+    .summary-card .summary-label {
+        font-size: 0.85rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        opacity: 0.9;
+        margin-bottom: 0.5rem;
+    }
+
+    .summary-card .summary-value {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 0;
+    }
+
+.summary-card-primary {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+}
+
+.summary-card-success {
+    background: linear-gradient(135deg, #16a34a 0%, #059669 100%);
+}
+
+.summary-card-info {
+    background: linear-gradient(135deg, #0891b2 0%, #0d9488 100%);
+}
+
+.summary-card-warning {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+/* ---- Chart Cards ---- */
+.chart-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+    .chart-card:hover {
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    }
+
+    .chart-card .chart-header {
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid #f0f0f0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+        .chart-card .chart-header h5 {
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0;
+            font-size: 1rem;
+        }
+
+    .chart-card .chart-body {
+        padding: 1.5rem;
+        height: 300px;
+        position: relative;
+    }
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+    .charts-header {
+        padding: 1.5rem;
+        border-radius: 12px;
+    }
+
+        .charts-header h3 {
+            font-size: 1.3rem;
+        }
+
+    .summary-card .summary-value {
+        font-size: 1.4rem;
+    }
+
+    .summary-card .summary-icon {
+        font-size: 2rem;
+    }
+
+    .chart-card .chart-body {
+        height: 250px;
+        padding: 1rem;
+    }
+
+    .filters-card {
+        padding: 1rem;
+    }
+
+    .charts-header .datetime {
+        text-align: left !important;
+        margin-top: 0.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .summary-card {
+        padding: 1rem;
+    }
+
+        .summary-card .summary-value {
+            font-size: 1.2rem;
+        }
+
+    .chart-card .chart-body {
+        height: 200px;
+    }
+}
+
+/* ---- Animations ---- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.summary-card {
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+    .summary-card:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+
+    .summary-card:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .summary-card:nth-child(3) {
+        animation-delay: 0.3s;
+    }
+
+    .summary-card:nth-child(4) {
+        animation-delay: 0.4s;
+    }
+
+.chart-card {
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+    .chart-card:nth-child(1) {
+        animation-delay: 0.2s;
+    }
+
+    .chart-card:nth-child(2) {
+        animation-delay: 0.3s;
+    }
+
+    .chart-card:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+
+    .chart-card:nth-child(4) {
+        animation-delay: 0.5s;
+    }
+
+/* ---- Custom Scrollbar ---- */
+.chart-body::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.chart-body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.chart-body::-webkit-scrollbar-thumb {
+    background: #cbd5e0;
+    border-radius: 10px;
+}
+
+    .chart-body::-webkit-scrollbar-thumb:hover {
+        background: #a0aec0;
+    }

@@ -8,7 +8,6 @@ namespace MilkshopSystem.Web.Models.ViewModels
     {
         public Product Product { get; set; } = new();
 
-        // only used on Create - initial opening stock + low stock threshold for the new product
         [Range(0, double.MaxValue)]
         public decimal OpeningStock { get; set; }
 

@@ -23,7 +23,7 @@ namespace MilkshopSystem.Web.Controllers
         {
             if (!ModelState.IsValid) return View(mode);
             await _repo.CreateAsync(mode);
-            TempData["Success"] = "Payment mode add ஆயிடுச்சு.";
+            TempData["Success"] = "Payment mode add sucessfully.";
             return RedirectToAction(nameof(Index));
         }
 
@@ -40,7 +40,7 @@ namespace MilkshopSystem.Web.Controllers
         {
             if (!ModelState.IsValid) return View(mode);
             await _repo.UpdateAsync(mode);
-            TempData["Success"] = "Payment mode update ஆயிடுச்சு.";
+            TempData["Success"] = "Payment mode update sucessfully.";
             return RedirectToAction(nameof(Index));
         }
 
@@ -49,7 +49,7 @@ namespace MilkshopSystem.Web.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await _repo.DeleteAsync(id);
-            TempData["Success"] = "Payment mode delete ஆயிடுச்சு.";
+            TempData["Success"] = "Payment mode delete sucessfully.";
             return RedirectToAction(nameof(Index));
         }
     }

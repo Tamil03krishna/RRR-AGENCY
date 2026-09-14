@@ -9,7 +9,7 @@ namespace MilkshopSystem.Web.Models.ViewModels
         public int ProductId { get; set; }
 
         [Required]
-        public string PriceType { get; set; } = "StorePrice"; // StorePrice | MrpPrice
+        public string PriceType { get; set; } = "StorePrice"; 
 
         [Range(0.01, double.MaxValue, ErrorMessage = "Qty 0 kum jaasthi irukanum")]
         public decimal Qty { get; set; }
@@ -19,7 +19,6 @@ namespace MilkshopSystem.Web.Models.ViewModels
 
         public decimal Amount => UnitPrice * Qty;
 
-        // display-only, filled by JS from product search results
         public string? ProductName { get; set; }
         public string? Size { get; set; }
         public string? UnitSymbol { get; set; }
@@ -27,17 +26,18 @@ namespace MilkshopSystem.Web.Models.ViewModels
 
     public class BillingCreateViewModel
     {
-        // existing customer picked from typeahead search
+        public int? InvoiceId { get; set; } 
+        public bool IsEditMode => InvoiceId.HasValue;
+
         public int? CustomerId { get; set; }
 
-        // used when the customer doesn't exist yet - creates inline (point 6)
-        [Required(ErrorMessage = "Customer name வேணும்")]
+        [Required(ErrorMessage = "Customer name ")]
         public string CustomerName { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "Phone number வேணும்")]
+        [Required(ErrorMessage = "Phone number ")]
         public string CustomerPhone { get; set; } = string.Empty;
 
-        public decimal PreviousBalance { get; set; } // shown read-only, pulled from Customers.OutstandingBalance
+        public decimal PreviousBalance { get; set; } 
 
         public List<BillingItemInput> Items { get; set; } = new();
 

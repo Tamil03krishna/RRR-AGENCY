@@ -4,10 +4,10 @@ namespace MilkshopSystem.Web.Models.ViewModels
 {
     public class LoginViewModel
     {
-        [Required(ErrorMessage = "Username வேணும்")]
+        [Required(ErrorMessage = "Username ")]
         public string Username { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "Password வேணும்")]
+        [Required(ErrorMessage = "Password ")]
         [DataType(DataType.Password)]
         public string Password { get; set; } = string.Empty;
 

@@ -43,7 +43,6 @@ namespace MilkshopSystem.Web.Repositories.Implementations
             return await conn.QueryFirstOrDefaultAsync<Product>($"{BaseSelect} WHERE p.Id = @id", new { id });
         }
 
-        // used by Billing screen's product/size dropdown - only currently-active products
         public async Task<List<Product>> SearchActiveAsync(string term, int maxResults = 10)
         {
             using var conn = _factory.CreateConnection();
