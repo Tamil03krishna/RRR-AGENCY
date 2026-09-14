@@ -9,7 +9,7 @@ namespace MilkshopSystem.Web.Models.ViewModels
         public int ProductId { get; set; }
 
         [Required]
-        public string PriceType { get; set; } = "StorePrice"; // StorePrice | MrpPrice
+        public string PriceType { get; set; } = "StorePrice"; 
 
         [Range(0.01, double.MaxValue, ErrorMessage = "Qty 0 kum jaasthi irukanum")]
         public decimal Qty { get; set; }
@@ -19,7 +19,6 @@ namespace MilkshopSystem.Web.Models.ViewModels
 
         public decimal Amount => UnitPrice * Qty;
 
-        // display-only, filled by JS from product search results
         public string? ProductName { get; set; }
         public string? Size { get; set; }
         public string? UnitSymbol { get; set; }
@@ -27,6 +26,9 @@ namespace MilkshopSystem.Web.Models.ViewModels
 
     public class BillingCreateViewModel
     {
+        public int? InvoiceId { get; set; } 
+        public bool IsEditMode => InvoiceId.HasValue;
+
         public int? CustomerId { get; set; }
 
         [Required(ErrorMessage = "Customer name ")]

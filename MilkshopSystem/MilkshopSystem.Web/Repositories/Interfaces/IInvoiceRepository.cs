@@ -9,14 +9,13 @@ namespace MilkshopSystem.Web.Repositories.Interfaces
         Task<string> GetNextInvoiceNoAsync();
         Task<int> CreateInvoiceAsync(Invoice invoice); 
         Task<int> AddPaymentAsync(InvoicePayment payment);
-        Task UpdateInvoiceItemAsync(int invoiceId, int itemId, decimal qty, decimal unitPrice, string priceType);
-        Task DeleteInvoiceItemAsync(int invoiceId, int itemId);
+        Task CancelInvoiceAsync(int invoiceId);
+        Task UpdateInvoiceAsync(int invoiceId, List<InvoiceItem> items, decimal paidAmount, int paymentModeId);
         Task<decimal> GetTodaySalesAsync();
         Task<decimal> GetMonthSalesAsync();
         Task<List<(int Month, decimal Total)>> GetMonthlyEarningsAsync(int year, int? productId = null);
         Task<List<(DateTime WeekStart, decimal Total)>> GetWeeklyEarningsAsync(DateTime from, DateTime to);
         Task<List<(int Year, decimal Total)>> GetYearlyEarningsAsync();
-        // New methods for profit calculation
         Task<List<MonthlyEarningDto>> GetMonthlyEarningsWithProfitAsync(int year, int? productId = null);
         Task<List<WeeklyEarningDto>> GetWeeklyEarningsWithProfitAsync(int weeks, int? productId = null);
         Task<List<YearlyEarningDto>> GetYearlyEarningsWithProfitAsync(int? productId = null);
