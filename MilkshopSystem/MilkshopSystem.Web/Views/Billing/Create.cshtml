@@ -31,14 +31,23 @@
             </div>
             @if (Model.IsEditMode)
             {
-                <small class="text-muted">This invoice is locked for the customer. If you need to make any changes, please create a new invoice.</small>
+                <small class="text-muted">This customer is locked to this invoice. To make changes, please create a new bill.</small>
             }
+        </div>
+    </div>
+
+    <div class="card mb-3" style="border-color:#0d6efd; background:#eef5ff;">
+        <div class="card-body">
+            <h5 class="card-title text-primary">📷 Scan Barcode</h5>
+            <input type="text" id="barcodeInput" class="form-control" autocomplete="off" autofocus
+                   placeholder="Keep the cursor here and scan the barcode." />
+            <small class="text-muted">Once the scanner beeps, the product will be added automatically below.</small>
         </div>
     </div>
 
     <div class="card mb-3">
         <div class="card-body">
-            <h5 class="card-title">Add Product</h5>
+            <h5 class="card-title">Add Product (manual search)</h5>
             <div class="row align-items-end">
                 <div class="col-md-4 mb-2 position-relative">
                     <label class="form-label">Product Search</label>
@@ -211,22 +220,63 @@
         if (!qty || qty <= 0) { alert('please add the qty'); return; }
         if (qty > available) { alert(`stock low. Available: ${available}`); return; }
 
-        const unitPrice = computePrice();
-        items.push({
+        addItemToBill({
             productId: productId,
             name: document.getElementById('selectedProductName').value,
             size: document.getElementById('selectedSize').value,
             unitSymbol: document.getElementById('selectedUnitSymbol').value,
             priceType: document.getElementById('priceType').value,
-            unitPrice: unitPrice,
+            unitPrice: computePrice(),
             qty: qty
         });
 
-        renderItems();
         productSearch.value = '';
         document.getElementById('qtyInput').value = '';
         document.getElementById('availableStock').value = '';
         document.getElementById('selectedProductId').value = '';
+    });
+
+   
+    function addItemToBill(newItem) {
+        const existing = items.find(i => i.productId == newItem.productId && i.priceType === newItem.priceType);
+        if (existing) {
+            existing.qty += newItem.qty;
+        } else {
+            items.push(newItem);
+        }
+        renderItems();
+    }
+
+ 
+    const barcodeInput = document.getElementById('barcodeInput');
+    barcodeInput.addEventListener('keydown', async (e) => {
+        if (e.key !== 'Enter') return;
+        e.preventDefault();
+        const code = barcodeInput.value.trim();
+        barcodeInput.value = '';
+        if (!code) return;
+
+        try {
+            const res = await fetch(`/Product/SearchByBarcode?code=${encodeURIComponent(code)}`);
+            const p = await res.json();
+            if (!p) { alert(`Indha barcode-ku product kidaikala: ${code}`); return; }
+
+            const stockRes = await fetch(`/Stock/GetAvailableQty?productId=${p.id}`);
+            const stockData = await stockRes.json();
+            if (stockData.availableQty < 1) { alert(`${p.name} - stock illa`); return; }
+
+            addItemToBill({
+                productId: p.id,
+                name: p.name,
+                size: p.size,
+                unitSymbol: p.unitSymbol,
+                priceType: 'StorePrice',
+                unitPrice: p.storePrice,
+                qty: 1
+            });
+        } catch (err) {
+            alert('Barcode lookup failed. Please check your network connection and try again.');
+        }
     });
 
     function renderItems() {
@@ -273,8 +323,16 @@
 
     function updateBalanceDisplay(grandTotal) {
         const paid = parseFloat(document.getElementById('paidAmountInput').value || 0);
-        const balance = Math.max(0, (grandTotal !== undefined ? grandTotal : parseFloat(document.getElementById('grandTotalCell').textContent)) - paid);
-        document.getElementById('balanceDisplay').textContent = balance.toFixed(2);
+        const total = grandTotal !== undefined ? grandTotal : parseFloat(document.getElementById('grandTotalCell').textContent);
+        const balance = total - paid;
+        const el = document.getElementById('balanceDisplay');
+        if (balance < 0) {
+            el.textContent = `Advance ₹${Math.abs(balance).toFixed(2)}`;
+            el.style.color = '#0dcaf0';
+        } else {
+            el.textContent = balance.toFixed(2);
+            el.style.color = balance > 0 ? '#dc3545' : '#198754';
+        }
     }
 
     document.getElementById('paidAmountInput').addEventListener('input', () => updateBalanceDisplay());
@@ -287,12 +345,10 @@
     document.getElementById('billingForm').addEventListener('submit', (e) => {
         if (items.length === 0) {
             e.preventDefault();
-            alert('Kammiya oru product venum bill pananum.');
+            alert('If you need to bill a smaller quantity of a product, adjust the quantity before billing.');
         }
     });
-
-    // Edit mode: render whatever items were pre-loaded from the server, and
-    // show the correct starting balance for the already-filled paid amount.
+    
     renderItems();
     updateBalanceDisplay();
 </script>

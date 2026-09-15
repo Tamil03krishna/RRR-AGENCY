@@ -57,6 +57,19 @@ namespace MilkshopSystem.Web.Repositories.Implementations
             return result.ToList();
         }
 
+        public async Task<Product?> GetByBarcodeAsync(string barcode)
+        {
+            using var conn = _factory.CreateConnection();
+            return await conn.QueryFirstOrDefaultAsync<Product>(
+                $@"{BaseSelect}
+                   WHERE p.IsActive = 1
+                     AND p.ActiveFrom <= CURDATE()
+                     AND (p.ActiveTo IS NULL OR p.ActiveTo >= CURDATE())
+                     AND p.Barcode = @barcode
+                   LIMIT 1",
+                new { barcode });
+        }
+
         public async Task<List<ProductCategory>> GetCategoriesAsync()
         {
             using var conn = _factory.CreateConnection();
@@ -68,9 +81,9 @@ namespace MilkshopSystem.Web.Repositories.Implementations
         {
             using var conn = _factory.CreateConnection();
             var sql = @"INSERT INTO Products
-                        (Name, CategoryId, UnitId, Size, StorePrice, MrpPrice, ActiveFrom, ActiveTo, IsActive, CreatedDate)
+                        (Name, CategoryId, UnitId, Size, Barcode, StorePrice, MrpPrice, ActiveFrom, ActiveTo, IsActive, CreatedDate)
                         VALUES
-                        (@Name, @CategoryId, @UnitId, @Size, @StorePrice, @MrpPrice, @ActiveFrom, @ActiveTo, 1, NOW());
+                        (@Name, @CategoryId, @UnitId, @Size, @Barcode, @StorePrice, @MrpPrice, @ActiveFrom, @ActiveTo, 1, NOW());
                         SELECT LAST_INSERT_ID();";
             return await conn.ExecuteScalarAsync<int>(sql, product);
         }
@@ -80,7 +93,7 @@ namespace MilkshopSystem.Web.Repositories.Implementations
             using var conn = _factory.CreateConnection();
             var rows = await conn.ExecuteAsync(
                 @"UPDATE Products SET
-                    Name=@Name, CategoryId=@CategoryId, UnitId=@UnitId, Size=@Size,
+                    Name=@Name, CategoryId=@CategoryId, UnitId=@UnitId, Size=@Size, Barcode=@Barcode,
                     StorePrice=@StorePrice, MrpPrice=@MrpPrice,
                     ActiveFrom=@ActiveFrom, ActiveTo=@ActiveTo, IsActive=@IsActive, UpdatedDate=NOW()
                   WHERE Id=@Id", product);
