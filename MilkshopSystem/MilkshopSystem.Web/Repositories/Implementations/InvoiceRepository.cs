@@ -43,11 +43,7 @@ namespace MilkshopSystem.Web.Repositories.Implementations
 
             return new PagedResult<Invoice>
             {
-                Items = items.ToList(),
-                TotalRecords = total,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                SearchTerm = search
+                Items = items.ToList(), TotalRecords = total, PageNumber = pageNumber, PageSize = pageSize, SearchTerm = search
             };
         }
 
@@ -81,7 +77,7 @@ namespace MilkshopSystem.Web.Repositories.Implementations
             return $"INV-{year}-{(count + 1):D5}";
         }
 
-
+        
         public async Task<int> CreateInvoiceAsync(Invoice invoice)
         {
             using var conn = (MySqlConnection)_factory.CreateConnection();
@@ -109,6 +105,7 @@ namespace MilkshopSystem.Web.Repositories.Implementations
                     await _stockRepository.ReduceStockAsync(conn, tx, item.ProductId, item.Qty);
                 }
 
+                
                 var remainingPayment = invoice.PaidAmount;
 
                 if (remainingPayment > 0 && invoice.PreviousBalance > 0)
@@ -160,7 +157,7 @@ namespace MilkshopSystem.Web.Repositories.Implementations
                         tx);
                 }
 
-
+               
                 await conn.ExecuteAsync(
                     "UPDATE Customers SET OutstandingBalance = @balance, UpdatedDate = NOW() WHERE Id = @customerId",
                     new { balance = invoice.BalanceAmount, customerId = invoice.CustomerId }, tx);
@@ -208,6 +205,8 @@ namespace MilkshopSystem.Web.Repositories.Implementations
                 throw;
             }
         }
+
+ 
         public async Task UpdateInvoiceAsync(int invoiceId, List<InvoiceItem> items, decimal paidAmount, int paymentModeId)
         {
             using var conn = (MySqlConnection)_factory.CreateConnection();
@@ -244,8 +243,7 @@ namespace MilkshopSystem.Web.Repositories.Implementations
                 var newSubTotal = items.Sum(i => i.UnitPrice * i.Qty);
                 var newGrandTotal = newSubTotal + invoice.PreviousBalance;
                 var newBalance = newGrandTotal - paidAmount;
-                if (newBalance < 0) newBalance = 0;
-                var newStatus = newBalance <= 0 ? "Paid" : (paidAmount > 0 ? "Partial" : "Unpaid");
+                var newStatus = newBalance < 0 ? "Advance" : (newBalance == 0 ? "Paid" : (paidAmount > 0 ? "Partial" : "Unpaid"));
 
                 var oldBalance = invoice.BalanceAmount;
 
@@ -272,6 +270,7 @@ namespace MilkshopSystem.Web.Repositories.Implementations
                 throw;
             }
         }
+
 
         public async Task CancelInvoiceAsync(int invoiceId)
         {
@@ -302,6 +301,7 @@ namespace MilkshopSystem.Web.Repositories.Implementations
                     await _stockRepository.IncreaseStockAsync(conn, tx, item.ProductId, item.Qty);
                 }
 
+       
                 await conn.ExecuteAsync(
                     "DELETE FROM InvoicePayments WHERE InvoiceId = @invoiceId", new { invoiceId }, tx);
 
@@ -309,8 +309,9 @@ namespace MilkshopSystem.Web.Repositories.Implementations
                     "UPDATE Invoices SET IsCancelled = 1, BalanceAmount = 0, PaymentStatus = 'Cancelled' WHERE Id = @invoiceId",
                     new { invoiceId }, tx);
 
-                if (invoice.BalanceAmount > 0)
+                if (invoice.BalanceAmount != 0)
                 {
+           
                     await conn.ExecuteAsync(
                         "UPDATE Customers SET OutstandingBalance = OutstandingBalance - @balance, UpdatedDate = NOW() WHERE Id = @customerId",
                         new { balance = invoice.BalanceAmount, customerId = invoice.CustomerId }, tx);

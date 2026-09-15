@@ -81,7 +81,7 @@ namespace MilkshopSystem.Web.Controllers
             var grandTotal = subTotal + previousBalance;
             var balanceAmount = grandTotal - vm.PaidAmount;
 
-            var status = balanceAmount <= 0 ? "Paid" : (vm.PaidAmount > 0 ? "Partial" : "Unpaid");
+            var status = balanceAmount < 0 ? "Advance" : (balanceAmount == 0 ? "Paid" : (vm.PaidAmount > 0 ? "Partial" : "Unpaid"));
 
             var invoice = new Invoice
             {
@@ -91,7 +91,7 @@ namespace MilkshopSystem.Web.Controllers
                 PreviousBalance = previousBalance,
                 GrandTotal = grandTotal,
                 PaidAmount = vm.PaidAmount,
-                BalanceAmount = balanceAmount < 0 ? 0 : balanceAmount,
+                BalanceAmount = balanceAmount,
                 PaymentStatus = status,
                 PaymentModeId = vm.PaymentModeId,
                 CreatedByUserId = GetCurrentUserId(),
@@ -147,7 +147,7 @@ namespace MilkshopSystem.Web.Controllers
             if (invoice is null) return NotFound();
             if (invoice.IsCancelled)
             {
-                TempData["Error"] = "A cancelled invoice cannot be edited.";
+                TempData["Error"] = "Cancelled invoices cannot be edited.";
                 return RedirectToAction(nameof(Details), new { id });
             }
 
@@ -186,7 +186,7 @@ namespace MilkshopSystem.Web.Controllers
 
             if (vm.Items is null || vm.Items.Count == 0)
             {
-                ModelState.AddModelError(string.Empty, "I need to bill a smaller quantity of the product.");
+                ModelState.AddModelError(string.Empty, "To bill a smaller quantity of a product, reduce the quantity before billing.");
                 return View("Create", vm);
             }
             if (!ModelState.IsValid) return View("Create", vm);
@@ -203,7 +203,7 @@ namespace MilkshopSystem.Web.Controllers
                 }).ToList();
 
                 await _invoiceRepo.UpdateInvoiceAsync(id, items, vm.PaidAmount, vm.PaymentModeId);
-                TempData["Success"] = "The invoice has been updated.";
+                TempData["Success"] = "Invoice updated successfully.";
                 return RedirectToAction(nameof(Details), new { id });
             }
             catch (InvalidOperationException ex)
@@ -220,7 +220,7 @@ namespace MilkshopSystem.Web.Controllers
             try
             {
                 await _invoiceRepo.CancelInvoiceAsync(id);
-                TempData["Success"] = "The invoice has been cancelled.";
+                TempData["Success"] = "Invoice cancel successfully";
             }
             catch (InvalidOperationException ex)
             {

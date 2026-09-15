@@ -86,13 +86,14 @@
         </div>
     </div>
     <div class="col-md-4">
+        <a href="@Url.Action("Outstanding", "Customer")" style="text-decoration:none; color:inherit;">
         <div class="card stat-card-secondary shadow-sm">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <div class="stat-label text-muted" style="text-transform: none;">💳 Total Outstanding</div>
                         <div class="stat-value text-danger" style="font-size: 1.5rem;">₹@Model.TotalOutstanding.ToString("N2")</div>
-                        <small class="text-muted">Customers owe shop</small>
+                        <small class="text-muted">Customers owe shop (net of advances)</small>
                     </div>
                     <div class="stat-icon-circle" style="background: rgba(229, 62, 62, 0.1); color: #e53e3e;">
                         <i class="bi bi-credit-card"></i>
@@ -100,6 +101,7 @@
                 </div>
             </div>
         </div>
+        </a>
     </div>
     <div class="col-md-4">
         <div class="card stat-card-secondary shadow-sm">

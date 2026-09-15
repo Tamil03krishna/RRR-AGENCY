@@ -11,5 +11,6 @@ namespace MilkshopSystem.Web.Repositories.Interfaces
         Task<bool> UpdateAsync(Customer customer);
         Task<bool> DeleteAsync(int id); 
         Task<bool> UpdateOutstandingBalanceAsync(int customerId, decimal newBalance);
+        Task<List<Customer>> GetCustomersWithBalanceAsync();
     }
 }

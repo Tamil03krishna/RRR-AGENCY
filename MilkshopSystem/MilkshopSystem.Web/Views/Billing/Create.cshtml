@@ -31,7 +31,7 @@
             </div>
             @if (Model.IsEditMode)
             {
-                <small class="text-muted">This customer is locked to this invoice. To make changes, please create a new bill.</small>
+                <small class="text-muted">This customer is locked to this invoice. To make changes, please create a new bill</small>
             }
         </div>
     </div>
@@ -247,7 +247,7 @@
         renderItems();
     }
 
- 
+   
     const barcodeInput = document.getElementById('barcodeInput');
     barcodeInput.addEventListener('keydown', async (e) => {
         if (e.key !== 'Enter') return;
@@ -348,8 +348,7 @@
             alert('If you need to bill a smaller quantity of a product, adjust the quantity before billing.');
         }
     });
-    
-    renderItems();
+     renderItems();
     updateBalanceDisplay();
 </script>
 }
