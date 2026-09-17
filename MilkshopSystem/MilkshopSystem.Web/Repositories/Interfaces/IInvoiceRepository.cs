@@ -4,7 +4,9 @@ namespace MilkshopSystem.Web.Repositories.Interfaces
 {
     public interface IInvoiceRepository
     {
-        Task<PagedResult<Invoice>> GetPagedAsync(string? search, int pageNumber, int pageSize);
+        Task<PagedResult<Invoice>> GetPagedAsync(string? search, int pageNumber, int pageSize, int? year = null, int? month = null);
+        Task<List<Invoice>> GetAllFilteredAsync(string? search, int? year, int? month);
+        Task<List<int>> GetDistinctInvoiceYearsAsync();
         Task<Invoice?> GetByIdAsync(int id);
         Task<Invoice?> GetLastInvoiceForCustomerAsync(int customerId);
         Task<string> GetNextInvoiceNoAsync();

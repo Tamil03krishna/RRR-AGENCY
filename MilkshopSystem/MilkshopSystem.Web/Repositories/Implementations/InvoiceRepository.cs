@@ -19,17 +19,16 @@ namespace MilkshopSystem.Web.Repositories.Implementations
             _customerRepository = customerRepository;
         }
 
-        public async Task<PagedResult<Invoice>> GetPagedAsync(string? search, int pageNumber, int pageSize)
+        public async Task<PagedResult<Invoice>> GetPagedAsync(string? search, int pageNumber, int pageSize, int? year = null, int? month = null)
         {
             using var conn = _factory.CreateConnection();
-            var where = string.IsNullOrWhiteSpace(search)
-                ? ""
-                : "WHERE i.InvoiceNo LIKE @search OR c.Name LIKE @search OR c.Phone LIKE @search OR i.PaymentStatus LIKE @search";
-            var searchParam = $"%{search}%";
+            var (where, dbParams) = BuildInvoiceFilter(search, year, month);
 
             var total = await conn.ExecuteScalarAsync<int>(
-                $"SELECT COUNT(*) FROM Invoices i JOIN Customers c ON c.Id = i.CustomerId {where}",
-                new { search = searchParam });
+                $"SELECT COUNT(*) FROM Invoices i JOIN Customers c ON c.Id = i.CustomerId {where}", dbParams);
+
+            dbParams.Add("pageSize", pageSize);
+            dbParams.Add("offset", (pageNumber - 1) * pageSize);
 
             var items = await conn.QueryAsync<Invoice>(
                 $@"SELECT i.*, c.Name AS CustomerName, c.Phone AS CustomerPhone, pm.Name AS PaymentModeName
@@ -39,12 +38,55 @@ namespace MilkshopSystem.Web.Repositories.Implementations
                    {where}
                    ORDER BY i.InvoiceDate DESC
                    LIMIT @pageSize OFFSET @offset",
-                new { search = searchParam, pageSize, offset = (pageNumber - 1) * pageSize });
+                dbParams);
 
             return new PagedResult<Invoice>
             {
                 Items = items.ToList(), TotalRecords = total, PageNumber = pageNumber, PageSize = pageSize, SearchTerm = search
             };
+        }
+
+        // Every invoice matching the same filters as the list page, with no paging —
+        // used by the Excel/PDF/Print export so the download matches what's on screen.
+        public async Task<List<Invoice>> GetAllFilteredAsync(string? search, int? year, int? month)
+        {
+            using var conn = _factory.CreateConnection();
+            var (where, dbParams) = BuildInvoiceFilter(search, year, month);
+
+            var items = await conn.QueryAsync<Invoice>(
+                $@"SELECT i.*, c.Name AS CustomerName, c.Phone AS CustomerPhone, pm.Name AS PaymentModeName
+                   FROM Invoices i
+                   JOIN Customers c ON c.Id = i.CustomerId
+                   LEFT JOIN PaymentModes pm ON pm.Id = i.PaymentModeId
+                   {where}
+                   ORDER BY i.InvoiceDate DESC", dbParams);
+
+            return items.ToList();
+        }
+
+        private static (string where, DynamicParameters dbParams) BuildInvoiceFilter(string? search, int? year, int? month)
+        {
+            var conditions = new List<string>();
+            var dbParams = new DynamicParameters();
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                conditions.Add("(i.InvoiceNo LIKE @search OR c.Name LIKE @search OR c.Phone LIKE @search OR i.PaymentStatus LIKE @search)");
+                dbParams.Add("search", $"%{search}%");
+            }
+            if (year.HasValue)
+            {
+                conditions.Add("YEAR(i.InvoiceDate) = @year");
+                dbParams.Add("year", year.Value);
+            }
+            if (month.HasValue)
+            {
+                conditions.Add("MONTH(i.InvoiceDate) = @month");
+                dbParams.Add("month", month.Value);
+            }
+
+            var where = conditions.Count > 0 ? "WHERE " + string.Join(" AND ", conditions) : "";
+            return (where, dbParams);
         }
 
         public async Task<Invoice?> GetByIdAsync(int id)
@@ -66,6 +108,14 @@ namespace MilkshopSystem.Web.Repositories.Implementations
 
             invoice.Items = items.ToList();
             return invoice;
+        }
+
+        public async Task<List<int>> GetDistinctInvoiceYearsAsync()
+        {
+            using var conn = _factory.CreateConnection();
+            var years = await conn.QueryAsync<int>(
+                "SELECT DISTINCT YEAR(InvoiceDate) FROM Invoices ORDER BY YEAR(InvoiceDate) DESC");
+            return years.ToList();
         }
 
         // Most recent non-cancelled invoice for a customer, used by "Repeat Last Order"
