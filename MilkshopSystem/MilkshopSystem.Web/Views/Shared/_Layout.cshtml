@@ -16,10 +16,12 @@
     {
         <form id="antiForgeryForm" style="display:none;">@Html.AntiForgeryToken()</form>
 
+        <!-- Mobile Toggle Button -->
         <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle navigation">
             ☰
         </button>
 
+        <!-- Sidebar -->
         <nav class="sidebar" id="sidebar">
             <button class="sidebar-close" id="sidebarClose">✕</button>
 
@@ -33,6 +35,7 @@
                 <li class="nav-item"><a class="nav-link" asp-controller="Billing" asp-action="Index">📄 Invoices</a></li>
                 <li class="nav-item"><a class="nav-link" asp-controller="Customer" asp-action="Index">👤 Customers</a></li>
                 <li class="nav-item"><a class="nav-link" asp-controller="Product" asp-action="Index">📦 Products</a></li>
+                <li class="nav-item"><a class="nav-link" asp-controller="Category" asp-action="Index">🗂️ Categories</a></li>
                 <li class="nav-item"><a class="nav-link" asp-controller="Stock" asp-action="Index">📊 Stock</a></li>
                 <li class="nav-item"><a class="nav-link" asp-controller="Unit" asp-action="Index">📏 Units</a></li>
                 <li class="nav-item"><a class="nav-link" asp-controller="PaymentMode" asp-action="Index">💳 Payment Modes</a></li>
@@ -47,12 +50,15 @@
             </div>
         </nav>
 
+        <!-- Overlay for mobile -->
         <div id="sidebarOverlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:999;"></div>
 
+        <!-- Notes Bell -->
         <button id="notesBellBtn" title="Notes" style="position:fixed;top:14px;right:20px;z-index:1001;width:44px;height:44px;border-radius:50%;border:none;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.15);font-size:20px;cursor:pointer;">
             🔔<span id="notesCountBadge" style="display:none;position:absolute;top:-2px;right:-2px;background:#dc3545;color:#fff;font-size:10px;min-width:16px;height:16px;border-radius:8px;line-height:16px;text-align:center;padding:0 3px;"></span>
         </button>
 
+        <!-- Notes Panel -->
         <div id="notesOverlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.35);z-index:1002;"></div>
         <div id="notesPanel" style="display:none;position:fixed;top:0;right:0;width:340px;max-width:90%;height:100%;background:#f8f9fa;z-index:1003;box-shadow:-2px 0 10px rgba(0,0,0,0.2);overflow-y:auto;">
             <div style="padding:14px 16px;border-bottom:1px solid #dee2e6;display:flex;justify-content:space-between;align-items:center;background:#fff;">
@@ -133,16 +139,19 @@
             closeBtn.addEventListener('click', closeSidebar);
             overlay.addEventListener('click', closeSidebar);
 
+            // Close sidebar on escape key
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') closeSidebar();
             });
 
+            // Active link highlighting (optional - add class based on current page)
             document.querySelectorAll('.sidebar .nav-link').forEach(link => {
                 if (link.href === window.location.href) {
                     link.classList.add('active');
                 }
             });
 
+            // ---- Notes (Kitty Notes) ----
             const notesBellBtn = document.getElementById('notesBellBtn');
             const notesPanel = document.getElementById('notesPanel');
             const notesOverlay = document.getElementById('notesOverlay');
@@ -276,6 +285,7 @@
     }
     else
     {
+        <!-- When not logged in, just show content without sidebar -->
         <div class="container-fluid mt-3 mb-5">
             @if (TempData["Success"] != null)
             {

@@ -81,6 +81,9 @@ namespace MilkshopSystem.Web.Controllers
             var grandTotal = subTotal + previousBalance;
             var balanceAmount = grandTotal - vm.PaidAmount;
 
+            // BUG FIX: negative balance now means the customer paid MORE than the bill —
+            // that extra amount is an advance/credit that should reduce their next bill,
+            // not be silently discarded. Previously this was clamped to 0 and lost.
             var status = balanceAmount < 0 ? "Advance" : (balanceAmount == 0 ? "Paid" : (vm.PaidAmount > 0 ? "Partial" : "Unpaid"));
 
             var invoice = new Invoice
@@ -147,7 +150,7 @@ namespace MilkshopSystem.Web.Controllers
             if (invoice is null) return NotFound();
             if (invoice.IsCancelled)
             {
-                TempData["Error"] = "Cancelled invoices cannot be edited.";
+                TempData["Error"] = "Cannot edit a cancelled invoice.";
                 return RedirectToAction(nameof(Details), new { id });
             }
 
@@ -186,7 +189,7 @@ namespace MilkshopSystem.Web.Controllers
 
             if (vm.Items is null || vm.Items.Count == 0)
             {
-                ModelState.AddModelError(string.Empty, "To bill a smaller quantity of a product, reduce the quantity before billing.");
+                ModelState.AddModelError(string.Empty, "Please add at least one product to the bill.");
                 return View("Create", vm);
             }
             if (!ModelState.IsValid) return View("Create", vm);
@@ -203,7 +206,7 @@ namespace MilkshopSystem.Web.Controllers
                 }).ToList();
 
                 await _invoiceRepo.UpdateInvoiceAsync(id, items, vm.PaidAmount, vm.PaymentModeId);
-                TempData["Success"] = "Invoice updated successfully.";
+                TempData["Success"] = "Invoice updated successfully";
                 return RedirectToAction(nameof(Details), new { id });
             }
             catch (InvalidOperationException ex)
@@ -220,7 +223,7 @@ namespace MilkshopSystem.Web.Controllers
             try
             {
                 await _invoiceRepo.CancelInvoiceAsync(id);
-                TempData["Success"] = "Invoice cancel successfully";
+                TempData["Success"] = "Invoice cancelled successfully";
             }
             catch (InvalidOperationException ex)
             {
@@ -228,6 +231,30 @@ namespace MilkshopSystem.Web.Controllers
             }
 
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetLastOrder(int customerId)
+        {
+            var lastInvoice = await _invoiceRepo.GetLastInvoiceForCustomerAsync(customerId);
+            if (lastInvoice is null || lastInvoice.Items.Count == 0)
+                return Json(new { found = false });
+
+            return Json(new
+            {
+                found = true,
+                invoiceDate = lastInvoice.InvoiceDate.ToString("dd-MMM-yyyy"),
+                items = lastInvoice.Items.Select(i => new
+                {
+                    productId = i.ProductId,
+                    name = i.ProductName,
+                    size = i.Size,
+                    unitSymbol = i.UnitSymbol,
+                    priceType = i.PriceType,
+                    unitPrice = i.UnitPrice,
+                    qty = i.Qty
+                })
+            });
         }
 
         private async Task<List<SelectListItem>> GetPaymentModeOptions()
