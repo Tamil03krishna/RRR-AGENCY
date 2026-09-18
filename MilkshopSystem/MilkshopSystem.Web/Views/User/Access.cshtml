@@ -1,0 +1,39 @@
+@model UserAccessViewModel
+@{ ViewData["Title"] = "Manage Access"; }
+
+<h3>Manage Access — @Model.FullName (@Model.Username)</h3>
+<p class="text-muted">Tick which actions this user is allowed to perform in each module.</p>
+
+<form asp-action="Access" method="post">
+    <input type="hidden" asp-for="UserId" />
+
+    <table class="table table-bordered bg-white" style="max-width:700px;">
+        <thead>
+            <tr>
+                <th>Module</th>
+                <th class="text-center">View</th>
+                <th class="text-center">Add</th>
+                <th class="text-center">Edit</th>
+                <th class="text-center">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+        @for (var i = 0; i < Model.Permissions.Count; i++)
+        {
+            <tr>
+                <td>
+                    @Model.Permissions[i].ModuleName
+                    <input type="hidden" asp-for="Permissions[i].ModuleName" />
+                </td>
+                <td class="text-center"><input type="checkbox" asp-for="Permissions[i].CanView" class="form-check-input" /></td>
+                <td class="text-center"><input type="checkbox" asp-for="Permissions[i].CanAdd" class="form-check-input" /></td>
+                <td class="text-center"><input type="checkbox" asp-for="Permissions[i].CanEdit" class="form-check-input" /></td>
+                <td class="text-center"><input type="checkbox" asp-for="Permissions[i].CanDelete" class="form-check-input" /></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+    <button type="submit" class="btn btn-primary">Save Access</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

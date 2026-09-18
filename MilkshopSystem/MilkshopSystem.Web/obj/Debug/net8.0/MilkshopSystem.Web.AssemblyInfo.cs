@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MilkshopSystem.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a43cf5e998267959669ffd7fb1ef422bdf8f8028")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f782863900fc0c7cb06db0c5b891733bcea5ba3d")]
 [assembly: System.Reflection.AssemblyProductAttribute("MilkshopSystem.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MilkshopSystem.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

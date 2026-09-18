@@ -1,0 +1,28 @@
+@model UserFormViewModel
+@{ ViewData["Title"] = "Edit User"; }
+<h3>Edit User</h3>
+<form asp-action="Edit" method="post" style="max-width:450px;">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" />
+    <div class="mb-3">
+        <label class="form-label">Username</label>
+        <input value="@Model.Username" class="form-control" readonly />
+        <small class="text-muted">Username cannot be changed.</small>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Full Name</label>
+        <input asp-for="FullName" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Role</label>
+        <select asp-for="RoleId" class="form-select" asp-items="Model.Roles" required>
+            <option value="">-- Select Role --</option>
+        </select>
+    </div>
+    <div class="form-check mb-3">
+        <input asp-for="IsActive" class="form-check-input" />
+        <label class="form-check-label">Active</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

@@ -40,10 +40,19 @@
                 <li class="nav-item"><a class="nav-link" asp-controller="Unit" asp-action="Index">📏 Units</a></li>
                 <li class="nav-item"><a class="nav-link" asp-controller="PaymentMode" asp-action="Index">💳 Payment Modes</a></li>
                 <li class="nav-item"><a class="nav-link" asp-controller="Report" asp-action="Charts">📈 Charts</a></li>
+                @if (User.IsInRole("Admin"))
+                {
+                    <li class="nav-item"><a class="nav-link" asp-controller="User" asp-action="Index">👥 Users</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-controller="Role" asp-action="Index">🛡️ Roles</a></li>
+                }
             </ul>
 
             <div class="user-section">
                 <span class="user-name">👤 @User.Identity!.Name</span>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-controller="Account" asp-action="MyPassword" class="btn btn-outline-secondary btn-sm">🔑 Change Password</a>
+                }
                 <form asp-controller="Account" asp-action="Logout" method="post">
                     <button class="btn btn-outline-danger btn-sm logout-btn" type="submit">🚪 Logout</button>
                 </form>

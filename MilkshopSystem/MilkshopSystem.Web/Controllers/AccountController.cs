@@ -1,17 +1,24 @@
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using MilkshopSystem.Web.Models.ViewModels;
 using MilkshopSystem.Web.Repositories.Interfaces;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Text;
 
 namespace MilkshopSystem.Web.Controllers
 {
     public class AccountController : Controller
     {
         private readonly IUserRepository _userRepository;
-        public AccountController(IUserRepository userRepository) => _userRepository = userRepository;
+        private readonly IConfiguration _config;
+
+        public AccountController(IUserRepository userRepository, IConfiguration config)
+        {
+            _userRepository = userRepository;
+            _config = config;
+        }
 
         [AllowAnonymous]
         [HttpGet]
@@ -38,17 +45,20 @@ namespace MilkshopSystem.Web.Controllers
                 return View(model);
             }
 
-            var claims = new List<Claim>
-            {
-                new(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new(ClaimTypes.Name, user.FullName),
-                new("Username", user.Username),
-                new(ClaimTypes.Role, user.Role)
-            };
+            var expiryMinutes = _config.GetValue<int?>("Jwt:ExpiryMinutes") ?? 480;
+            var expires = model.RememberMe
+                ? DateTime.UtcNow.AddDays(30)
+                : DateTime.UtcNow.AddMinutes(expiryMinutes);
 
-            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity),
-                new AuthenticationProperties { IsPersistent = model.RememberMe });
+            var token = GenerateJwtToken(user.Id, user.Username, user.FullName, user.Role, expires);
+
+            Response.Cookies.Append("access_token", token, new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Lax,
+                Expires = expires
+            });
 
             if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                 return Redirect(returnUrl);
@@ -58,10 +68,72 @@ namespace MilkshopSystem.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Logout()
+        public IActionResult Logout()
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            Response.Cookies.Delete("access_token");
             return RedirectToAction("Login");
+        }
+
+        // Self-service: the currently logged-in user changes their own password
+        // (requires the current password, unlike an Admin resetting someone else's).
+        [Authorize]
+        [HttpGet]
+        public IActionResult MyPassword()
+        {
+            var username = User.FindFirst("Username")?.Value;
+            return View(new ChangePasswordViewModel { Username = username });
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> MyPassword(ChangePasswordViewModel vm)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (!int.TryParse(userIdClaim, out var userId)) return Forbid();
+
+            var user = await _userRepository.GetByIdAsync(userId);
+            if (user is null) return NotFound();
+
+            if (string.IsNullOrWhiteSpace(vm.CurrentPassword) || !BCrypt.Net.BCrypt.Verify(vm.CurrentPassword, user.PasswordHash))
+            {
+                ModelState.AddModelError(nameof(vm.CurrentPassword), "Current password is incorrect.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                vm.Username = user.Username;
+                return View(vm);
+            }
+
+            var hash = BCrypt.Net.BCrypt.HashPassword(vm.NewPassword);
+            await _userRepository.UpdatePasswordAsync(userId, hash);
+
+            TempData["Success"] = "Your password has been changed successfully.";
+            return RedirectToAction("Index", "Dashboard");
+        }
+
+        private string GenerateJwtToken(int userId, string username, string fullName, string role, DateTime expires)
+        {
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
+                new Claim(ClaimTypes.Name, fullName),
+                new Claim("Username", username),
+                new Claim(ClaimTypes.Role, role)
+            };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]!));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(
+                issuer: _config["Jwt:Issuer"],
+                audience: _config["Jwt:Audience"],
+                claims: claims,
+                expires: expires,
+                signingCredentials: creds);
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }

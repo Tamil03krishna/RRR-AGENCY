@@ -22,6 +22,10 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudC9Mb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[/home/descpro/Documents/GitHub/My_Project/RRR-AGENCY/MilkshopSystem/MilkshopSystem.Web/Views/Account/MyPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudC9NeVBhc3N3b3JkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/home/descpro/Documents/GitHub/My_Project/RRR-AGENCY/MilkshopSystem/MilkshopSystem.Web/Views/Billing/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQmlsbGluZy9DcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -38,6 +42,22 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQmlsbGluZy9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[/home/descpro/Documents/GitHub/My_Project/RRR-AGENCY/MilkshopSystem/MilkshopSystem.Web/Views/Billing/PrintView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQmlsbGluZy9QcmludFZpZXcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/descpro/Documents/GitHub/My_Project/RRR-AGENCY/MilkshopSystem/MilkshopSystem.Web/Views/Category/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ2F0ZWdvcnkvQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/descpro/Documents/GitHub/My_Project/RRR-AGENCY/MilkshopSystem/MilkshopSystem.Web/Views/Category/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ2F0ZWdvcnkvRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/descpro/Documents/GitHub/My_Project/RRR-AGENCY/MilkshopSystem/MilkshopSystem.Web/Views/Category/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ2F0ZWdvcnkvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [/home/descpro/Documents/GitHub/My_Project/RRR-AGENCY/MilkshopSystem/MilkshopSystem.Web/Views/Customer/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ3VzdG9tZXIvQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -52,6 +72,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/home/descpro/Documents/GitHub/My_Project/RRR-AGENCY/MilkshopSystem/MilkshopSystem.Web/Views/Customer/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ3VzdG9tZXIvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/descpro/Documents/GitHub/My_Project/RRR-AGENCY/MilkshopSystem/MilkshopSystem.Web/Views/Customer/Outstanding.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ3VzdG9tZXIvT3V0c3RhbmRpbmcuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/descpro/Documents/GitHub/My_Project/RRR-AGENCY/MilkshopSystem/MilkshopSystem.Web/Views/Dashboard/Index.cshtml]
@@ -94,6 +118,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmVwb3J0L0NoYXJ0cy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[/home/descpro/Documents/GitHub/My_Project/RRR-AGENCY/MilkshopSystem/MilkshopSystem.Web/Views/Role/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUm9sZS9DcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/descpro/Documents/GitHub/My_Project/RRR-AGENCY/MilkshopSystem/MilkshopSystem.Web/Views/Role/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUm9sZS9FZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/descpro/Documents/GitHub/My_Project/RRR-AGENCY/MilkshopSystem/MilkshopSystem.Web/Views/Role/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUm9sZS9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [/home/descpro/Documents/GitHub/My_Project/RRR-AGENCY/MilkshopSystem/MilkshopSystem.Web/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -120,6 +156,30 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/home/descpro/Documents/GitHub/My_Project/RRR-AGENCY/MilkshopSystem/MilkshopSystem.Web/Views/Unit/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVW5pdC9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/descpro/Documents/GitHub/My_Project/RRR-AGENCY/MilkshopSystem/MilkshopSystem.Web/Views/User/Access.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlci9BY2Nlc3MuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/descpro/Documents/GitHub/My_Project/RRR-AGENCY/MilkshopSystem/MilkshopSystem.Web/Views/User/ChangePassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlci9DaGFuZ2VQYXNzd29yZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/descpro/Documents/GitHub/My_Project/RRR-AGENCY/MilkshopSystem/MilkshopSystem.Web/Views/User/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlci9DcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/descpro/Documents/GitHub/My_Project/RRR-AGENCY/MilkshopSystem/MilkshopSystem.Web/Views/User/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlci9EZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/descpro/Documents/GitHub/My_Project/RRR-AGENCY/MilkshopSystem/MilkshopSystem.Web/Views/User/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlci9FZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/descpro/Documents/GitHub/My_Project/RRR-AGENCY/MilkshopSystem/MilkshopSystem.Web/Views/User/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlci9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/descpro/Documents/GitHub/My_Project/RRR-AGENCY/MilkshopSystem/MilkshopSystem.Web/Views/_ViewImports.cshtml]

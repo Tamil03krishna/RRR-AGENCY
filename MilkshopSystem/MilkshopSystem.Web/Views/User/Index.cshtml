@@ -1,0 +1,50 @@
+@model PagedResult<User>
+@{ ViewData["Title"] = "Users"; }
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>Users</h3>
+    <a asp-action="Create" class="btn btn-primary">+ New User</a>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+<form method="get" class="d-flex mb-3" style="max-width:400px;">
+    <input type="text" name="search" value="@Model.SearchTerm" class="form-control me-2" placeholder="Username or full name..." />
+    <button type="submit" class="btn btn-outline-secondary">Search</button>
+</form>
+
+<table class="table table-striped bg-white">
+    <thead><tr><th>Username</th><th>Full Name</th><th>Role</th><th>Status</th><th>Actions</th></tr></thead>
+    <tbody>
+    @foreach (var u in Model.Items)
+    {
+        <tr>
+            <td>@u.Username</td>
+            <td>@u.FullName</td>
+            <td><span class="badge bg-secondary">@(u.RoleName ?? u.Role)</span></td>
+            <td>@(u.IsActive ? "Active" : "Inactive")</td>
+            <td>
+                <a asp-action="Details" asp-route-id="@u.Id" class="btn btn-sm btn-outline-secondary">View</a>
+                <a asp-action="Edit" asp-route-id="@u.Id" class="btn btn-sm btn-outline-primary">Edit</a>
+                <a asp-action="ChangePassword" asp-route-id="@u.Id" class="btn btn-sm btn-outline-warning">Change Password</a>
+                <a asp-action="Access" asp-route-id="@u.Id" class="btn btn-sm btn-outline-dark">Access</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@if (Model.TotalPages > 1)
+{
+    <nav><ul class="pagination">
+        @for (var p = 1; p <= Model.TotalPages; p++)
+        {
+            <li class="page-item @(p == Model.PageNumber ? "active" : "")">
+                <a class="page-link" href="@Url.Action("Index", new { search = Model.SearchTerm, page = p })">@p</a>
+            </li>
+        }
+    </ul></nav>
+}
