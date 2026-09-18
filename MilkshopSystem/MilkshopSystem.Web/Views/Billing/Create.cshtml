@@ -31,14 +31,28 @@
             </div>
             @if (Model.IsEditMode)
             {
-                <small class="text-muted">This invoice is locked for the customer. If you need to make any changes, please create a new invoice.</small>
+                <small class="text-muted">Customer is locked for this invoice — create a new bill to change the customer.</small>
             }
+
+            <div id="repeatOrderBox" style="display:none; margin-top:10px;" class="alert alert-light border d-flex justify-content-between align-items-center">
+                <span id="repeatOrderText"></span>
+                <button type="button" id="repeatOrderBtn" class="btn btn-sm btn-outline-primary">🔁 Repeat Last Order</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-3" style="border-color:#0d6efd; background:#eef5ff;">
+        <div class="card-body">
+            <h5 class="card-title text-primary">📷 Scan Barcode</h5>
+            <input type="text" id="barcodeInput" class="form-control" autocomplete="off" autofocus
+                   placeholder="Keep the cursor here... then scan" />
+            <small class="text-muted">The product is added below automatically as soon as the scanner beeps</small>
         </div>
     </div>
 
     <div class="card mb-3">
         <div class="card-body">
-            <h5 class="card-title">Add Product</h5>
+            <h5 class="card-title">Add Product (manual search)</h5>
             <div class="row align-items-end">
                 <div class="col-md-4 mb-2 position-relative">
                     <label class="form-label">Product Search</label>
@@ -146,10 +160,46 @@
                 document.getElementById('previousBalanceDisplay').value = Number(balData.balance).toFixed(2);
                 document.getElementById('PreviousBalance').value = balData.balance;
                 recalcTotals();
+
+                await checkLastOrder(c.id);
             };
             customerResults.appendChild(a);
         });
     }, 300));
+
+    // ---- Repeat Last Order ----
+    let lastOrderItems = [];
+    const repeatOrderBox = document.getElementById('repeatOrderBox');
+    const repeatOrderText = document.getElementById('repeatOrderText');
+    const repeatOrderBtn = document.getElementById('repeatOrderBtn');
+
+    async function checkLastOrder(customerId) {
+        repeatOrderBox.style.display = 'none';
+        try {
+            const res = await fetch(`/Billing/GetLastOrder?customerId=${customerId}`);
+            const data = await res.json();
+            if (!data.found) return;
+
+            lastOrderItems = data.items;
+            const itemCount = lastOrderItems.length;
+            repeatOrderText.textContent = `Last order on ${data.invoiceDate} — ${itemCount} item${itemCount > 1 ? 's' : ''}`;
+            repeatOrderBox.style.display = 'flex';
+        } catch (err) {
+            // silently ignore — repeat order is a convenience, not critical
+        }
+    }
+
+    repeatOrderBtn.addEventListener('click', () => {
+        lastOrderItems.forEach(item => addItemToBill({
+            productId: item.productId,
+            name: item.name,
+            size: item.size,
+            unitSymbol: item.unitSymbol,
+            priceType: item.priceType,
+            unitPrice: item.unitPrice,
+            qty: item.qty
+        }));
+    });
 
     customerSearch.addEventListener('blur', () => {
         setTimeout(() => {
@@ -208,25 +258,69 @@
         const available = parseFloat(document.getElementById('availableStock').value || 0);
 
         if (!productId) { alert('Please select the product'); return; }
-        if (!qty || qty <= 0) { alert('please add the qty'); return; }
-        if (qty > available) { alert(`stock low. Available: ${available}`); return; }
+        if (!qty || qty <= 0) { alert('Please enter a quantity'); return; }
+        if (qty > available) { alert(`Not enough stock. Available: ${available}`); return; }
 
-        const unitPrice = computePrice();
-        items.push({
+        addItemToBill({
             productId: productId,
             name: document.getElementById('selectedProductName').value,
             size: document.getElementById('selectedSize').value,
             unitSymbol: document.getElementById('selectedUnitSymbol').value,
             priceType: document.getElementById('priceType').value,
-            unitPrice: unitPrice,
+            unitPrice: computePrice(),
             qty: qty
         });
 
-        renderItems();
         productSearch.value = '';
         document.getElementById('qtyInput').value = '';
         document.getElementById('availableStock').value = '';
         document.getElementById('selectedProductId').value = '';
+    });
+
+    // Shared by both manual "+ Add" and barcode scan — if the same product/priceType
+    // is already on the bill, bump its qty instead of adding a duplicate row.
+    function addItemToBill(newItem) {
+        const existing = items.find(i => i.productId == newItem.productId && i.priceType === newItem.priceType);
+        if (existing) {
+            existing.qty += newItem.qty;
+        } else {
+            items.push(newItem);
+        }
+        renderItems();
+    }
+
+    // ---- Barcode scan ----
+    // A USB/Bluetooth barcode scanner behaves like a keyboard: it types the code
+    // then sends Enter automatically. We just listen for Enter on this input.
+    const barcodeInput = document.getElementById('barcodeInput');
+    barcodeInput.addEventListener('keydown', async (e) => {
+        if (e.key !== 'Enter') return;
+        e.preventDefault();
+        const code = barcodeInput.value.trim();
+        barcodeInput.value = '';
+        if (!code) return;
+
+        try {
+            const res = await fetch(`/Product/SearchByBarcode?code=${encodeURIComponent(code)}`);
+            const p = await res.json();
+            if (!p) { alert(`No product found for barcode: ${code}`); return; }
+
+            const stockRes = await fetch(`/Stock/GetAvailableQty?productId=${p.id}`);
+            const stockData = await stockRes.json();
+            if (stockData.availableQty < 1) { alert(`${p.name} - out of stock`); return; }
+
+            addItemToBill({
+                productId: p.id,
+                name: p.name,
+                size: p.size,
+                unitSymbol: p.unitSymbol,
+                priceType: 'StorePrice',
+                unitPrice: p.storePrice,
+                qty: 1
+            });
+        } catch (err) {
+            alert('Barcode lookup failed. Please check your connection.');
+        }
     });
 
     function renderItems() {
@@ -273,8 +367,16 @@
 
     function updateBalanceDisplay(grandTotal) {
         const paid = parseFloat(document.getElementById('paidAmountInput').value || 0);
-        const balance = Math.max(0, (grandTotal !== undefined ? grandTotal : parseFloat(document.getElementById('grandTotalCell').textContent)) - paid);
-        document.getElementById('balanceDisplay').textContent = balance.toFixed(2);
+        const total = grandTotal !== undefined ? grandTotal : parseFloat(document.getElementById('grandTotalCell').textContent);
+        const balance = total - paid;
+        const el = document.getElementById('balanceDisplay');
+        if (balance < 0) {
+            el.textContent = `Advance ₹${Math.abs(balance).toFixed(2)}`;
+            el.style.color = '#0dcaf0';
+        } else {
+            el.textContent = balance.toFixed(2);
+            el.style.color = balance > 0 ? '#dc3545' : '#198754';
+        }
     }
 
     document.getElementById('paidAmountInput').addEventListener('input', () => updateBalanceDisplay());
@@ -287,7 +389,7 @@
     document.getElementById('billingForm').addEventListener('submit', (e) => {
         if (items.length === 0) {
             e.preventDefault();
-            alert('Kammiya oru product venum bill pananum.');
+            alert('Please add at least one product to the bill.');
         }
     });
 

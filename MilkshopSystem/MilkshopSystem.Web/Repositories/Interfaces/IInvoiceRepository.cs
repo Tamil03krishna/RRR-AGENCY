@@ -4,8 +4,11 @@ namespace MilkshopSystem.Web.Repositories.Interfaces
 {
     public interface IInvoiceRepository
     {
-        Task<PagedResult<Invoice>> GetPagedAsync(string? search, int pageNumber, int pageSize);
+        Task<PagedResult<Invoice>> GetPagedAsync(string? search, int pageNumber, int pageSize, int? year = null, int? month = null);
+        Task<List<Invoice>> GetAllFilteredAsync(string? search, int? year, int? month);
+        Task<List<int>> GetDistinctInvoiceYearsAsync();
         Task<Invoice?> GetByIdAsync(int id);
+        Task<Invoice?> GetLastInvoiceForCustomerAsync(int customerId);
         Task<string> GetNextInvoiceNoAsync();
         Task<int> CreateInvoiceAsync(Invoice invoice); 
         Task<int> AddPaymentAsync(InvoicePayment payment);
@@ -16,6 +19,7 @@ namespace MilkshopSystem.Web.Repositories.Interfaces
         Task<List<(int Month, decimal Total)>> GetMonthlyEarningsAsync(int year, int? productId = null);
         Task<List<(DateTime WeekStart, decimal Total)>> GetWeeklyEarningsAsync(DateTime from, DateTime to);
         Task<List<(int Year, decimal Total)>> GetYearlyEarningsAsync();
+        // New methods for profit calculation
         Task<List<MonthlyEarningDto>> GetMonthlyEarningsWithProfitAsync(int year, int? productId = null);
         Task<List<WeeklyEarningDto>> GetWeeklyEarningsWithProfitAsync(int weeks, int? productId = null);
         Task<List<YearlyEarningDto>> GetYearlyEarningsWithProfitAsync(int? productId = null);

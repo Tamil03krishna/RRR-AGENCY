@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MilkshopSystem.Web.Models.Entities;
+using MilkshopSystem.Web.Models.ViewModels;
 using MilkshopSystem.Web.Repositories.Interfaces;
 
 namespace MilkshopSystem.Web.Controllers
@@ -13,6 +14,21 @@ namespace MilkshopSystem.Web.Controllers
         {
             var result = await _repo.GetPagedAsync(search, page, pageSize);
             return View(result);
+        }
+
+        public async Task<IActionResult> Outstanding()
+        {
+            var customers = await _repo.GetCustomersWithBalanceAsync();
+
+            var vm = new OutstandingReportViewModel
+            {
+                DueCustomers = customers.Where(c => c.OutstandingBalance > 0).ToList(),
+                AdvanceCustomers = customers.Where(c => c.OutstandingBalance < 0).ToList()
+            };
+            vm.TotalDue = vm.DueCustomers.Sum(c => c.OutstandingBalance);
+            vm.TotalAdvance = vm.AdvanceCustomers.Sum(c => Math.Abs(c.OutstandingBalance));
+
+            return View(vm);
         }
 
         [HttpGet]

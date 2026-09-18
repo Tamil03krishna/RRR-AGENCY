@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MilkshopSystem.Web.Models.ViewModels;
 using MilkshopSystem.Web.Repositories.Interfaces;
-
 namespace MilkshopSystem.Web.Controllers
 {
     public class ProductController : BaseController
@@ -39,6 +38,24 @@ namespace MilkshopSystem.Web.Controllers
                 mrpPrice = p.MrpPrice
             });
             return Json(result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SearchByBarcode(string code)
+        {
+            if (string.IsNullOrWhiteSpace(code)) return Json(null);
+            var product = await _productRepo.GetByBarcodeAsync(code.Trim());
+            if (product is null) return Json(null);
+
+            return Json(new
+            {
+                id = product.Id,
+                name = product.Name,
+                size = product.Size,
+                unitSymbol = product.UnitSymbol,
+                storePrice = product.StorePrice,
+                mrpPrice = product.MrpPrice
+            });
         }
 
         public async Task<IActionResult> Details(int id)

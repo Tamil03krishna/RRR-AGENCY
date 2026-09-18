@@ -1,0 +1,60 @@
+@model List<Invoice>
+@{
+    ViewData["Title"] = "Invoice Report";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Invoice Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 24px; color: #212529; }
+        h2 { margin-bottom: 4px; }
+        .meta { color: #6c757d; font-size: 13px; margin-bottom: 16px; }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        th, td { border: 1px solid #dee2e6; padding: 6px 8px; text-align: left; }
+        th { background: #f8f9fa; }
+        .text-end { text-align: right; }
+        .no-print { margin-bottom: 16px; }
+        @@media print {
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print">
+        <button onclick="window.print()">🖶️ Print</button>
+        <button onclick="window.close()">Close</button>
+    </div>
+
+    <h2>Invoice Report @ViewBag.FilterLabel</h2>
+    <div class="meta">Generated on @DateTime.Now.ToString("dd-MMM-yyyy hh:mm tt") &nbsp;|&nbsp; @Model.Count invoice(s)</div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Invoice No</th><th>Date</th><th>Customer</th><th>Phone</th>
+                <th class="text-end">Grand Total</th><th class="text-end">Paid</th>
+                <th>Payment Mode</th><th class="text-end">Balance</th><th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var inv in Model)
+        {
+            <tr>
+                <td>@inv.InvoiceNo</td>
+                <td>@inv.InvoiceDate.ToString("dd-MMM-yyyy hh:mm tt")</td>
+                <td>@inv.CustomerName</td>
+                <td>@inv.CustomerPhone</td>
+                <td class="text-end">₹@inv.GrandTotal.ToString("N2")</td>
+                <td class="text-end">₹@inv.PaidAmount.ToString("N2")</td>
+                <td>@(inv.PaymentModeName ?? "-")</td>
+                <td class="text-end">₹@inv.BalanceAmount.ToString("N2")</td>
+                <td>@inv.PaymentStatus</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</body>
+</html>

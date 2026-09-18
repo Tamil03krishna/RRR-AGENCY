@@ -9,6 +9,7 @@
 <div class="customers-container">
     <div class="customers-header">
         <h3>Customers</h3>
+        <a asp-action="Outstanding" class="btn btn-outline-dark btn-sm">📊 Outstanding Report</a>
         <a asp-action="Create" class="btn-new-customer">
             <span>+</span> New Customer
         </a>
@@ -39,8 +40,15 @@
                     </div>
 
                     <div class="customer-outstanding">
-                        <div class="outstanding-amount @(c.OutstandingBalance > 0 ? "positive" : "zero")">
-                            ₹@c.OutstandingBalance.ToString("N2")
+                        <div class="outstanding-amount @(c.OutstandingBalance > 0 ? "positive" : "zero")" style="@(c.OutstandingBalance < 0 ? "color:#0dcaf0;" : "")">
+                            @if (c.OutstandingBalance < 0)
+                            {
+                                <text>Advance ₹@Math.Abs(c.OutstandingBalance).ToString("N2")</text>
+                            }
+                            else
+                            {
+                                <text>₹@c.OutstandingBalance.ToString("N2")</text>
+                            }
                         </div>
                         <div style="font-size:12px; color:#888;">Outstanding</div>
                     </div>

@@ -1,0 +1,82 @@
+@model MilkshopSystem.Web.Models.ViewModels.OutstandingReportViewModel
+@{ ViewData["Title"] = "Outstanding Report"; }
+
+<h3>Outstanding Report</h3>
+<p><a asp-action="Index" class="btn btn-sm btn-outline-secondary">← Customer List</a></p>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card border-danger">
+            <div class="card-body">
+                <div class="text-muted small">Total Due (The customer has made a partial payment.)</div>
+                <div class="fs-4 fw-bold text-danger">₹@Model.TotalDue.ToString("N2")</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-info">
+            <div class="card-body">
+                <div class="text-muted small">Total Advance (The customer has made an excess payment.)</div>
+                <div class="fs-4 fw-bold text-info">₹@Model.TotalAdvance.ToString("N2")</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-dark">
+            <div class="card-body">
+                <div class="text-muted small">Net Outstanding (Due − Advance)</div>
+                <div class="fs-4 fw-bold">₹@Model.NetOutstanding.ToString("N2")</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <h5 class="text-danger">🔴 Due — The customer has made a partial payment.</h5>
+        @if (!Model.DueCustomers.Any())
+        {
+            <p class="text-muted">🟢 Paid — No payment is due.</p>
+        }
+        else
+        {
+            <table class="table table-bordered bg-white">
+                <thead><tr><th>Customer</th><th>Phone</th><th class="text-end">Due Amount</th></tr></thead>
+                <tbody>
+                @foreach (var c in Model.DueCustomers)
+                {
+                    <tr>
+                        <td><a asp-action="Details" asp-route-id="@c.Id">@c.Name</a></td>
+                        <td>@c.Phone</td>
+                        <td class="text-end text-danger fw-bold">₹@c.OutstandingBalance.ToString("N2")</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        }
+    </div>
+
+    <div class="col-md-6">
+        <h5 class="text-info">🔵 Advance — The customer has made an excess payment.</h5>
+        @if (!Model.AdvanceCustomers.Any())
+        {
+            <p class="text-muted">🟢 Paid — No advance payment.</p>
+        }
+        else
+        {
+            <table class="table table-bordered bg-white">
+                <thead><tr><th>Customer</th><th>Phone</th><th class="text-end">Advance Amount</th></tr></thead>
+                <tbody>
+                @foreach (var c in Model.AdvanceCustomers)
+                {
+                    <tr>
+                        <td><a asp-action="Details" asp-route-id="@c.Id">@c.Name</a></td>
+                        <td>@c.Phone</td>
+                        <td class="text-end text-info fw-bold">₹@Math.Abs(c.OutstandingBalance).ToString("N2")</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>

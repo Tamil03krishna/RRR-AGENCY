@@ -19,17 +19,16 @@ namespace MilkshopSystem.Web.Repositories.Implementations
             _customerRepository = customerRepository;
         }
 
-        public async Task<PagedResult<Invoice>> GetPagedAsync(string? search, int pageNumber, int pageSize)
+        public async Task<PagedResult<Invoice>> GetPagedAsync(string? search, int pageNumber, int pageSize, int? year = null, int? month = null)
         {
             using var conn = _factory.CreateConnection();
-            var where = string.IsNullOrWhiteSpace(search)
-                ? ""
-                : "WHERE i.InvoiceNo LIKE @search OR c.Name LIKE @search OR c.Phone LIKE @search OR i.PaymentStatus LIKE @search";
-            var searchParam = $"%{search}%";
+            var (where, dbParams) = BuildInvoiceFilter(search, year, month);
 
             var total = await conn.ExecuteScalarAsync<int>(
-                $"SELECT COUNT(*) FROM Invoices i JOIN Customers c ON c.Id = i.CustomerId {where}",
-                new { search = searchParam });
+                $"SELECT COUNT(*) FROM Invoices i JOIN Customers c ON c.Id = i.CustomerId {where}", dbParams);
+
+            dbParams.Add("pageSize", pageSize);
+            dbParams.Add("offset", (pageNumber - 1) * pageSize);
 
             var items = await conn.QueryAsync<Invoice>(
                 $@"SELECT i.*, c.Name AS CustomerName, c.Phone AS CustomerPhone, pm.Name AS PaymentModeName
@@ -39,16 +38,55 @@ namespace MilkshopSystem.Web.Repositories.Implementations
                    {where}
                    ORDER BY i.InvoiceDate DESC
                    LIMIT @pageSize OFFSET @offset",
-                new { search = searchParam, pageSize, offset = (pageNumber - 1) * pageSize });
+                dbParams);
 
             return new PagedResult<Invoice>
             {
-                Items = items.ToList(),
-                TotalRecords = total,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                SearchTerm = search
+                Items = items.ToList(), TotalRecords = total, PageNumber = pageNumber, PageSize = pageSize, SearchTerm = search
             };
+        }
+
+        // Every invoice matching the same filters as the list page, with no paging —
+        // used by the Excel/PDF/Print export so the download matches what's on screen.
+        public async Task<List<Invoice>> GetAllFilteredAsync(string? search, int? year, int? month)
+        {
+            using var conn = _factory.CreateConnection();
+            var (where, dbParams) = BuildInvoiceFilter(search, year, month);
+
+            var items = await conn.QueryAsync<Invoice>(
+                $@"SELECT i.*, c.Name AS CustomerName, c.Phone AS CustomerPhone, pm.Name AS PaymentModeName
+                   FROM Invoices i
+                   JOIN Customers c ON c.Id = i.CustomerId
+                   LEFT JOIN PaymentModes pm ON pm.Id = i.PaymentModeId
+                   {where}
+                   ORDER BY i.InvoiceDate DESC", dbParams);
+
+            return items.ToList();
+        }
+
+        private static (string where, DynamicParameters dbParams) BuildInvoiceFilter(string? search, int? year, int? month)
+        {
+            var conditions = new List<string>();
+            var dbParams = new DynamicParameters();
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                conditions.Add("(i.InvoiceNo LIKE @search OR c.Name LIKE @search OR c.Phone LIKE @search OR i.PaymentStatus LIKE @search)");
+                dbParams.Add("search", $"%{search}%");
+            }
+            if (year.HasValue)
+            {
+                conditions.Add("YEAR(i.InvoiceDate) = @year");
+                dbParams.Add("year", year.Value);
+            }
+            if (month.HasValue)
+            {
+                conditions.Add("MONTH(i.InvoiceDate) = @month");
+                dbParams.Add("month", month.Value);
+            }
+
+            var where = conditions.Count > 0 ? "WHERE " + string.Join(" AND ", conditions) : "";
+            return (where, dbParams);
         }
 
         public async Task<Invoice?> GetByIdAsync(int id)
@@ -72,6 +110,38 @@ namespace MilkshopSystem.Web.Repositories.Implementations
             return invoice;
         }
 
+        public async Task<List<int>> GetDistinctInvoiceYearsAsync()
+        {
+            using var conn = _factory.CreateConnection();
+            var years = await conn.QueryAsync<int>(
+                "SELECT DISTINCT YEAR(InvoiceDate) FROM Invoices ORDER BY YEAR(InvoiceDate) DESC");
+            return years.ToList();
+        }
+
+        // Most recent non-cancelled invoice for a customer, used by "Repeat Last Order"
+        // on the New Bill screen.
+        public async Task<Invoice?> GetLastInvoiceForCustomerAsync(int customerId)
+        {
+            using var conn = _factory.CreateConnection();
+            var invoice = await conn.QueryFirstOrDefaultAsync<Invoice>(
+                @"SELECT * FROM Invoices
+                  WHERE CustomerId = @customerId AND IsCancelled = 0
+                  ORDER BY InvoiceDate DESC, Id DESC
+                  LIMIT 1", new { customerId });
+
+            if (invoice is null) return null;
+
+            var items = await conn.QueryAsync<InvoiceItem>(
+                @"SELECT ii.*, p.Name AS ProductName, p.Size, u.Symbol AS UnitSymbol
+                  FROM InvoiceItems ii
+                  JOIN Products p ON p.Id = ii.ProductId
+                  JOIN Units u ON u.Id = p.UnitId
+                  WHERE ii.InvoiceId = @id", new { id = invoice.Id });
+
+            invoice.Items = items.ToList();
+            return invoice;
+        }
+
         public async Task<string> GetNextInvoiceNoAsync()
         {
             using var conn = _factory.CreateConnection();
@@ -81,7 +151,7 @@ namespace MilkshopSystem.Web.Repositories.Implementations
             return $"INV-{year}-{(count + 1):D5}";
         }
 
-
+        
         public async Task<int> CreateInvoiceAsync(Invoice invoice)
         {
             using var conn = (MySqlConnection)_factory.CreateConnection();
@@ -109,6 +179,13 @@ namespace MilkshopSystem.Web.Repositories.Implementations
                     await _stockRepository.ReduceStockAsync(conn, tx, item.ProductId, item.Qty);
                 }
 
+                // BUG FIX: previously the entire PaidAmount was recorded only against this
+                // new invoice, so old invoices that had a PreviousBalance carried into this
+                // bill never got their own PaidAmount/BalanceAmount/PaymentStatus updated.
+                // That made an old invoice stay "Partial" forever even after the customer
+                // had fully paid it off through a later bill.
+                // Fix: apply the paid amount FIFO — oldest outstanding invoices first — and
+                // settle their own rows, then whatever remains goes toward this new invoice.
                 var remainingPayment = invoice.PaidAmount;
 
                 if (remainingPayment > 0 && invoice.PreviousBalance > 0)
@@ -151,6 +228,7 @@ namespace MilkshopSystem.Web.Repositories.Implementations
                     }
                 }
 
+                // Whatever is left (after clearing old dues) is the payment towards this invoice's own bill
                 if (remainingPayment > 0)
                 {
                     await conn.ExecuteAsync(
@@ -160,7 +238,7 @@ namespace MilkshopSystem.Web.Repositories.Implementations
                         tx);
                 }
 
-
+               
                 await conn.ExecuteAsync(
                     "UPDATE Customers SET OutstandingBalance = @balance, UpdatedDate = NOW() WHERE Id = @customerId",
                     new { balance = invoice.BalanceAmount, customerId = invoice.CustomerId }, tx);
@@ -208,6 +286,13 @@ namespace MilkshopSystem.Web.Repositories.Implementations
                 throw;
             }
         }
+
+        // Edits an entire invoice the same way the "New Bill" screen creates one — replaces
+        // the item list, restores stock for the old items and reduces it for the new ones,
+        // recalculates SubTotal/GrandTotal/BalanceAmount/PaymentStatus, and keeps the
+        // customer's running OutstandingBalance in sync by delta. PreviousBalance and
+        // CustomerId are intentionally left untouched — those are locked at creation time
+        // so the FIFO payment chain built by CreateInvoiceAsync stays consistent.
         public async Task UpdateInvoiceAsync(int invoiceId, List<InvoiceItem> items, decimal paidAmount, int paymentModeId)
         {
             using var conn = (MySqlConnection)_factory.CreateConnection();
@@ -217,12 +302,13 @@ namespace MilkshopSystem.Web.Repositories.Implementations
                 var invoice = await conn.QueryFirstOrDefaultAsync<Invoice>(
                     "SELECT * FROM Invoices WHERE Id = @invoiceId FOR UPDATE", new { invoiceId }, tx);
                 if (invoice is null) throw new InvalidOperationException("Invoice not found.");
-                if (invoice.IsCancelled) throw new InvalidOperationException("Cancelled invoice-a edit panna mudiyathu.");
-                if (items is null || items.Count == 0) throw new InvalidOperationException("Kammiya oru product venum bill pananum.");
+                if (invoice.IsCancelled) throw new InvalidOperationException("Cannot edit a cancelled invoice.");
+                if (items is null || items.Count == 0) throw new InvalidOperationException("Please add at least one product to the bill.");
 
                 var oldItems = (await conn.QueryAsync<InvoiceItem>(
                     "SELECT * FROM InvoiceItems WHERE InvoiceId = @invoiceId", new { invoiceId }, tx)).ToList();
 
+                // give back the stock the old item list was holding
                 foreach (var old in oldItems)
                 {
                     await _stockRepository.IncreaseStockAsync(conn, tx, old.ProductId, old.Qty);
@@ -230,6 +316,7 @@ namespace MilkshopSystem.Web.Repositories.Implementations
 
                 await conn.ExecuteAsync("DELETE FROM InvoiceItems WHERE InvoiceId = @invoiceId", new { invoiceId }, tx);
 
+                // take out stock for the new item list
                 foreach (var item in items)
                 {
                     await _stockRepository.ReduceStockAsync(conn, tx, item.ProductId, item.Qty);
@@ -244,8 +331,8 @@ namespace MilkshopSystem.Web.Repositories.Implementations
                 var newSubTotal = items.Sum(i => i.UnitPrice * i.Qty);
                 var newGrandTotal = newSubTotal + invoice.PreviousBalance;
                 var newBalance = newGrandTotal - paidAmount;
-                if (newBalance < 0) newBalance = 0;
-                var newStatus = newBalance <= 0 ? "Paid" : (paidAmount > 0 ? "Partial" : "Unpaid");
+                // Negative balance = customer overpaid = advance/credit, kept as-is (not clamped)
+                var newStatus = newBalance < 0 ? "Advance" : (newBalance == 0 ? "Paid" : (paidAmount > 0 ? "Partial" : "Unpaid"));
 
                 var oldBalance = invoice.BalanceAmount;
 
@@ -273,6 +360,12 @@ namespace MilkshopSystem.Web.Repositories.Implementations
             }
         }
 
+        // Cancels (soft-deletes) an entire invoice. Only allowed on the customer's most
+        // recent (latest) invoice, because every later invoice's PreviousBalance/GrandTotal
+        // was calculated based on this invoice's balance at the time it was created —
+        // deleting an older invoice out of order would leave that number pointing at
+        // nothing. Restores stock, reverses this invoice's own payment records, and backs
+        // out its balance contribution from the customer's running OutstandingBalance.
         public async Task CancelInvoiceAsync(int invoiceId)
         {
             using var conn = (MySqlConnection)_factory.CreateConnection();
@@ -302,6 +395,9 @@ namespace MilkshopSystem.Web.Repositories.Implementations
                     await _stockRepository.IncreaseStockAsync(conn, tx, item.ProductId, item.Qty);
                 }
 
+                // Reverse this invoice's own payment records (payments this invoice made
+                // toward older invoices, if any, are untouched — those old invoices keep
+                // their own settled status; only this invoice's own row is unwound)
                 await conn.ExecuteAsync(
                     "DELETE FROM InvoicePayments WHERE InvoiceId = @invoiceId", new { invoiceId }, tx);
 
@@ -309,8 +405,10 @@ namespace MilkshopSystem.Web.Repositories.Implementations
                     "UPDATE Invoices SET IsCancelled = 1, BalanceAmount = 0, PaymentStatus = 'Cancelled' WHERE Id = @invoiceId",
                     new { invoiceId }, tx);
 
-                if (invoice.BalanceAmount > 0)
+                if (invoice.BalanceAmount != 0)
                 {
+                    // Works for both a due (positive) and an advance/credit (negative) —
+                    // subtracting a negative balance correctly adds the credit back.
                     await conn.ExecuteAsync(
                         "UPDATE Customers SET OutstandingBalance = OutstandingBalance - @balance, UpdatedDate = NOW() WHERE Id = @customerId",
                         new { balance = invoice.BalanceAmount, customerId = invoice.CustomerId }, tx);
@@ -379,6 +477,7 @@ namespace MilkshopSystem.Web.Repositories.Implementations
             return rows.ToList();
         }
 
+        // Add these methods to InvoiceRepository class
 
         public async Task<List<MonthlyEarningDto>> GetMonthlyEarningsWithProfitAsync(int year, int? productId = null)
         {
@@ -406,6 +505,7 @@ namespace MilkshopSystem.Web.Repositories.Implementations
             var rows = await conn.QueryAsync<MonthlyEarningDto>(sql, new { year, productId });
             var result = rows.ToList();
 
+            // Fill missing months with zero values
             var allMonths = Enumerable.Range(1, 12)
                 .Select(m => new MonthlyEarningDto
                 {

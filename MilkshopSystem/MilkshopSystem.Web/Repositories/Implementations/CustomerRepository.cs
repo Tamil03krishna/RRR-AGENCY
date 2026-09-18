@@ -38,6 +38,18 @@ namespace MilkshopSystem.Web.Repositories.Implementations
             return await conn.QueryFirstOrDefaultAsync<Customer>("SELECT * FROM Customers WHERE Id = @id", new { id });
         }
 
+        // Every customer who currently either owes money (positive balance) or has
+        // paid in advance (negative balance) — used for the Outstanding report.
+        public async Task<List<Customer>> GetCustomersWithBalanceAsync()
+        {
+            using var conn = _factory.CreateConnection();
+            var customers = await conn.QueryAsync<Customer>(
+                @"SELECT * FROM Customers
+                  WHERE IsActive = 1 AND OutstandingBalance <> 0
+                  ORDER BY OutstandingBalance DESC");
+            return customers.ToList();
+        }
+
         public async Task<List<Customer>> SearchAsync(string term, int maxResults = 10)
         {
             using var conn = _factory.CreateConnection();

@@ -5,7 +5,19 @@
     <tr><th>Phone</th><td>@Model.Phone</td></tr>
     <tr><th>Address</th><td>@Model.Address</td></tr>
     <tr><th>Email</th><td>@Model.Email</td></tr>
-    <tr><th>Outstanding Balance</th><td class="fw-bold @(Model.OutstandingBalance>0?"text-danger":"text-success")">₹@Model.OutstandingBalance.ToString("N2")</td></tr>
+    <tr>
+        <th>Outstanding Balance</th>
+        <td class="fw-bold @(Model.OutstandingBalance>0?"text-danger":(Model.OutstandingBalance<0?"text-info":"text-success"))">
+            @if (Model.OutstandingBalance < 0)
+            {
+                <text>Advance ₹@Math.Abs(Model.OutstandingBalance).ToString("N2")</text>
+            }
+            else
+            {
+                <text>₹@Model.OutstandingBalance.ToString("N2")</text>
+            }
+        </td>
+    </tr>
     <tr><th>Customer Since</th><td>@Model.CreatedDate.ToString("dd-MMM-yyyy")</td></tr>
 </table>
 <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>

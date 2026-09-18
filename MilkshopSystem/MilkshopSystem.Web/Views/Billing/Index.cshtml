@@ -1,33 +1,102 @@
 @model PagedResult<Invoice>
+@using Microsoft.AspNetCore.Mvc.Rendering
 @{ ViewData["Title"] = "Invoices"; }
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h3>Invoices</h3>
     <a asp-action="Create" class="btn btn-primary">+ New Bill</a>
 </div>
-<form method="get" class="d-flex mb-3" style="max-width:400px;">
-    <input type="text" name="search" value="@Model.SearchTerm" class="form-control me-2" placeholder="Invoice no, customer name/phone..." />
-    <button type="submit" class="btn btn-outline-secondary">Search</button>
+
+<form method="get" class="row g-2 mb-3 align-items-end" style="max-width:700px;">
+    <div class="col-auto" style="min-width:220px;">
+        <label class="form-label small mb-1">Search</label>
+        <input type="text" name="search" value="@Model.SearchTerm" class="form-control" placeholder="Invoice no, customer name/phone..." />
+    </div>
+    <div class="col-auto">
+        <label class="form-label small mb-1">Year</label>
+        <select name="year" class="form-select">
+            <option value="">All Years</option>
+            @foreach (int y in (List<int>)ViewBag.AvailableYears)
+            {
+                <option value="@y" selected="@(ViewBag.SelectedYear == y)">@y</option>
+            }
+        </select>
+    </div>
+    <div class="col-auto">
+        <label class="form-label small mb-1">Month</label>
+        <select name="month" class="form-select">
+            <option value="">All Months</option>
+            @foreach (SelectListItem m in (List<SelectListItem>)ViewBag.Months)
+            {
+                <option value="@m.Value" selected="@(ViewBag.SelectedMonth?.ToString() == m.Value)">@m.Text</option>
+            }
+        </select>
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-outline-secondary">Filter</button>
+    </div>
 </form>
+
+<div class="mb-3">
+    <a class="btn btn-sm btn-outline-success" asp-action="ExportExcel"
+       asp-route-search="@Model.SearchTerm" asp-route-year="@ViewBag.SelectedYear" asp-route-month="@ViewBag.SelectedMonth">
+        📊 Download Excel
+    </a>
+    <a class="btn btn-sm btn-outline-danger" asp-action="ExportPdf"
+       asp-route-search="@Model.SearchTerm" asp-route-year="@ViewBag.SelectedYear" asp-route-month="@ViewBag.SelectedMonth">
+        📄 Download PDF
+    </a>
+    <a class="btn btn-sm btn-outline-dark" asp-action="PrintView" target="_blank"
+       asp-route-search="@Model.SearchTerm" asp-route-year="@ViewBag.SelectedYear" asp-route-month="@ViewBag.SelectedMonth">
+        🖶️ Print
+    </a>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
 <table class="table table-striped bg-white">
     <thead><tr><th>Invoice No</th><th>Date</th><th>Customer</th><th>Grand Total</th><th>Paid</th><th>Payment Mode</th><th>Balance</th><th>Status</th><th></th></tr></thead>
     <tbody>
     @foreach (var inv in Model.Items)
     {
-        <tr>
+        <tr class="@(inv.IsCancelled ? "text-decoration-line-through text-muted" : "")">
             <td>@inv.InvoiceNo</td>
             <td>@inv.InvoiceDate.ToString("dd-MMM-yyyy hh:mm tt")</td>
             <td>@inv.CustomerName (@inv.CustomerPhone)</td>
             <td>₹@inv.GrandTotal.ToString("N2")</td>
             <td>₹@inv.PaidAmount.ToString("N2")</td>
             <td>@(inv.PaymentModeName ?? "-")</td>
-            <td class="@(inv.BalanceAmount>0?"text-danger fw-bold":"")">₹@inv.BalanceAmount.ToString("N2")</td>
+            <td class="@(inv.BalanceAmount>0?"text-danger fw-bold":(inv.BalanceAmount<0?"text-info fw-bold":""))">
+                @if (inv.BalanceAmount < 0)
+                {
+                    <text>Advance ₹@Math.Abs(inv.BalanceAmount).ToString("N2")</text>
+                }
+                else
+                {
+                    <text>₹@inv.BalanceAmount.ToString("N2")</text>
+                }
+            </td>
             <td>
                 @{
-                    var badge = inv.PaymentStatus switch { "Paid" => "success", "Partial" => "warning", _ => "danger" };
+                    var badge = inv.PaymentStatus switch { "Paid" => "success", "Partial" => "warning", "Advance" => "info", "Cancelled" => "secondary", _ => "danger" };
                 }
                 <span class="badge bg-@badge">@inv.PaymentStatus</span>
             </td>
-            <td><a asp-action="Details" asp-route-id="@inv.Id" class="btn btn-sm btn-outline-secondary">View</a></td>
+            <td>
+                <a asp-action="Details" asp-route-id="@inv.Id" class="btn btn-sm btn-outline-secondary">View</a>
+                @if (!inv.IsCancelled)
+                {
+                    <form asp-action="CancelInvoice" asp-route-id="@inv.Id" method="post" class="d-inline"
+                          onsubmit="return confirm('Cancel this entire invoice? Stock will be added back.');">
+                        <button type="submit" class="btn btn-sm btn-outline-danger">Cancel</button>
+                    </form>
+                }
+            </td>
         </tr>
     }
     </tbody>
@@ -38,7 +107,7 @@
         @for (var p = 1; p <= Model.TotalPages; p++)
         {
             <li class="page-item @(p == Model.PageNumber ? "active" : "")">
-                <a class="page-link" href="@Url.Action("Index", new { search = Model.SearchTerm, page = p })">@p</a>
+                <a class="page-link" href="@Url.Action("Index", new { search = Model.SearchTerm, page = p, year = ViewBag.SelectedYear, month = ViewBag.SelectedMonth })">@p</a>
             </li>
         }
     </ul></nav>

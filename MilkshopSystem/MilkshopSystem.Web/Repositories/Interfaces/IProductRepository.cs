@@ -6,8 +6,9 @@ namespace MilkshopSystem.Web.Repositories.Interfaces
     {
         Task<PagedResult<Product>> GetPagedAsync(string? search, int pageNumber, int pageSize);
         Task<Product?> GetByIdAsync(int id);
-        Task<List<Product>> SearchActiveAsync(string term, int maxResults = 10); 
-        Task<List<Models.Entities.ProductCategory>> GetCategoriesAsync();
+        Task<List<Product>> SearchActiveAsync(string term, int maxResults = 10);
+        Task<Product?> GetByBarcodeAsync(string barcode); 
+        Task<List<ProductCategory>> GetCategoriesAsync();
         Task<int> CreateAsync(Product product);
         Task<bool> UpdateAsync(Product product);
         Task<bool> DeleteAsync(int id);
