@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using MilkshopSystem.Web.Models.Entities;
 using MilkshopSystem.Web.Repositories.Interfaces;
+using MilkshopSystem.Web.Security;
 
 namespace MilkshopSystem.Web.Controllers
 {
+    [ModuleAccess("Stock")]
     public class StockController : BaseController
     {
         private readonly IStockRepository _repo;
@@ -16,6 +18,7 @@ namespace MilkshopSystem.Web.Controllers
         }
 
         [HttpGet]
+        [ModuleAccess("Billing", "Add")]
         public async Task<IActionResult> GetAvailableQty(int productId)
         {
             var stock = await _repo.GetByProductIdAsync(productId);

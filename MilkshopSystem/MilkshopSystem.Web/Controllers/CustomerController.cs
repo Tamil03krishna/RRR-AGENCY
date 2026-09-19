@@ -2,9 +2,11 @@ using Microsoft.AspNetCore.Mvc;
 using MilkshopSystem.Web.Models.Entities;
 using MilkshopSystem.Web.Models.ViewModels;
 using MilkshopSystem.Web.Repositories.Interfaces;
+using MilkshopSystem.Web.Security;
 
 namespace MilkshopSystem.Web.Controllers
 {
+    [ModuleAccess("Customer")]
     public class CustomerController : BaseController
     {
         private readonly ICustomerRepository _repo;
@@ -32,6 +34,7 @@ namespace MilkshopSystem.Web.Controllers
         }
 
         [HttpGet]
+        [ModuleAccess("Billing", "Add")]
         public async Task<IActionResult> SearchJson(string term)
         {
             if (string.IsNullOrWhiteSpace(term)) return Json(new List<Customer>());

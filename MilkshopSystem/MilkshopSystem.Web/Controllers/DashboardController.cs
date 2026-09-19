@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MilkshopSystem.Web.Repositories.Interfaces;
 using MilkshopSystem.Web.Models.ViewModels;
 
 namespace MilkshopSystem.Web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class DashboardController : BaseController
     {
         private readonly IDashboardRepository _dashboardRepo;

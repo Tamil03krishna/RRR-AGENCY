@@ -1,5 +1,17 @@
 @{
     var isLoggedIn = User.Identity?.IsAuthenticated == true;
+
+    // What this user was ticked for on the Manage Access page (Admin sees everything)
+    var isAdmin = isLoggedIn && Perms.IsAdmin(User);
+    var canInvoices = isLoggedIn && await Perms.HasAsync(User, "Billing", "View");
+    var canNewBill = isLoggedIn && await Perms.HasAsync(User, "Billing", "Add");
+    var canCustomers = isLoggedIn && await Perms.HasAsync(User, "Customer", "View");
+    var canProducts = isLoggedIn && await Perms.HasAsync(User, "Product", "View");
+    var canCategories = isLoggedIn && await Perms.HasAsync(User, "Category", "View");
+    var canStock = isLoggedIn && await Perms.HasAsync(User, "Stock", "View");
+    var canUnits = isLoggedIn && await Perms.HasAsync(User, "Unit", "View");
+    var canPaymentModes = isLoggedIn && await Perms.HasAsync(User, "PaymentMode", "View");
+    var canNotes = isLoggedIn && await Perms.HasAsync(User, "Notes", "View");
 }
 <!DOCTYPE html>
 <html lang="ta">
@@ -25,21 +37,51 @@
         <nav class="sidebar" id="sidebar">
             <button class="sidebar-close" id="sidebarClose">✕</button>
 
-            <a class="brand" asp-controller="Dashboard" asp-action="Index">
+            <a class="brand" asp-controller="Account" asp-action="Home">
                 🥛 Milkshop System
             </a>
 
             <ul class="nav">
-                <li class="nav-item"><a class="nav-link" asp-controller="Dashboard" asp-action="Index">📊 Dashboard</a></li>
-                <li class="nav-item"><a class="nav-link" asp-controller="Billing" asp-action="Create">🧾 New Bill</a></li>
-                <li class="nav-item"><a class="nav-link" asp-controller="Billing" asp-action="Index">📄 Invoices</a></li>
-                <li class="nav-item"><a class="nav-link" asp-controller="Customer" asp-action="Index">👤 Customers</a></li>
-                <li class="nav-item"><a class="nav-link" asp-controller="Product" asp-action="Index">📦 Products</a></li>
-                <li class="nav-item"><a class="nav-link" asp-controller="Category" asp-action="Index">🗂️ Categories</a></li>
-                <li class="nav-item"><a class="nav-link" asp-controller="Stock" asp-action="Index">📊 Stock</a></li>
-                <li class="nav-item"><a class="nav-link" asp-controller="Unit" asp-action="Index">📏 Units</a></li>
-                <li class="nav-item"><a class="nav-link" asp-controller="PaymentMode" asp-action="Index">💳 Payment Modes</a></li>
-                <li class="nav-item"><a class="nav-link" asp-controller="Report" asp-action="Charts">📈 Charts</a></li>
+                @if (isAdmin)
+                {
+                    <li class="nav-item"><a class="nav-link" asp-controller="Dashboard" asp-action="Index">📊 Dashboard</a></li>
+                }
+                @if (canNewBill)
+                {
+                    <li class="nav-item"><a class="nav-link" asp-controller="Billing" asp-action="Create">🧾 New Bill</a></li>
+                }
+                @if (canInvoices)
+                {
+                    <li class="nav-item"><a class="nav-link" asp-controller="Billing" asp-action="Index">📄 Invoices</a></li>
+                }
+                @if (canCustomers)
+                {
+                    <li class="nav-item"><a class="nav-link" asp-controller="Customer" asp-action="Index">👤 Customers</a></li>
+                }
+                @if (canProducts)
+                {
+                    <li class="nav-item"><a class="nav-link" asp-controller="Product" asp-action="Index">📦 Products</a></li>
+                }
+                @if (canCategories)
+                {
+                    <li class="nav-item"><a class="nav-link" asp-controller="Category" asp-action="Index">🗂️ Categories</a></li>
+                }
+                @if (canStock)
+                {
+                    <li class="nav-item"><a class="nav-link" asp-controller="Stock" asp-action="Index">📊 Stock</a></li>
+                }
+                @if (canUnits)
+                {
+                    <li class="nav-item"><a class="nav-link" asp-controller="Unit" asp-action="Index">📏 Units</a></li>
+                }
+                @if (canPaymentModes)
+                {
+                    <li class="nav-item"><a class="nav-link" asp-controller="PaymentMode" asp-action="Index">💳 Payment Modes</a></li>
+                }
+                @if (isAdmin)
+                {
+                    <li class="nav-item"><a class="nav-link" asp-controller="Report" asp-action="Charts">📈 Charts</a></li>
+                }
                 @if (User.IsInRole("Admin"))
                 {
                     <li class="nav-item"><a class="nav-link" asp-controller="User" asp-action="Index">👥 Users</a></li>
@@ -62,6 +104,8 @@
         <!-- Overlay for mobile -->
         <div id="sidebarOverlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:999;"></div>
 
+        @if (canNotes)
+        {
         <!-- Notes Bell -->
         <button id="notesBellBtn" title="Notes" style="position:fixed;top:14px;right:20px;z-index:1001;width:44px;height:44px;border-radius:50%;border:none;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.15);font-size:20px;cursor:pointer;">
             🔔<span id="notesCountBadge" style="display:none;position:absolute;top:-2px;right:-2px;background:#dc3545;color:#fff;font-size:10px;min-width:16px;height:16px;border-radius:8px;line-height:16px;text-align:center;padding:0 3px;"></span>
@@ -103,6 +147,7 @@
             .note-yellow { background:#fff3b0; } .note-pink { background:#ffd6e8; }
             .note-blue { background:#cfe8ff; } .note-green { background:#d3f2d3; }
         </style>
+        }
 
         <!-- Main Content -->
         <div class="main-content">
@@ -160,6 +205,10 @@
                 }
             });
 
+        </script>
+        @if (canNotes)
+        {
+        <script>
             // ---- Notes (Kitty Notes) ----
             const notesBellBtn = document.getElementById('notesBellBtn');
             const notesPanel = document.getElementById('notesPanel');
@@ -291,6 +340,7 @@
                 }
             }).catch(() => {});
         </script>
+        }
     }
     else
     {

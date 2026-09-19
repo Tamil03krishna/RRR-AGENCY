@@ -1,11 +1,15 @@
 @model Invoice
-@{ ViewData["Title"] = "Invoice " + Model.InvoiceNo; }
+@{
+    ViewData["Title"] = "Invoice " + Model.InvoiceNo;
+    var canAdd = await Perms.HasAsync(User, "Billing", "Add");
+    var canEdit = await Perms.HasAsync(User, "Billing", "Edit");
+}
 
 <h3>Invoice: @Model.InvoiceNo</h3>
 <p>
     <strong>@Model.CustomerName</strong> (@Model.CustomerPhone) &nbsp;|&nbsp;
     @Model.InvoiceDate.ToString("dd-MMM-yyyy hh:mm tt")
-    @if (!Model.IsCancelled)
+    @if (!Model.IsCancelled && canEdit)
     {
         <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-outline-primary ms-2">Edit Invoice</a>
     }
@@ -48,7 +52,7 @@
     </td></tr>
 </table>
 
-@if (Model.BalanceAmount > 0)
+@if (Model.BalanceAmount > 0 && canAdd)
 {
     <div class="card mt-3" style="max-width:400px;">
         <div class="card-body">

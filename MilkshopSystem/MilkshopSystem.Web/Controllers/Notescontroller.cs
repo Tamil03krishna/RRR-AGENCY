@@ -2,9 +2,11 @@ using Microsoft.AspNetCore.Mvc;
 using MilkshopSystem.Web.Models.Entities;
 using MilkshopSystem.Web.Repositories.Interfaces;
 using System.Security.Claims;
+using MilkshopSystem.Web.Security;
 
 namespace MilkshopSystem.Web.Controllers
 {
+    [ModuleAccess("Notes")]
     public class NotesController : BaseController
     {
         private readonly INoteRepository _noteRepo;

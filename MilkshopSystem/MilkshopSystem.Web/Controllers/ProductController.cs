@@ -2,8 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MilkshopSystem.Web.Models.ViewModels;
 using MilkshopSystem.Web.Repositories.Interfaces;
+using MilkshopSystem.Web.Security;
 namespace MilkshopSystem.Web.Controllers
 {
+    [ModuleAccess("Product")]
     public class ProductController : BaseController
     {
         private readonly IProductRepository _productRepo;
@@ -24,6 +26,7 @@ namespace MilkshopSystem.Web.Controllers
         }
 
         [HttpGet]
+        [ModuleAccess("Billing", "Add")]
         public async Task<IActionResult> SearchJson(string term)
         {
             if (string.IsNullOrWhiteSpace(term)) return Json(new List<object>());
@@ -41,6 +44,7 @@ namespace MilkshopSystem.Web.Controllers
         }
 
         [HttpGet]
+        [ModuleAccess("Billing", "Add")]
         public async Task<IActionResult> SearchByBarcode(string code)
         {
             if (string.IsNullOrWhiteSpace(code)) return Json(null);

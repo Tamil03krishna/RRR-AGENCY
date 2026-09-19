@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MilkshopSystem.Web.Repositories.Interfaces;
 
 namespace MilkshopSystem.Web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ReportController : BaseController
     {
         private readonly IInvoiceRepository _invoiceRepo;

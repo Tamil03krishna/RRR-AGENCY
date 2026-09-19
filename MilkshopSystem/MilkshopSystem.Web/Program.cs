@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using MilkshopSystem.Web.Repositories.Implementations;
 using MilkshopSystem.Web.Repositories.Interfaces;
+using MilkshopSystem.Web.Security;
 using System.Reflection;
 using System.Text;
 
@@ -13,7 +14,11 @@ var connectionString = builder.Configuration.GetConnectionString("MilkshopDb")
 
 QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options =>
+{
+    // Enforces the per-module View/Add/Edit/Delete ticks from the Manage Access page
+    options.Filters.Add<ModuleAccessFilter>();
+});
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
@@ -59,7 +64,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             },
             OnForbidden = context =>
             {
-                context.Response.Redirect("/Dashboard");
+                context.Response.Redirect("/Account/Home");
                 return Task.CompletedTask;
             },
             OnChallenge = context =>
@@ -77,6 +82,7 @@ builder.Services.AddAntiforgery(options => options.HeaderName = "X-CSRF-TOKEN");
 
 builder.Services.AddScoped<IDbConnectionFactory>(_ => new MySqlConnectionFactory(connectionString));
 
+builder.Services.AddScoped<IPermissionService, PermissionService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();

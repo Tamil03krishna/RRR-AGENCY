@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using MilkshopSystem.Web.Models.ViewModels;
 using MilkshopSystem.Web.Repositories.Interfaces;
+using MilkshopSystem.Web.Security;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -13,11 +14,13 @@ namespace MilkshopSystem.Web.Controllers
     {
         private readonly IUserRepository _userRepository;
         private readonly IConfiguration _config;
+        private readonly IPermissionService _permissions;
 
-        public AccountController(IUserRepository userRepository, IConfiguration config)
+        public AccountController(IUserRepository userRepository, IConfiguration config, IPermissionService permissions)
         {
             _userRepository = userRepository;
             _config = config;
+            _permissions = permissions;
         }
 
         [AllowAnonymous]
@@ -25,7 +28,7 @@ namespace MilkshopSystem.Web.Controllers
         public IActionResult Login(string? returnUrl = null)
         {
             if (User.Identity?.IsAuthenticated == true)
-                return RedirectToAction("Index", "Dashboard");
+                return RedirectToAction(nameof(Home));
 
             ViewBag.ReturnUrl = returnUrl;
             return View(new LoginViewModel());
@@ -63,7 +66,19 @@ namespace MilkshopSystem.Web.Controllers
             if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                 return Redirect(returnUrl);
 
-            return RedirectToAction("Index", "Dashboard");
+            return RedirectToAction(nameof(Home));
+        }
+
+        // Landing page after login: Admin -> Dashboard, everyone else -> the first page
+        // they were given View access to (e.g. only Invoices). No access at all -> NoAccess page.
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> Home()
+        {
+            var target = await _permissions.GetLandingAsync(User);
+            if (target is null) return View("NoAccess");
+
+            return RedirectToAction(target.Value.Action, target.Value.Controller);
         }
 
         [HttpPost]

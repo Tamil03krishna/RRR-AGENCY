@@ -1,0 +1,9 @@
+@{ ViewData["Title"] = "No Access"; }
+
+<div class="text-center mt-5">
+    <h3>No pages assigned</h3>
+    <p class="text-muted">Your account has not been given access to any page yet. Please ask the Admin to update your access.</p>
+    <form asp-controller="Account" asp-action="Logout" method="post">
+        <button type="submit" class="btn btn-outline-danger">Logout</button>
+    </form>
+</div>

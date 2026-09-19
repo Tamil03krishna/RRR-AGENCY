@@ -8,9 +8,11 @@ using ClosedXML.Excel;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
+using MilkshopSystem.Web.Security;
 
 namespace MilkshopSystem.Web.Controllers
 {
+    [ModuleAccess("Billing")]
     public class BillingController : BaseController
     {
         private readonly IInvoiceRepository _invoiceRepo;
@@ -175,6 +177,7 @@ namespace MilkshopSystem.Web.Controllers
         }
 
         [HttpGet]
+        [ModuleAccess("Billing", "Add")]
         public async Task<IActionResult> GetCustomerBalance(int customerId)
         {
             var customer = await _customerRepo.GetByIdAsync(customerId);
@@ -257,6 +260,7 @@ namespace MilkshopSystem.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ModuleAccess("Billing", "Add")]
         public async Task<IActionResult> Pay(int invoiceId, int customerId, decimal amount, int paymentModeId)
         {
             if (amount <= 0)
@@ -368,6 +372,7 @@ namespace MilkshopSystem.Web.Controllers
         }
 
         [HttpGet]
+        [ModuleAccess("Billing", "Add")]
         public async Task<IActionResult> GetLastOrder(int customerId)
         {
             var lastInvoice = await _invoiceRepo.GetLastInvoiceForCustomerAsync(customerId);

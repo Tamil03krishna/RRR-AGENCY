@@ -1,9 +1,16 @@
 @model PagedResult<Invoice>
 @using Microsoft.AspNetCore.Mvc.Rendering
-@{ ViewData["Title"] = "Invoices"; }
+@{
+    ViewData["Title"] = "Invoices";
+    var canAdd = await Perms.HasAsync(User, "Billing", "Add");
+    var canDelete = await Perms.HasAsync(User, "Billing", "Delete");
+}
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h3>Invoices</h3>
-    <a asp-action="Create" class="btn btn-primary">+ New Bill</a>
+    @if (canAdd)
+    {
+        <a asp-action="Create" class="btn btn-primary">+ New Bill</a>
+    }
 </div>
 
 <form method="get" class="row g-2 mb-3 align-items-end" style="max-width:700px;">
@@ -89,7 +96,7 @@
             </td>
             <td>
                 <a asp-action="Details" asp-route-id="@inv.Id" class="btn btn-sm btn-outline-secondary">View</a>
-                @if (!inv.IsCancelled)
+                @if (!inv.IsCancelled && canDelete)
                 {
                     <form asp-action="CancelInvoice" asp-route-id="@inv.Id" method="post" class="d-inline"
                           onsubmit="return confirm('Cancel this entire invoice? Stock will be added back.');">

@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using MilkshopSystem.Web.Models.Entities;
 using MilkshopSystem.Web.Repositories.Interfaces;
+using MilkshopSystem.Web.Security;
 
 namespace MilkshopSystem.Web.Controllers
 {
+    [ModuleAccess("Unit")]
     public class UnitController : BaseController
     {
         private readonly IUnitRepository _repo;
