@@ -38,6 +38,24 @@ namespace MilkshopSystem.Web.Repositories.Implementations
                     "SELECT COUNT(*) FROM Products WHERE IsActive = 1")
             };
 
+            var recentInvoices = await conn.QueryAsync<RecentInvoiceItem>(
+                @"SELECT i.Id, i.InvoiceNo, c.Name AS CustomerName, i.GrandTotal, i.PaymentStatus, i.InvoiceDate
+                  FROM Invoices i
+                  JOIN Customers c ON c.Id = i.CustomerId
+                  WHERE i.IsCancelled = 0
+                  ORDER BY i.InvoiceDate DESC
+                  LIMIT 5");
+            summary.RecentInvoices = recentInvoices.ToList();
+
+            var recentPayments = await conn.QueryAsync<RecentPaymentItem>(
+                @"SELECT c.Name AS CustomerName, ip.Amount, pm.Name AS PaymentModeName, ip.PaymentDate
+                  FROM InvoicePayments ip
+                  JOIN Customers c ON c.Id = ip.CustomerId
+                  LEFT JOIN PaymentModes pm ON pm.Id = ip.PaymentModeId
+                  ORDER BY ip.PaymentDate DESC
+                  LIMIT 5");
+            summary.RecentPayments = recentPayments.ToList();
+
             return summary;
         }
     }

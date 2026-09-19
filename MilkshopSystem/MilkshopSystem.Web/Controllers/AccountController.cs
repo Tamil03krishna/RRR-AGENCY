@@ -25,12 +25,13 @@ namespace MilkshopSystem.Web.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public IActionResult Login(string? returnUrl = null)
+        public IActionResult Login(string? returnUrl = null, bool expired = false)
         {
             if (User.Identity?.IsAuthenticated == true)
                 return RedirectToAction(nameof(Home));
 
             ViewBag.ReturnUrl = returnUrl;
+            ViewBag.SessionExpired = expired;
             return View(new LoginViewModel());
         }
 
@@ -60,7 +61,7 @@ namespace MilkshopSystem.Web.Controllers
                 HttpOnly = true,
                 Secure = true,
                 SameSite = SameSiteMode.Lax,
-                Expires = expires
+               Expires = expires.AddDays(1)
             });
 
             if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
@@ -69,8 +70,7 @@ namespace MilkshopSystem.Web.Controllers
             return RedirectToAction(nameof(Home));
         }
 
-        // Landing page after login: Admin -> Dashboard, everyone else -> the first page
-        // they were given View access to (e.g. only Invoices). No access at all -> NoAccess page.
+       
         [Authorize]
         [HttpGet]
         public async Task<IActionResult> Home()
@@ -89,8 +89,7 @@ namespace MilkshopSystem.Web.Controllers
             return RedirectToAction("Login");
         }
 
-        // Self-service: the currently logged-in user changes their own password
-        // (requires the current password, unlike an Admin resetting someone else's).
+        
         [Authorize]
         [HttpGet]
         public IActionResult MyPassword()

@@ -16,7 +16,6 @@ QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
 
 builder.Services.AddControllersWithViews(options =>
 {
-    // Enforces the per-module View/Add/Edit/Delete ticks from the Manage Access page
     options.Filters.Add<ModuleAccessFilter>();
 });
 
@@ -28,10 +27,6 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
-// TOKEN-BASED AUTH: the login flow issues a signed JWT (see AccountController.Login).
-// It's carried in an HttpOnly cookie so the browser sends it automatically like a normal
-// session, but the server validates it as a real JWT (signature + expiry) rather than
-// relying on ASP.NET Core's cookie-encryption scheme.
 var jwtKey = builder.Configuration["Jwt:Key"]
     ?? throw new InvalidOperationException("Jwt:Key is not configured in appsettings.json.");
 var jwtIssuer = builder.Configuration["Jwt:Issuer"] ?? "MilkshopSystem";
@@ -52,14 +47,20 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ClockSkew = TimeSpan.FromMinutes(1)
         };
 
-        // Read the JWT from the HttpOnly cookie instead of an Authorization header,
-        // since this is a browser app, not an API client.
+      
         options.Events = new JwtBearerEvents
         {
             OnMessageReceived = context =>
             {
                 if (context.Request.Cookies.TryGetValue("access_token", out var token))
                     context.Token = token;
+                return Task.CompletedTask;
+            },
+            OnAuthenticationFailed = context =>
+            {
+               
+                if (context.Exception is SecurityTokenExpiredException)
+                    context.HttpContext.Items["TokenExpired"] = true;
                 return Task.CompletedTask;
             },
             OnForbidden = context =>
@@ -70,7 +71,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             OnChallenge = context =>
             {
                 context.HandleResponse();
-                context.Response.Redirect($"/Login?returnUrl={Uri.EscapeDataString(context.Request.Path)}");
+                var expired = context.HttpContext.Items.ContainsKey("TokenExpired");
+                var returnUrl = Uri.EscapeDataString(context.Request.Path);
+                var expiredFlag = expired ? "&expired=true" : "";
+                context.Response.Redirect($"/Login?returnUrl={returnUrl}{expiredFlag}");
                 return Task.CompletedTask;
             }
         };

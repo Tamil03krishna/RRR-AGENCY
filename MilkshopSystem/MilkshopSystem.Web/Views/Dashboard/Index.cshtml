@@ -120,6 +120,74 @@
     </div>
 </div>
 
+@{
+    // Small helper for "2 mins ago" / "3 hrs ago" style relative timestamps
+    string TimeAgo(DateTime dt)
+    {
+        var span = DateTime.Now - dt;
+        if (span.TotalMinutes < 1) return "just now";
+        if (span.TotalMinutes < 60) return $"{(int)span.TotalMinutes} min{((int)span.TotalMinutes == 1 ? "" : "s")} ago";
+        if (span.TotalHours < 24) return $"{(int)span.TotalHours} hr{((int)span.TotalHours == 1 ? "" : "s")} ago";
+        return $"{(int)span.TotalDays} day{((int)span.TotalDays == 1 ? "" : "s")} ago";
+    }
+}
+
+<!-- Recent Activity -->
+<div class="card mb-4 shadow-sm">
+    <div class="card-header d-flex align-items-center gap-2">
+        <h5 class="mb-0"><i class="bi bi-clock-history text-primary"></i> Recent Activity</h5>
+    </div>
+    <div class="card-body p-0">
+        <div class="row g-0">
+            <div class="col-md-6" style="border-right:1px solid #eee;">
+                <div class="p-3 pb-2 text-muted small fw-bold">📄 RECENT INVOICES</div>
+                @if (!Model.RecentInvoices.Any())
+                {
+                    <p class="text-muted small px-3 pb-3">No invoices yet.</p>
+                }
+                else
+                {
+                    @foreach (var inv in Model.RecentInvoices)
+                    {
+                        var badge = inv.PaymentStatus switch { "Paid" => "success", "Partial" => "warning", "Advance" => "info", "Cancelled" => "secondary", _ => "danger" };
+                        <div class="d-flex justify-content-between align-items-center px-3 py-2" style="border-bottom:1px solid #f1f1f1;">
+                            <div>
+                                <a asp-controller="Billing" asp-action="Details" asp-route-id="@inv.Id" class="fw-semibold text-decoration-none" style="font-size:13px;">@inv.InvoiceNo</a>
+                                <div class="text-muted" style="font-size:11px;">@inv.CustomerName &middot; @TimeAgo(inv.InvoiceDate)</div>
+                            </div>
+                            <div class="text-end">
+                                <div class="fw-semibold" style="font-size:13px;">₹@inv.GrandTotal.ToString("N2")</div>
+                                <span class="badge bg-@badge" style="font-size:9px;">@inv.PaymentStatus</span>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+
+            <div class="col-md-6">
+                <div class="p-3 pb-2 text-muted small fw-bold">💳 RECENT PAYMENTS</div>
+                @if (!Model.RecentPayments.Any())
+                {
+                    <p class="text-muted small px-3 pb-3">No payments yet.</p>
+                }
+                else
+                {
+                    @foreach (var pay in Model.RecentPayments)
+                    {
+                        <div class="d-flex justify-content-between align-items-center px-3 py-2" style="border-bottom:1px solid #f1f1f1;">
+                            <div>
+                                <div class="fw-semibold" style="font-size:13px;">@pay.CustomerName</div>
+                                <div class="text-muted" style="font-size:11px;">@(pay.PaymentModeName ?? "-") &middot; @TimeAgo(pay.PaymentDate)</div>
+                            </div>
+                            <div class="fw-semibold text-success" style="font-size:13px;">+₹@pay.Amount.ToString("N2")</div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Product Wise Stock and Price List -->
 <div class="card product-table-card mb-4">
     <div class="card-header d-flex justify-content-between align-items-center">
